@@ -52,7 +52,6 @@ assert_cmd = "2"
 flate2 = "1"
 httpmock = { version = "0.9", default-features = false }
 predicates = "3"
-rexpect = "0.7.1"
 tempfile = "3"
 
 [lints.clippy]
@@ -61,3 +60,7 @@ expect_used = "deny"
 
 [target."cfg(unix)".dependencies]
 libc = "0.2"
+
+# rexpect drives a pty, which only exists on Unix (see `mod repl` in tests/it/main.rs).
+[target."cfg(unix)".dev-dependencies]
+rexpect = "0.7.1"

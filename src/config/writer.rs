@@ -319,7 +319,7 @@ mod tests {
                 ],
             )
             .unwrap();
-        assert_eq!(file, std::fs::canonicalize(&p.config_file).unwrap());
+        assert_eq!(file, p.config_file);
         let text = std::fs::read_to_string(&p.config_file).unwrap();
         let logs = dir.path().join("deep/er/logs");
         let logs = std::fs::canonicalize(logs.parent().unwrap())
@@ -402,7 +402,7 @@ mod tests {
         let p = paths(&dir);
         std::fs::write(&p.config_file, COMMENTED).unwrap();
         let file = ConfigWriter::new(&p).remove_connection("a", false).unwrap();
-        assert_eq!(file, std::fs::canonicalize(&p.config_file).unwrap());
+        assert_eq!(file, p.config_file);
         let expected = COMMENTED.replace("\n[connections.a]\naccount = \"a1\"\n", "");
         assert_eq!(read(&dir, "config.toml"), expected);
     }

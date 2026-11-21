@@ -398,7 +398,12 @@ mod tests {
         );
         assert_eq!(
             sources.canonical("~/a.sql"),
-            sources.canonical(&format!("{}/x/../a.sql", dir.path().display()))
+            // Canonical root: `x` does not exist, so the path is normalised lexically, and a
+            // temp dir behind a symlink (macOS `/var` -> `/private/var`) must match `~` expansion.
+            sources.canonical(&format!(
+                "{}/x/../a.sql",
+                dir.path().canonicalize().unwrap().display()
+            ))
         );
         assert_eq!(
             sources
@@ -503,6 +508,12 @@ mod tests {
             listener.local_addr().unwrap().port()
         };
         let message = fetch(&format!("https://127.0.0.1:{port}/a.sql"), "u", true).unwrap_err();
+        // The errno and its text are the OS's: 111 on Linux, 61 on macOS, 10061 on Windows.
+        assert!(
+            message.starts_with("Could not fetch u: <urlopen error [Errno "),
+            "{message}"
+        );
+        #[cfg(target_os = "linux")]
         assert_eq!(
             message,
             "Could not fetch u: <urlopen error [Errno 111] Connection refused>"

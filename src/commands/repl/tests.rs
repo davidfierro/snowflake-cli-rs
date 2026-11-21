@@ -5,7 +5,13 @@ use super::*;
 fn the_edit_buffer_is_owner_only_while_the_editor_runs() {
     let dir = tempfile::tempdir().unwrap();
     let record = dir.path().join("mode");
-    let editor = format!("stat -c %a >{} --", record.display());
+    // GNU `stat -c %a`; BSD/macOS `stat -f %Lp`.
+    let stat = if cfg!(target_os = "macos") {
+        "stat -f %Lp"
+    } else {
+        "stat -c %a"
+    };
+    let editor = format!("{stat} >{} --", record.display());
     // The editor receives the buffer path as its last argument.
     let out = edit_in(dir.path(), &editor, "select 1").unwrap();
     assert_eq!(out, "select 1\n");

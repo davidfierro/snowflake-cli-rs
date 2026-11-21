@@ -10,6 +10,8 @@ mod connector_sign_in;
 mod global_options;
 mod golden;
 mod put_get;
+// The REPL tests drive a pty through rexpect, which is Unix-only.
+#[cfg(unix)]
 mod repl;
 mod sandbox;
 mod secrets;
