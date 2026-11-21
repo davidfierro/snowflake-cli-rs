@@ -69,7 +69,7 @@ variables are in [bench/README.md](bench/README.md).
 |---|---|
 | `fmt` | `cargo fmt --all --check` |
 | `clippy` | `cargo clippy --all-targets --all-features -- -D warnings` |
-| `test` | `RUSTFLAGS="-D warnings" cargo test --all-features` |
+| `test` | `RUSTFLAGS="-D warnings" cargo test --all-features` (CI runs it on Linux, macOS and Windows) |
 | `coverage` | `cargo llvm-cov --workspace --all-features --fail-under-lines 90` (needs `cargo install cargo-llvm-cov --locked`) |
 | `deny` | `cargo deny check advisories bans licenses sources` (needs `cargo install cargo-deny --locked`) |
 | README matrix | `cargo test --test it command_matrix` (rewrite it with `UPDATE_README=1`; part of `cargo test`) |

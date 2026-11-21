@@ -27,7 +27,12 @@ jobs:
       - run: cargo clippy --all-targets --all-features -- -D warnings
 
   test:
-    runs-on: ubuntu-latest
+    name: test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     env:
       RUSTFLAGS: "-D warnings"
     steps:
@@ -55,7 +60,8 @@ jobs:
           command: check advisories bans licenses sources
 
   # Single check to require on `main`: fails unless every job above succeeded
-  # (a skipped or cancelled dependency also fails it).
+  # (a skipped or cancelled dependency also fails it). `needs.test.result` is
+  # `success` only if every OS leg of the `test` matrix succeeded.
   ci:
     if: always()
     needs: [fmt, clippy, test, coverage, deny]
