@@ -1,0 +1,21 @@
+{
+ "case": {
+  "name": "config_toml_variables_hide_snowsql_ones",
+  "query": "select '<% name %>' as a",
+  "home_files": {
+   "config": "[variables]\nname = from_snowsql\n",
+   "config.toml": "[variables]\nt = 7\n"
+  },
+  "os_env": {
+   "SNOWFLAKE_CLI_CONFIG_V2_ENABLED": "1"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "SQL template rendering error: 'name' is undefined\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

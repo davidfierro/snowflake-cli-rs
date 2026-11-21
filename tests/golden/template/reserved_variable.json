@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "reserved_variable",
+  "query": "select 1",
+  "variables": [
+   "fn=1"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ fn in user defined data. The `fn` variable is reserved for CLI usage.        │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ }
+}

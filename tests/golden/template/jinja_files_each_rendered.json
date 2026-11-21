@@ -1,0 +1,27 @@
+{
+ "case": {
+  "name": "jinja_files_each_rendered",
+  "files": [
+   "select {{ n }} as first_file",
+   "{% for i in range(2) %}select {{ i }} as second_{{ i }};{% endfor %}"
+  ],
+  "variables": [
+   "n=7"
+  ],
+  "templating": [
+   "jinja"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 7 as first_file",
+    "select 0 as second_0;",
+    "select 1 as second_1;"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

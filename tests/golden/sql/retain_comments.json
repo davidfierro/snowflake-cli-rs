@@ -1,0 +1,171 @@
+{
+ "case": {
+  "name": "retain_comments",
+  "query": "-- leading comment\nselect 1 as a; -- trailing\n/* block */ select 2 as b;",
+  "retain_comments": true
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "-- leading comment\nselect 1 as a; -- trailing\n+---+\n| A |\n|---|\n| 1 |\n+---+\n/* block */ select 2 as b;\n+---+\n| B |\n|---|\n| 2 |\n+---+\n",
+   "stderr": ""
+  },
+  "plain": {
+   "exit": 0,
+   "stdout": "-- leading comment\nselect 1 as a; -- trailing\nA\n1\n/* block */ select 2 as b;\nB\n2\n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n  [\n    {\n      \"A\"  :   1\n    }\n  ],\n  [\n    {\n      \"B\"  :   2\n    }\n  ]\n]\n\n",
+   "stderr": ""
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "A\n1\n\nB\n2\n\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 57
+      }
+     ],
+     "rowType": [
+      {
+       "name": "multiple statement execution",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 134217728,
+       "nullable": false,
+       "collation": null,
+       "length": 134217728,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "Multiple statements executed successfully."
+     ]
+    ],
+    "code": "090001",
+    "statementHandles": [
+     "01234567-0000-0000-0000-000000000001",
+     "01234567-0000-0000-0000-000000000002"
+    ],
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000003?requestId=01234567-0000-0000-0000-000000000004",
+    "requestId": "01234567-0000-0000-0000-000000000004",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000003",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257604394
+   },
+   "statement": "-- leading comment\nselect 1 as a; -- trailing\n;\n/* block */ select 2 as b;",
+   "parameters": {
+    "MULTI_STATEMENT_COUNT": "2"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000001",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "A",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000005",
+    "requestId": "01234567-0000-0000-0000-000000000005",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257604872
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000002",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "B",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "2"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000002?requestId=01234567-0000-0000-0000-000000000006",
+    "requestId": "01234567-0000-0000-0000-000000000006",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000002",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257604925
+   }
+  }
+ ]
+}

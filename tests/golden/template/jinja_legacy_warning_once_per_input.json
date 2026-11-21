@@ -1,0 +1,24 @@
+{
+ "case": {
+  "name": "jinja_legacy_warning_once_per_input",
+  "query": "select &a as a; select &a as b; select {{ a }} as c",
+  "variables": [
+   "a=1"
+  ],
+  "templating": [
+   "ALL"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 1 as a;",
+    "select 1 as b;",
+    "select 1 as c"
+   ],
+   "stdout": "Warning: &{ ... } syntax is deprecated and will no longer be supported. Use <% ... %> syntax instead.\n",
+   "stderr": ""
+  }
+ }
+}

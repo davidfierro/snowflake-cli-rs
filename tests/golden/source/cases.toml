@@ -1,0 +1,71 @@
+# Cases of the !source/!load goldens (see scripts/capture-source-goldens.sh). `text` is a `-q`
+# input, `file` an `-f` input; paths are relative to tests/golden/source.
+
+[[case]]
+name = "nested"
+text = "select 0;\n!source files/a.sql\nselect 9;"
+
+[[case]]
+name = "load_alias_and_quotes"
+text = "!load 'files/nested/b.sql';\n!SOURCE \"files/up.sql\""
+
+[[case]]
+name = "relative_to_cwd_not_to_the_file"
+text = "!source files/nested/rel.sql"
+
+[[case]]
+name = "from_file"
+file = "files/main.sql"
+
+[[case]]
+name = "cycle"
+text = "!source files/cycle1.sql"
+
+[[case]]
+name = "cycle_through_the_file"
+file = "files/self.sql"
+
+[[case]]
+name = "missing_file"
+text = "select 1;\n!source files/missing.sql\nselect 2;"
+
+[[case]]
+name = "several_errors"
+text = "!source files/missing.sql\n!source ftp://h/a.sql\n!source http://h/a.sql\n!nope x\nselect 1;"
+
+[[case]]
+name = "local_only_refuses_https"
+text = "!source https://example.invalid/a.sql\nselect 1;"
+local_only = true
+
+[[case]]
+name = "local_only_keeps_files"
+text = "!source files/up.sql"
+local_only = true
+
+[[case]]
+name = "templated_path_and_content"
+text = "!source <% f %>"
+variables = { f = "files/templated.sql", v = "7" }
+
+[[case]]
+name = "comment_only_source"
+text = "!source files/comment.sql"
+
+[[case]]
+name = "comments_dropped"
+text = "!source files/comments.sql"
+
+[[case]]
+name = "comments_retained"
+text = "!source files/comments.sql"
+retain_comments = true
+
+[[case]]
+name = "path_with_trailing_comment"
+text = "!source files/up.sql -- the file"
+retain_comments = true
+
+[[case]]
+name = "directive_with_following_line_is_sql"
+text = "!source files/up.sql\nselect 1;"

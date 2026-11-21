@@ -1,0 +1,23 @@
+{
+ "case": {
+  "name": "ctx_env_without_project",
+  "query": "select '<% ctx.env.FOO %>' as a, '<% ctx.env.BAR %>' as b",
+  "env": [
+   "BAR=from_cli"
+  ],
+  "os_env": {
+   "FOO": "from_os",
+   "BAR": "from_os"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'from_os' as a, 'from_cli' as b"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

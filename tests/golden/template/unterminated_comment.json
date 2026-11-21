@@ -1,0 +1,14 @@
+{
+ "case": {
+  "name": "unterminated_comment",
+  "query": "select '{#' as a"
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "\nAn unexpected exception occurred. Use --debug option to see the traceback. Exception message:\n\nMissing end of comment tag\n",
+   "stderr": "To send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

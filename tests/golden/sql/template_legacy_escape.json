@@ -1,0 +1,92 @@
+{
+ "case": {
+  "name": "template_legacy_escape",
+  "query": "select '&&a' as a, '&a' as b",
+  "variables": [
+   "a=1"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "Warning: &{ ... } syntax is deprecated and will no longer be supported. Use <% ... %> syntax instead.\nselect '&a' as a, '1' as b\n+--------+\n| A  | B |\n|----+---|\n| &a | 1 |\n+--------+\n",
+   "stderr": ""
+  },
+  "plain": {
+   "exit": 0,
+   "stdout": "Warning: &{ ... } syntax is deprecated and will no longer be supported. Use <% ... %> syntax instead.\nselect '&a' as a, '1' as b\nA   B\n&a  1\n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n    {\n        \"A\": \"&a\",\n        \"B\": \"1\"\n    }\n]\n",
+   "stderr": ""
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "A,B\n&a,1\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 10
+      }
+     ],
+     "rowType": [
+      {
+       "name": "A",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 8,
+       "nullable": false,
+       "collation": null,
+       "length": 2,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "B",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 4,
+       "nullable": false,
+       "collation": null,
+       "length": 1,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "&a",
+      "1"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795259225209
+   },
+   "statement": "select '&a' as a, '1' as b"
+  }
+ ]
+}

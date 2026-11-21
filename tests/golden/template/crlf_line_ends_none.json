@@ -1,0 +1,19 @@
+{
+ "case": {
+  "name": "crlf_line_ends_none",
+  "query": "select 1 as a\r\n, 2 as b",
+  "templating": [
+   "NONE"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 1 as a\r\n, 2 as b"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

@@ -1,0 +1,63 @@
+[package]
+name = "snowflake-cli-rs"
+version = "0.1.0"
+edition = "2024"
+description = "Rust port of the Snowflake CLI (snow)"
+license = "Apache-2.0"
+publish = false
+
+[[bin]]
+name = "snow-rs"
+path = "src/main.rs"
+
+[dependencies]
+base64 = "0.23"
+regex = "1"
+clap = { version = "4", features = ["derive"] }
+clap_complete = "4"
+jiff = "0.2"
+minijinja = { version = "3.1", features = ["json", "preserve_order", "urlencode"] }
+log = "0.4"
+pkcs8 = { version = "0.11", features = ["3des", "encryption", "pem"] }
+rpassword = "7.5.5"
+saphyr-parser = "0.4"
+rsa = { version = "0.10", features = ["pkcs1v15", "pkcs5"] }
+rustls = { version = "0.23.46", default-features = false, features = ["ring", "std", "tls12"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.11"
+hmac = "0.13"
+thiserror = "2"
+toml = { version = "1", features = ["preserve_order"] }
+toml_edit = "0.25.19"
+unicode-width = "0.2"
+ureq = { version = "3.5", features = ["json"] }
+uuid = { version = "1", features = ["v4"] }
+webpki-roots = { version = "1.0.12", default-features = false }
+x509-parser = { version = "0.18.1", default-features = false }
+zeroize = "1"
+aes = "0.9"
+cbc = { version = "0.2", features = ["alloc"] }
+ecb = "0.2"
+md-5 = "0.11"
+flate2 = "1"
+glob = "0.3"
+getrandom = "0.4"
+open = "5"
+rustyline = { version = "19.0.0", default-features = false, features = ["custom-bindings"] }
+signal-hook = "0.4.6"
+
+[dev-dependencies]
+assert_cmd = "2"
+flate2 = "1"
+httpmock = { version = "0.9", default-features = false }
+predicates = "3"
+rexpect = "0.7.1"
+tempfile = "3"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+
+[target."cfg(unix)".dependencies]
+libc = "0.2"

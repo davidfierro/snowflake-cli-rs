@@ -1,0 +1,20 @@
+{
+ "case": {
+  "name": "project_duplicate_key",
+  "query": "select <% a %>",
+  "variables": [
+   "a=1"
+  ],
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  a: 1\n  a: 2\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Failed to read snowflake.yml file: While loading the project definition      │\n│ file, duplicate key was found: a                                             │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

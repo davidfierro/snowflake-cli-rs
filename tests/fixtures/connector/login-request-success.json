@@ -1,0 +1,42 @@
+{
+  "code": null,
+  "data": {
+    "additionalAuthnData": {},
+    "displayUserName": "<displayUserName>",
+    "firstLogin": true,
+    "healthCheckInterval": 45,
+    "idToken": null,
+    "idTokenValidityInSeconds": 0,
+    "masterToken": "<masterToken>",
+    "masterValidityInSeconds": 14399,
+    "mfaToken": null,
+    "mfaTokenValidityInSeconds": 0,
+    "newClientForUpgrade": null,
+    "parameters": [
+      {
+        "name": "TIMEZONE",
+        "value": "America/Los_Angeles"
+      },
+      {
+        "name": "CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY",
+        "value": 3600
+      }
+    ],
+    "remMeToken": null,
+    "remMeValidityInSeconds": 0,
+    "responseData": null,
+    "serverVersion": "10.42.104",
+    "sessionId": 0,
+    "sessionInfo": {
+      "databaseName": "<databaseName>",
+      "roleName": "<roleName>",
+      "schemaName": "<schemaName>",
+      "warehouseName": "<warehouseName>"
+    },
+    "token": "<token>",
+    "validityInSeconds": 3599
+  },
+  "message": null,
+  "responseType": "LoginResponse",
+  "success": true
+}

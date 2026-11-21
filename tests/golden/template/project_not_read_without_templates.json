@@ -1,0 +1,19 @@
+{
+ "case": {
+  "name": "project_not_read_without_templates",
+  "query": "select 1 as a",
+  "project": {
+   "snowflake.yml": "definition_version: 9\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 1 as a"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

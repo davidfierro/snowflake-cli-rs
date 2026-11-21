@@ -1,0 +1,10 @@
+{
+ "snow": "3.34.0",
+ "statements": [
+  "select 'a1';",
+  "select 'b';",
+  "select 'a2';",
+  "select 'top';"
+ ],
+ "errors": []
+}

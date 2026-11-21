@@ -1,0 +1,183 @@
+{
+ "sql": "SELECT 1 AS i, -5 AS neg, 0 AS zero, 1.50::NUMBER(10,2) AS d, -1.50::NUMBER(10,2) AS dneg, 0.00000010::NUMBER(20,8) AS tiny, 0.000001::NUMBER(10,6) AS micro, 0.00::NUMBER(10,2) AS dzero, 12345678901234567890123456789012345678::NUMBER(38,0) AS big, -99999999999999999999999999999999999999::NUMBER(38,0) AS bigneg, 123.456::NUMBER(38,3) AS m",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 164
+    }
+   ],
+   "rowType": [
+    {
+     "name": "I",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "NEG",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "ZERO",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "D",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 10,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 2
+    },
+    {
+     "name": "DNEG",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 10,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 2
+    },
+    {
+     "name": "TINY",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 20,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 8
+    },
+    {
+     "name": "MICRO",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 10,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 6
+    },
+    {
+     "name": "DZERO",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 10,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 2
+    },
+    {
+     "name": "BIG",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "BIGNEG",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "M",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 3
+    }
+   ]
+  },
+  "data": [
+   [
+    "1",
+    "-5",
+    "0",
+    "1.50",
+    "-1.50",
+    "0.00000010",
+    "0.000001",
+    "0.00",
+    "12345678901234567890123456789012345678",
+    "-99999999999999999999999999999999999999",
+    "123.456"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=fcd2f003-c0df-4a29-b4ca-a1613f922e80",
+  "requestId": "fcd2f003-c0df-4a29-b4ca-a1613f922e80",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207255283
+ },
+ "partitions": []
+}

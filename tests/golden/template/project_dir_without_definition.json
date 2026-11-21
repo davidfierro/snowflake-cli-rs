@@ -1,0 +1,20 @@
+{
+ "case": {
+  "name": "project_dir_without_definition",
+  "query": "select '<% ctx.env.X %>' as a",
+  "project_arg": true,
+  "os_env": {
+   "X": "os"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'os' as a"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

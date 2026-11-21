@@ -1,0 +1,81 @@
+{
+ "case": {
+  "name": "template_none",
+  "query": "select '&a <% a %>' as a",
+  "variables": [
+   "a=1"
+  ],
+  "templating": [
+   "NONE"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "select '&a <% a %>' as a\n+------------+\n| A          |\n|------------|\n| &a <% a %> |\n+------------+\n",
+   "stderr": ""
+  },
+  "plain": {
+   "exit": 0,
+   "stdout": "select '&a <% a %>' as a\nA         \n&a <% a %>\n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n    {\n        \"A\": \"&a <% a %>\"\n    }\n]\n",
+   "stderr": ""
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "A\n&a <% a %>\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 14
+      }
+     ],
+     "rowType": [
+      {
+       "name": "A",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 40,
+       "nullable": false,
+       "collation": null,
+       "length": 10,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "&a <% a %>"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795259331932
+   },
+   "statement": "select '&a <% a %>' as a"
+  }
+ ]
+}

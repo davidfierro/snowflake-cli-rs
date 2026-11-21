@@ -1,0 +1,24 @@
+{
+ "connector": "4.8.1",
+ "text": "USE SCHEMA INFORMATION_SCHEMA;\nSELECT CURRENT_SCHEMA();",
+ "remove_comments": [
+  [
+   "USE SCHEMA INFORMATION_SCHEMA;",
+   false
+  ],
+  [
+   "SELECT CURRENT_SCHEMA();",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "USE SCHEMA INFORMATION_SCHEMA;",
+   false
+  ],
+  [
+   "SELECT CURRENT_SCHEMA();",
+   false
+  ]
+ ]
+}

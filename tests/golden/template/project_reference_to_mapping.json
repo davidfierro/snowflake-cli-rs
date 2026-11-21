@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "project_reference_to_mapping",
+  "query": "select '<% ctx.env.a %>'",
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  a: \"<% ctx.mixins %>\"\nmixins:\n  m: {}\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Failed to read snowflake.yml file: Template variable ctx.mixins does not     │\n│ have a scalar value                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

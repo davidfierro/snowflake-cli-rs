@@ -1,0 +1,18 @@
+========================================================================
+Snowflake CLI connectivity diagnostics
+========================================================================
+
+Results: 4 Healthy, 1 Unhealthy out of 5 endpoints. 1 skipped (non-resolvable patterns).
+
+Endpoints
+------------------------------------------------------------------------
+  Healthy    SNOWFLAKE_DEPLOYMENT acct.snowflakecomputing.com  12.3 ms  issuer=Amazon  expires=Jun  5 12:00:00 2027 GMT
+  Healthy    STAGE                stage.example.com  5.0 ms  issuer=DigiCert Inc
+  Healthy    OCSP_RESPONDER       ocsp.example.com  1.5 ms
+  Unhealthy  STAGE                down.example.com
+    error: TLS handshake failed: bad certificate
+  Healthy    UNKNOWN              typeless.example.com  2.0 ms
+
+Skipped
+------------------------------------------------------------------------
+  *.apps.example.com  SNOWSQL_REGION  non-resolvable pattern

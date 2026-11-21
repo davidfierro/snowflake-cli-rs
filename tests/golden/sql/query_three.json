@@ -1,0 +1,229 @@
+{
+ "case": {
+  "name": "query_three",
+  "query": "select 1 as a, 2 as b union all select 3, 4; select 'x;y' as c; select 1 as z where false"
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "select 1 as a, 2 as b union all select 3, 4;\n+-------+\n| A | B |\n|---+---|\n| 1 | 2 |\n| 3 | 4 |\n+-------+\nselect 'x;y' as c;\n+-----+\n| C   |\n|-----|\n| x;y |\n+-----+\nselect 1 as z where false\nNo data\n\n",
+   "stderr": ""
+  },
+  "plain": {
+   "exit": 0,
+   "stdout": "select 1 as a, 2 as b union all select 3, 4;\nA  B\n1  2\n3  4\nselect 'x;y' as c;\nC  \nx;y\nselect 1 as z where false\nNo data\n\n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n  [\n    {\n      \"A\"  :   1  ,\n      \"B\"  :   2\n    }  ,\n    {\n      \"A\"  :   3  ,\n      \"B\"  :   4\n    }\n  ],\n  [\n    {\n      \"C\"  :   \"x;y\"\n    }\n  ],\n  []\n]\n\n",
+   "stderr": ""
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "A,B\n1,2\n3,4\n\nC\nx;y\n\n\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 57
+      }
+     ],
+     "rowType": [
+      {
+       "name": "multiple statement execution",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 134217728,
+       "nullable": false,
+       "collation": null,
+       "length": 134217728,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "Multiple statements executed successfully."
+     ]
+    ],
+    "code": "090001",
+    "statementHandles": [
+     "01234567-0000-0000-0000-000000000001",
+     "01234567-0000-0000-0000-000000000002",
+     "01234567-0000-0000-0000-000000000003"
+    ],
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000004?requestId=01234567-0000-0000-0000-000000000005",
+    "requestId": "01234567-0000-0000-0000-000000000005",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000004",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257111897
+   },
+   "statement": "select 1 as a, 2 as b union all select 3, 4;\nselect 'x;y' as c;\nselect 1 as z where false\n;",
+   "parameters": {
+    "MULTI_STATEMENT_COUNT": "3"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000001",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 2,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 2,
+       "uncompressedSize": 31
+      }
+     ],
+     "rowType": [
+      {
+       "name": "A",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      },
+      {
+       "name": "B",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1",
+      "2"
+     ],
+     [
+      "3",
+      "4"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000006",
+    "requestId": "01234567-0000-0000-0000-000000000006",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257112410
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000002",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 7
+      }
+     ],
+     "rowType": [
+      {
+       "name": "C",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 12,
+       "nullable": false,
+       "collation": null,
+       "length": 3,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "x;y"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000002?requestId=01234567-0000-0000-0000-000000000007",
+    "requestId": "01234567-0000-0000-0000-000000000007",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000002",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257112485
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000003",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 0,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 0,
+       "uncompressedSize": 0
+      }
+     ],
+     "rowType": [
+      {
+       "name": "Z",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000003?requestId=01234567-0000-0000-0000-000000000008",
+    "requestId": "01234567-0000-0000-0000-000000000008",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000003",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257112538
+   }
+  }
+ ]
+}

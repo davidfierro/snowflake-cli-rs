@@ -1,0 +1,21 @@
+{
+ "case": {
+  "name": "enhanced_project_error",
+  "query": "select <% a %>",
+  "variables": [
+   "a=1"
+  ],
+  "project": {
+   "snowflake.yml": "definition_version: 3\n"
+  },
+  "enhanced_exit_codes": true
+ },
+ "outputs": {
+  "table": {
+   "exit": 2,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Failed to read snowflake.yml file: During evaluation of                      │\n│ _ProjectDefinitionBase in project definition following errors were           │\n│ encountered:                                                                 │\n│ For field definition_version you provided '3'. This caused: Value error,     │\n│ Version 3 is not supported. Supported versions: 1, 1.1, 2                    │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

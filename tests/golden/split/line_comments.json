@@ -1,0 +1,32 @@
+{
+ "connector": "4.8.1",
+ "text": "-- lead ; comment\nselect 1; -- tail ; here\nselect 2 // slash ; comment\n;\nselect 3 --x\n",
+ "remove_comments": [
+  [
+   "select 1;",
+   false
+  ],
+  [
+   "select 2 \n;",
+   false
+  ],
+  [
+   "select 3",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "-- lead ; comment\nselect 1; -- tail ; here",
+   false
+  ],
+  [
+   "select 2 // slash ; comment\n;",
+   false
+  ],
+  [
+   "select 3 --x",
+   false
+  ]
+ ]
+}

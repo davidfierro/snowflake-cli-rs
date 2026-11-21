@@ -1,0 +1,11 @@
+{
+  "code": "333334",
+  "data": {
+    "getResultUrl": "<getResultUrl>",
+    "progressDesc": null,
+    "queryAbortsAfterSecs": 300,
+    "queryId": "<queryId>"
+  },
+  "message": "Asynchronous execution in progress. Use provided query id to perform query monitoring and management.",
+  "success": true
+}

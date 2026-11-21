@@ -1,0 +1,14 @@
+{
+ "case": {
+  "name": "undefined_items",
+  "query": "select <% {'k': 1}['z'] %>; select <% [1][5] %>; select 1"
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "SQL template rendering error: 'dict object' has no attribute 'z'\nSQL template rendering error: list object has no element 5\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

@@ -1,0 +1,67 @@
+{
+ "case": {
+  "name": "opt_output_format_plain_last_wins",
+  "query": "select 1 as n",
+  "options": [
+   "-o",
+   "output_format=csv",
+   "-o",
+   "output_format=plain"
+  ],
+  "bare": true
+ },
+ "outputs": {
+  "default": {
+   "exit": 0,
+   "stdout": "select 1 as n\nN\n1\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "N",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795271614517
+   },
+   "statement": "select 1 as n"
+  }
+ ]
+}

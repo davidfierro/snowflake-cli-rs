@@ -1,0 +1,183 @@
+{
+ "sql": "SELECT 1.5::DECFLOAT AS d1, '1e-10'::DECFLOAT AS d2, '12345678901234567890.123'::DECFLOAT AS d3, '1e30'::DECFLOAT AS d4, 0::DECFLOAT AS d5, '-0.000001'::DECFLOAT AS d6, 42::DECFLOAT AS d7, '420'::DECFLOAT AS d8, '1.50'::DECFLOAT AS d9, '-1.2345e-20'::DECFLOAT AS d10, '0.00000010'::DECFLOAT AS d11",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 158
+    }
+   ],
+   "rowType": [
+    {
+     "name": "D1",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    },
+    {
+     "name": "D2",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    },
+    {
+     "name": "D3",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    },
+    {
+     "name": "D4",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    },
+    {
+     "name": "D5",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    },
+    {
+     "name": "D6",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    },
+    {
+     "name": "D7",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    },
+    {
+     "name": "D8",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    },
+    {
+     "name": "D9",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    },
+    {
+     "name": "D10",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    },
+    {
+     "name": "D11",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "decfloat",
+     "scale": null
+    }
+   ]
+  },
+  "data": [
+   [
+    "1.5",
+    "0.0000000001",
+    "12345678901234567890.123",
+    "1000000000000000000000000000000",
+    "0",
+    "-0.000001",
+    "42",
+    "420",
+    "1.5",
+    "-0.000000000000000000012345",
+    "0.0000001"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=275b5b1f-1275-438e-a83f-2ac6005a911d",
+  "requestId": "275b5b1f-1275-438e-a83f-2ac6005a911d",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207454014
+ },
+ "partitions": []
+}

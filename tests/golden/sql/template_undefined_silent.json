@@ -1,0 +1,19 @@
+{
+ "case": {
+  "name": "template_undefined_silent",
+  "query": "select &a as a",
+  "silent": true,
+  "no_request": true,
+  "formats": [
+   "table"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ },
+ "exchanges": []
+}

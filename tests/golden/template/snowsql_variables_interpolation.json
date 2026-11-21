@@ -1,0 +1,22 @@
+{
+ "case": {
+  "name": "snowsql_variables_interpolation",
+  "query": "select '<% a %>' as a, '<% b %>' as b, '<% d %>' as d",
+  "home_files": {
+   "config": "[DEFAULT]\nd = from_default\n[variables]\na = 50%%\nb = %(a)s and %(d)s\n"
+  },
+  "os_env": {
+   "SNOWFLAKE_CLI_CONFIG_V2_ENABLED": "true"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select '50%' as a, '50% and from_default' as b, 'from_default' as d"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

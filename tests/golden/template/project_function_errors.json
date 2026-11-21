@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "project_function_errors",
+  "query": "select '<% fn.str_to_id('a', 'b') %>' as a",
+  "project": {
+   "snowflake.yml": "definition_version: 2\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ str_to_id supports at most 1 argument(s)                                     │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

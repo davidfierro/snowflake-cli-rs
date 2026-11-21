@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "read_file_content_outside_root",
+  "query": "select '<% '../secret.txt' | read_file_content %>' as a",
+  "project": {
+   "snowflake.yml": "definition_version: 2\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ read_file_content: path '../secret.txt' is outside the project root.         │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ }
+}

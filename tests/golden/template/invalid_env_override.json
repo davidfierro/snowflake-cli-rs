@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "invalid_env_override",
+  "query": "select 1",
+  "env": [
+   "novalue"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Invalid variable: 'novalue'                                                  │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ }
+}

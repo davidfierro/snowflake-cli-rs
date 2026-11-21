@@ -1,0 +1,14 @@
+{
+ "case": {
+  "name": "fn_needs_a_project",
+  "query": "select '<% fn.str_to_id('a b') %>' as a"
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "SQL template rendering error: 'fn' is undefined\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

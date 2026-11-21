@@ -1,0 +1,16 @@
+{
+ "connector": "4.8.1",
+ "text": "-- just a comment\n/* and a block */\n",
+ "remove_comments": [
+  [
+   "",
+   null
+  ]
+ ],
+ "keep_comments": [
+  [
+   "-- just a comment\n/* and a block */",
+   null
+  ]
+ ]
+}

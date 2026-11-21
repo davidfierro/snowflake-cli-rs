@@ -1,0 +1,95 @@
+# Golden cases (ADR 0001, Decision 9). Synthetic literals only: never read a table.
+# Capture with scripts/capture-goldens.sh; tests/golden.rs replays them offline.
+
+[[case]]
+name = "fixed"
+sql = """SELECT 1 AS i, -5 AS neg, 0 AS zero, 1.50::NUMBER(10,2) AS d, -1.50::NUMBER(10,2) AS dneg, \
+0.00000010::NUMBER(20,8) AS tiny, 0.000001::NUMBER(10,6) AS micro, 0.00::NUMBER(10,2) AS dzero, \
+12345678901234567890123456789012345678::NUMBER(38,0) AS big, \
+-99999999999999999999999999999999999999::NUMBER(38,0) AS bigneg, 123.456::NUMBER(38,3) AS m"""
+
+[[case]]
+name = "real"
+sql = """SELECT 1.5::FLOAT AS f1, 1e16::FLOAT AS f2, 1e-5::FLOAT AS f3, 0.1::FLOAT AS f4, \
+123456789.125::FLOAT AS f5, 1e22::FLOAT AS f6, 1e15::FLOAT AS f7, 0.0001::FLOAT AS f8, \
+-2.5::FLOAT AS f9, 0::FLOAT AS f10, -0.0::FLOAT AS f11, 3::FLOAT AS f12, 1.7976931348623157e308::FLOAT AS fmax, \
+5e-324::FLOAT AS fmin, 'inf'::FLOAT AS pinf, '-inf'::FLOAT AS ninf, 'nan'::FLOAT AS nan"""
+
+[[case]]
+name = "decfloat"
+sql = """SELECT 1.5::DECFLOAT AS d1, '1e-10'::DECFLOAT AS d2, '12345678901234567890.123'::DECFLOAT AS d3, \
+'1e30'::DECFLOAT AS d4, 0::DECFLOAT AS d5, '-0.000001'::DECFLOAT AS d6, 42::DECFLOAT AS d7, \
+'420'::DECFLOAT AS d8, '1.50'::DECFLOAT AS d9, '-1.2345e-20'::DECFLOAT AS d10, '0.00000010'::DECFLOAT AS d11"""
+
+[[case]]
+name = "boolean_text"
+sql = """SELECT TRUE AS t, FALSE AS f, 'café,"x"' AS s, '' AS empty, 'plain' AS p, ' padded ' AS sp"""
+
+[[case]]
+name = "binary"
+sql = """SELECT TO_BINARY('AB01FF', 'HEX') AS b, TO_BINARY('', 'HEX') AS b_empty"""
+
+[[case]]
+name = "date_time"
+sql = """SELECT '2024-01-02'::DATE AS d, '1969-12-31'::DATE AS d_pre, '0001-01-01'::DATE AS d_min, \
+'10:11:12'::TIME AS t0, '10:11:12.123456789'::TIME(9) AS t9, '10:11:12.000000500'::TIME(9) AS t_nanos, \
+'00:00:00'::TIME AS t_mid, '23:59:59.5'::TIME(1) AS t1"""
+
+[[case]]
+name = "timestamp_ntz"
+sql = """SELECT '2024-01-02 03:04:05.123456789'::TIMESTAMP_NTZ(9) AS ntz9, \
+'2024-01-02 03:04:05'::TIMESTAMP_NTZ AS ntz0, '2024-01-02 03:04:05.5'::TIMESTAMP_NTZ(3) AS ntz3, \
+'1960-01-01 00:00:00.25'::TIMESTAMP_NTZ AS ntz_pre, '2024-01-02 03:04:05.000000999'::TIMESTAMP_NTZ(9) AS ntz_nanos"""
+
+[[case]]
+name = "timestamp_tz"
+sql = """SELECT '2024-01-02 03:04:05 +02:00'::TIMESTAMP_TZ AS tz, \
+'2024-01-02 03:04:05.5 -05:30'::TIMESTAMP_TZ(3) AS tz3, '2024-01-02 03:04:05 +00:00'::TIMESTAMP_TZ AS tz_utc, \
+'1960-06-01 12:00:00.123 +14:00'::TIMESTAMP_TZ(3) AS tz_pre"""
+
+[[case]]
+name = "timestamp_ltz"
+sql = """SELECT '2024-01-02 03:04:05 +00:00'::TIMESTAMP_LTZ AS ltz, \
+'2024-07-02 03:04:05.25 +00:00'::TIMESTAMP_LTZ(3) AS ltz_summer"""
+
+[[case]]
+name = "semi_structured"
+sql = """SELECT PARSE_JSON('{"a":1,"b":[1,2],"c":"x"}') AS v, OBJECT_CONSTRUCT('k','v') AS o, \
+ARRAY_CONSTRUCT(1,'x',NULL) AS a, PARSE_JSON('"str"') AS v_str, PARSE_JSON('12') AS v_num, TO_VARIANT('=1') AS v_formula"""
+
+[[case]]
+name = "nulls"
+sql = """SELECT NULL AS n, NULL::NUMBER AS ni, NULL::NUMBER(10,2) AS nd, NULL::FLOAT AS nf, NULL::TEXT AS nt, \
+NULL::DATE AS ndate, NULL::BOOLEAN AS nb, NULL::BINARY AS nbin, NULL::VARIANT AS nv, NULL::TIMESTAMP_NTZ AS nts"""
+
+[[case]]
+name = "duplicate_columns"
+sql = """SELECT 1 AS A, 2 AS A, 3 AS A_2, 4 AS A, 5 AS B"""
+
+[[case]]
+name = "ansi_escapes"
+sql = """SELECT CHR(27) || '[31mred' || CHR(27) || '[0m' AS colored, 'a' || CHR(27) || 'Mb' AS fe, \
+'bell' || CHR(7) AS bell, 'tab' || CHR(9) || 'x' AS tab, 1 AS "x[1m" """
+
+[[case]]
+name = "csv_formula"
+sql = """SELECT '=1+1' AS f1, '+x' AS f2, '-y' AS f3, '@z' AS f4, CHR(9) || 'tab' AS f5, CHR(13) || 'cr' AS f6, \
+-5 AS n, -1.5::NUMBER(4,1) AS dn, -2.5::FLOAT AS fl, 'a=b' AS mid, 1 AS "=X" """
+
+[[case]]
+name = "unicode_quotes"
+sql = """SELECT 'ñ 日本 😀' AS u, '"quoted", comma' AS q, 'line1' || CHR(10) || 'line2' AS nl, \
+'cr' || CHR(13) || 'lf' AS cr, 'back\\\\slash' AS bs, 'it''s' AS apos, 1 AS "日本" """
+
+[[case]]
+name = "empty"
+sql = """SELECT 1 AS a, 'x' AS b WHERE FALSE"""
+
+[[case]]
+name = "many_rows"
+sql = """SELECT ROW_NUMBER() OVER (ORDER BY SEQ8()) AS i, MOD(ROW_NUMBER() OVER (ORDER BY SEQ8()), 7) = 0 AS b \
+FROM TABLE(GENERATOR(ROWCOUNT => 25))"""
+
+[[case]]
+name = "multi_partition"
+sql = """SELECT ROW_NUMBER() OVER (ORDER BY SEQ8()) AS i FROM TABLE(GENERATOR(ROWCOUNT => 13000))"""

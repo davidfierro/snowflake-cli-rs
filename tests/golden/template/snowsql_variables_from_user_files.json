@@ -1,0 +1,24 @@
+{
+ "case": {
+  "name": "snowsql_variables_from_user_files",
+  "query": "select '<% a %>' as a, '<% b %>' as b",
+  "home_files": {
+   ".snowsql.cnf": "[variables]\na = legacy\nb = legacy\n",
+   ".snowsql/config": "[variables]\nb = current\n"
+  },
+  "unset_snowflake_home": true,
+  "os_env": {
+   "SNOWFLAKE_CLI_CONFIG_V2_ENABLED": "1"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'legacy' as a, 'current' as b"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

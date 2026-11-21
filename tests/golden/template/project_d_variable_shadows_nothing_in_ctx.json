@@ -1,0 +1,22 @@
+{
+ "case": {
+  "name": "project_d_variable_shadows_nothing_in_ctx",
+  "query": "select '<% env %>' as a, '<% ctx.env.env %>' as b",
+  "variables": [
+   "env=from_D"
+  ],
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  env: from_yml\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'from_D' as a, 'from_yml' as b"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

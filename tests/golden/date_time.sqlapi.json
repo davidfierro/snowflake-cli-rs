@@ -1,0 +1,141 @@
+{
+ "sql": "SELECT '2024-01-02'::DATE AS d, '1969-12-31'::DATE AS d_pre, '0001-01-01'::DATE AS d_min, '10:11:12'::TIME AS t0, '10:11:12.123456789'::TIME(9) AS t9, '10:11:12.000000500'::TIME(9) AS t_nanos, '00:00:00'::TIME AS t_mid, '23:59:59.5'::TIME(1) AS t1",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 113
+    }
+   ],
+   "rowType": [
+    {
+     "name": "D",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "date",
+     "scale": null
+    },
+    {
+     "name": "D_PRE",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "date",
+     "scale": null
+    },
+    {
+     "name": "D_MIN",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "date",
+     "scale": null
+    },
+    {
+     "name": "T0",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "time",
+     "scale": 9
+    },
+    {
+     "name": "T9",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "time",
+     "scale": 9
+    },
+    {
+     "name": "T_NANOS",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "time",
+     "scale": 9
+    },
+    {
+     "name": "T_MID",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "time",
+     "scale": 9
+    },
+    {
+     "name": "T1",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "time",
+     "scale": 1
+    }
+   ]
+  },
+  "data": [
+   [
+    "19724",
+    "-1",
+    "-719162",
+    "36672.000000000",
+    "36672.123456789",
+    "36672.000000500",
+    "0.000000000",
+    "86399.5"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=9978f15a-21c1-40e6-8b6a-15a939bf45cb",
+  "requestId": "9978f15a-21c1-40e6-8b6a-15a939bf45cb",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207299562
+ },
+ "partitions": []
+}

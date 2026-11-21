@@ -1,0 +1,28 @@
+{
+ "case": {
+  "name": "snowsql_variables_with_jinja_and_project",
+  "query": "select '{{ x }}' as x, '{{ ctx.env.x }}' as y",
+  "templating": [
+   "JINJA"
+  ],
+  "home_files": {
+   "config": "[variables]\nx = from_snowsql\n"
+  },
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  x: from_yml\n"
+  },
+  "os_env": {
+   "SNOWFLAKE_CLI_CONFIG_V2_ENABLED": "1"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'from_snowsql' as x, 'from_yml' as y"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

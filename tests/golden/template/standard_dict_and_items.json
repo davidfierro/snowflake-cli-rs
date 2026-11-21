@@ -1,0 +1,19 @@
+{
+ "case": {
+  "name": "standard_dict_and_items",
+  "query": "select '<% {'k': n} %>' as a, '<% {'k': n}['k'] %>' as b, '<% {'k': n}.k %>' as c, '<% n[0] %>' as d, '<% range(3) | list %>' as e",
+  "variables": [
+   "n=42"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select '{'k': '42'}' as a, '42' as b, '42' as c, '4' as d, '[0, 1, 2]' as e"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

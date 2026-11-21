@@ -1,0 +1,24 @@
+{
+ "connector": "4.8.1",
+ "text": "create function f() returns int language javascript as $$ return 1; $$;\nselect $$a;\nb$$;",
+ "remove_comments": [
+  [
+   "create function f() returns int language javascript as $$ return 1; $$;",
+   false
+  ],
+  [
+   "select $$a;\nb$$;",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "create function f() returns int language javascript as $$ return 1; $$;",
+   false
+  ],
+  [
+   "select $$a;\nb$$;",
+   false
+  ]
+ ]
+}

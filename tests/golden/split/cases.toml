@@ -1,0 +1,75 @@
+# Statement splitter cases (ADR 0004, Decision 7). Capture: scripts/capture-split-goldens.sh runs
+# the pinned connector's split_statements on each `text` with remove_comments true and false and
+# writes tests/golden/split/<name>.json; tests/split_golden.rs compares the Rust port with it.
+
+[[case]]
+name = "quotes"
+text = "select 'a;b' as x, 'it''s;' as y, 'esc\\';q' as z; select \"we;ird\" from t;"
+
+[[case]]
+name = "double_quote_escapes"
+text = "select \"a\"\"b;\" as c; select \"x\\\";y\";"
+
+[[case]]
+name = "line_comments"
+text = "-- lead ; comment\nselect 1; -- tail ; here\nselect 2 // slash ; comment\n;\nselect 3 --x\n"
+
+[[case]]
+name = "block_comments"
+text = "/* head ; */ select 1 /* mid ; */ as a;\nselect /* multi\nline ; */ 2;\n/* c */ ;"
+
+[[case]]
+name = "nested_block_comment"
+text = "select /* a /* b */ ; c */ 1;"
+
+[[case]]
+name = "dollar_blocks"
+text = "create function f() returns int language javascript as $$ return 1; $$;\nselect $$a;\nb$$;"
+
+[[case]]
+name = "urls"
+text = "select 'x' from @s/https://a.b//c; list s3://bucket//x/y; select 1 //c\n;"
+
+[[case]]
+name = "comment_after_semicolon"
+text = "select 1;   -- one\nselect 2; /* two */ select 3;\nselect 4;\t\n"
+
+[[case]]
+name = "async_and_commands"
+text = "select 1;>\n!source other.sql;\n!set a=b\nselect 2;"
+
+[[case]]
+name = "put_get"
+text = "PUT file:///tmp/a @s;\nget @s file:///tmp; select 1;\n  put x;"
+
+[[case]]
+name = "stray_semicolons"
+text = "select 1;\n;\n  ;  \nselect 2;;"
+
+[[case]]
+name = "unterminated_last"
+text = "select 1;\nselect 2\n  from dual"
+
+[[case]]
+name = "crlf"
+text = "select 1;\r\nselect 'a\r\nb';\r\n-- c\r\nselect 3\r\n"
+
+[[case]]
+name = "blank_lines_and_whitespace"
+text = "\n\n   \nselect\n\n  1\n   ;\n\n\n"
+
+[[case]]
+name = "use_schema_then_query"
+text = "USE SCHEMA INFORMATION_SCHEMA;\nSELECT CURRENT_SCHEMA();"
+
+[[case]]
+name = "unicode"
+text = "select 'café;😀' as \"ñ;\"; select '€';"
+
+[[case]]
+name = "unterminated_quote"
+text = "select 'abc;\nselect 2;"
+
+[[case]]
+name = "only_comments"
+text = "-- just a comment\n/* and a block */\n"

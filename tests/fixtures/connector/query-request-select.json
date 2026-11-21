@@ -1,0 +1,89 @@
+{
+  "code": null,
+  "data": {
+    "arrayBindSupported": false,
+    "databaseProvider": null,
+    "finalDatabaseName": "<finalDatabaseName>",
+    "finalRoleName": "<finalRoleName>",
+    "finalSchemaName": "<finalSchemaName>",
+    "finalWarehouseName": "<finalWarehouseName>",
+    "numberOfBinds": 0,
+    "parameters": [
+      {
+        "name": "TIMEZONE",
+        "value": "America/Los_Angeles"
+      },
+      {
+        "name": "CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY",
+        "value": 3600
+      }
+    ],
+    "queryContext": {
+      "entries": [
+        {
+          "context": "CLagJw==",
+          "id": 0,
+          "priority": 0,
+          "timestamp": 1795286931161817
+        }
+      ]
+    },
+    "queryId": "<queryId>",
+    "queryResultFormat": "json",
+    "returned": 1,
+    "rowset": [
+      [
+        "1",
+        "a",
+        "1"
+      ]
+    ],
+    "rowtype": [
+      {
+        "byteLength": null,
+        "collation": null,
+        "database": "",
+        "length": null,
+        "name": "N",
+        "nullable": false,
+        "precision": 1,
+        "scale": 0,
+        "schema": "",
+        "table": "",
+        "type": "fixed"
+      },
+      {
+        "byteLength": 4,
+        "collation": null,
+        "database": "",
+        "length": 1,
+        "name": "S",
+        "nullable": false,
+        "precision": null,
+        "scale": null,
+        "schema": "",
+        "table": "",
+        "type": "text"
+      },
+      {
+        "byteLength": null,
+        "collation": null,
+        "database": "",
+        "length": null,
+        "name": "B",
+        "nullable": true,
+        "precision": null,
+        "scale": null,
+        "schema": "",
+        "table": "",
+        "type": "boolean"
+      }
+    ],
+    "sendResultTime": 1795286931167,
+    "statementTypeId": 4096,
+    "total": 1,
+    "version": 1
+  },
+  "message": null,
+  "success": true
+}

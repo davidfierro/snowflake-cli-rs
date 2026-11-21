@@ -1,0 +1,285 @@
+{
+ "case": {
+  "name": "timezone_change",
+  "query": "alter session set timezone = 'Asia/Tokyo'; select '2024-01-02 03:04:05 +00:00'::timestamp_ltz as ltz"
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "alter session set timezone = 'Asia/Tokyo';\n+----------------------------------+\n| status                           |\n|----------------------------------|\n| Statement executed successfully. |\n+----------------------------------+\nselect '2024-01-02 03:04:05 +00:00'::timestamp_ltz as ltz\n+---------------------------+\n| LTZ                       |\n|---------------------------|\n| 2024-01-02 12:04:05+09:00 |\n+---------------------------+\n",
+   "stderr": ""
+  },
+  "plain": {
+   "exit": 0,
+   "stdout": "alter session set timezone = 'Asia/Tokyo';\nstatus                          \nStatement executed successfully.\nselect '2024-01-02 03:04:05 +00:00'::timestamp_ltz as ltz\nLTZ                      \n2024-01-02 12:04:05+09:00\n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n  [\n    {\n      \"status\"  :   \"Statement executed successfully.\"\n    }\n  ],\n  [\n    {\n      \"LTZ\"  :   \"2024-01-02T12:04:05+09:00\"\n    }\n  ]\n]\n\n",
+   "stderr": ""
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "status\nStatement executed successfully.\n\nLTZ\n2024-01-02T12:04:05+09:00\n\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 57
+      }
+     ],
+     "rowType": [
+      {
+       "name": "multiple statement execution",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 134217728,
+       "nullable": false,
+       "collation": null,
+       "length": 134217728,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "Multiple statements executed successfully."
+     ]
+    ],
+    "code": "090001",
+    "statementHandles": [
+     "01234567-0000-0000-0000-000000000001",
+     "01234567-0000-0000-0000-000000000002",
+     "01234567-0000-0000-0000-000000000003"
+    ],
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000004?requestId=01234567-0000-0000-0000-000000000005",
+    "requestId": "01234567-0000-0000-0000-000000000005",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000004",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257379616
+   },
+   "statement": "alter session set timezone = 'Asia/Tokyo';\nSHOW PARAMETERS LIKE 'TIMEZONE' IN SESSION;\nselect '2024-01-02 03:04:05 +00:00'::timestamp_ltz as ltz\n;",
+   "parameters": {
+    "MULTI_STATEMENT_COUNT": "3"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000001",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 36
+      }
+     ],
+     "rowType": [
+      {
+       "name": "status",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 16777216,
+       "nullable": true,
+       "collation": null,
+       "length": 16777216,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "Statement executed successfully."
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000006",
+    "requestId": "01234567-0000-0000-0000-000000000006",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257379801
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000002",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 78
+      }
+     ],
+     "rowType": [
+      {
+       "name": "key",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 16777216,
+       "nullable": true,
+       "collation": null,
+       "length": 16777216,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "value",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 16777216,
+       "nullable": true,
+       "collation": null,
+       "length": 16777216,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "default",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 16777216,
+       "nullable": true,
+       "collation": null,
+       "length": 16777216,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "level",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 16777216,
+       "nullable": true,
+       "collation": null,
+       "length": 16777216,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "description",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 16777216,
+       "nullable": true,
+       "collation": null,
+       "length": 16777216,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "type",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 16777216,
+       "nullable": true,
+       "collation": null,
+       "length": 16777216,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "TIMEZONE",
+      "Asia/Tokyo",
+      "America/Los_Angeles",
+      "SESSION",
+      "time zone",
+      "STRING"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000002?requestId=01234567-0000-0000-0000-000000000007",
+    "requestId": "01234567-0000-0000-0000-000000000007",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000002",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257379864
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000003",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 24
+      }
+     ],
+     "rowType": [
+      {
+       "name": "LTZ",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 0,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "timestamp_ltz",
+       "scale": 9
+      }
+     ]
+    },
+    "data": [
+     [
+      "1704164645.000000000"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000003?requestId=01234567-0000-0000-0000-000000000008",
+    "requestId": "01234567-0000-0000-0000-000000000008",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000003",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257379919
+   }
+  }
+ ]
+}

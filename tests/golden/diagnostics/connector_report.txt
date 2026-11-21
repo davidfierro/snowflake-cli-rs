@@ -1,0 +1,59 @@
+=========Connectivity diagnostic report================================
+INITIAL: Specified snowflake account: ACCT
+INITIAL: Host based on specified account: acct.snowflakecomputing.com
+
+=========Proxy information - These are best guesses, not guarantees====
+PROXY: Proxies with Env vars removed(SYSTEM PROXIES): {}
+PROXY: Proxies with Env vars restored(ENV PROXIES): {'https': 'http://***@proxy.corp:3128', 'no': 'localhost'}
+PROXY: Could not determine if a proxy does or does not exist based on Exception: HTTPSConnectionPool(host='nonexistentdomain.invalid', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='nonexistentdomain.invalid', port=443): Failed to resolve 'nonexistentdomain.invalid' ([Errno -2] Name or service not known)"))
+
+=========Snowflake URL information=====================================
+SNOWFLAKE_URL: acct.snowflakecomputing.com: nslookup results: public ip: 54.1.2.3
+SNOWFLAKE_URL: acct.snowflakecomputing.com:443: URL Check: Connected Successfully
+SNOWFLAKE_URL: acct.snowflakecomputing.com: Cert info:
+SNOWFLAKE_URL: acct.snowflakecomputing.com: subject: {'C': 'US', 'ST': 'California', 'O': 'Snowflake Inc.', 'CN': '*.snowflakecomputing.com'}
+SNOWFLAKE_URL: acct.snowflakecomputing.com: issuer: {'C': 'US', 'O': 'Amazon', 'CN': 'Test Amazon CA'}
+SNOWFLAKE_URL: acct.snowflakecomputing.com: serialNumber: 220047411758230900080721827967644813597269925001
+SNOWFLAKE_URL: acct.snowflakecomputing.com: version: 2
+SNOWFLAKE_URL: acct.snowflakecomputing.com: notBefore: 2026-11-21 14:37:00
+SNOWFLAKE_URL: acct.snowflakecomputing.com: notAfter: 2126-10-28 14:37:00
+SNOWFLAKE_URL: acct.snowflakecomputing.com: subjectAltName: DNS:*.snowflakecomputing.com, DNS:localhost, IP Address:127.0.0.1
+SNOWFLAKE_URL: acct.snowflakecomputing.com: crlUrls: ['crl.test-ca.example']
+SNOWFLAKE_URL: acct.snowflakecomputing.com: ocspURLs: ['ocsp.test-ca.example', 'crt.test-ca.example']
+
+=========Snowflake Stage information===================================
+We retrieved stage info from the allowlist
+STAGE: stage.snowflakecomputing.com: nslookup results: public ip: 52.1.1.1
+STAGE: stage.snowflakecomputing.com: nslookup results: public ip: 52.2.2.2
+STAGE: stage.snowflakecomputing.com:443: URL Check: Connected Successfully
+STAGE: stage.snowflakecomputing.com: Cert info:
+STAGE: stage.snowflakecomputing.com: subject: {'C': 'US', 'ST': 'California', 'O': 'Snowflake Inc.', 'CN': '*.snowflakecomputing.com'}
+STAGE: stage.snowflakecomputing.com: issuer: {'C': 'US', 'O': 'Amazon', 'CN': 'Test Amazon CA'}
+STAGE: stage.snowflakecomputing.com: serialNumber: 220047411758230900080721827967644813597269925001
+STAGE: stage.snowflakecomputing.com: version: 2
+STAGE: stage.snowflakecomputing.com: notBefore: 2026-11-21 14:37:00
+STAGE: stage.snowflakecomputing.com: notAfter: 2126-10-28 14:37:00
+STAGE: stage.snowflakecomputing.com: subjectAltName: DNS:*.snowflakecomputing.com, DNS:localhost, IP Address:127.0.0.1
+STAGE: stage.snowflakecomputing.com: crlUrls: ['crl.test-ca.example']
+STAGE: stage.snowflakecomputing.com: ocspURLs: ['crt.test-ca.example', 'ocsp.snowflakecomputing.com', 'ocsp.test-ca.example']
+
+=========Snowflake OCSP information====================================
+We were able to retrieve system allowlist.
+These OCSP hosts came from the certificate and the allowlist.
+OCSP_RESPONDER: crt.test-ca.example:80: URL Check: Connected Successfully
+OCSP_RESPONDER: ocsp.snowflakecomputing.com:80: URL Check: Connected Successfully
+OCSP_RESPONDER: ocsp.test-ca.example:80: URL Check: Connected Successfully
+OCSP_RESPONDER: ocsp.other.example:80: URL Check: Failed: HTTP/1.1 403 Forbidden
+
+=========Snowflake Out of bound telemetry check========================
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com:443: URL Check: Connected Successfully
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com: Cert info:
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com: subject: {'C': 'US', 'ST': 'California', 'O': 'Snowflake Inc.', 'CN': '*.snowflakecomputing.com'}
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com: issuer: {'C': 'US', 'O': 'Amazon', 'CN': 'Test Amazon CA'}
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com: serialNumber: 220047411758230900080721827967644813597269925001
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com: version: 2
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com: notBefore: 2026-11-21 14:37:00
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com: notAfter: 2126-10-28 14:37:00
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com: subjectAltName: DNS:*.snowflakecomputing.com, DNS:localhost, IP Address:127.0.0.1
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com: crlUrls: ['crl.test-ca.example']
+OUT_OF_BAND_TELEMETRY: telemetry.snowflakecomputing.com: ocspURLs: ['crt.test-ca.example', 'ocsp.snowflakecomputing.com', 'ocsp.test-ca.example']

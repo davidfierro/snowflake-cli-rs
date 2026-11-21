@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "ctx_env_missing_jinja",
+  "query": "select '{{ ctx.env.NOPE }}' as a",
+  "templating": [
+   "JINJA"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "\nAn unexpected exception occurred. Use --debug option to see the traceback. Exception message:\n\n'snowflake.cli.api.utils.models.ProjectEnvironment object' has no attribute 'NOPE'\n",
+   "stderr": "To send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

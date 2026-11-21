@@ -1,0 +1,215 @@
+{
+ "case": {
+  "name": "status_rows",
+  "query": "begin; alter session set query_tag = 'snow-rs-golden'; commit"
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "begin;\n+----------------------------------+\n| status                           |\n|----------------------------------|\n| Statement executed successfully. |\n+----------------------------------+\nalter session set query_tag = 'snow-rs-golden';\n+----------------------------------+\n| status                           |\n|----------------------------------|\n| Statement executed successfully. |\n+----------------------------------+\ncommit\n+----------------------------------+\n| status                           |\n|----------------------------------|\n| Statement executed successfully. |\n+----------------------------------+\n",
+   "stderr": ""
+  },
+  "plain": {
+   "exit": 0,
+   "stdout": "begin;\nstatus                          \nStatement executed successfully.\nalter session set query_tag = 'snow-rs-golden';\nstatus                          \nStatement executed successfully.\ncommit\nstatus                          \nStatement executed successfully.\n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n  [\n    {\n      \"status\"  :   \"Statement executed successfully.\"\n    }\n  ],\n  [\n    {\n      \"status\"  :   \"Statement executed successfully.\"\n    }\n  ],\n  [\n    {\n      \"status\"  :   \"Statement executed successfully.\"\n    }\n  ]\n]\n\n",
+   "stderr": ""
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "status\nStatement executed successfully.\n\nstatus\nStatement executed successfully.\n\nstatus\nStatement executed successfully.\n\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 57
+      }
+     ],
+     "rowType": [
+      {
+       "name": "multiple statement execution",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 134217728,
+       "nullable": false,
+       "collation": null,
+       "length": 134217728,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "Multiple statements executed successfully."
+     ]
+    ],
+    "code": "090001",
+    "statementHandles": [
+     "01234567-0000-0000-0000-000000000001",
+     "01234567-0000-0000-0000-000000000002",
+     "01234567-0000-0000-0000-000000000003"
+    ],
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000004?requestId=01234567-0000-0000-0000-000000000005",
+    "requestId": "01234567-0000-0000-0000-000000000005",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000004",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257187543
+   },
+   "statement": "begin;\nalter session set query_tag = 'snow-rs-golden';\ncommit\n;",
+   "parameters": {
+    "MULTI_STATEMENT_COUNT": "3"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000001",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 36
+      }
+     ],
+     "rowType": [
+      {
+       "name": "status",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 16777216,
+       "nullable": true,
+       "collation": null,
+       "length": 16777216,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "Statement executed successfully."
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000006",
+    "requestId": "01234567-0000-0000-0000-000000000006",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257187745
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000002",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 36
+      }
+     ],
+     "rowType": [
+      {
+       "name": "status",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 16777216,
+       "nullable": true,
+       "collation": null,
+       "length": 16777216,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "Statement executed successfully."
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000002?requestId=01234567-0000-0000-0000-000000000007",
+    "requestId": "01234567-0000-0000-0000-000000000007",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000002",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257187833
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000003",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 36
+      }
+     ],
+     "rowType": [
+      {
+       "name": "status",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 16777216,
+       "nullable": true,
+       "collation": null,
+       "length": 16777216,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "Statement executed successfully."
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000003?requestId=01234567-0000-0000-0000-000000000008",
+    "requestId": "01234567-0000-0000-0000-000000000008",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000003",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257187906
+   }
+  }
+ ]
+}

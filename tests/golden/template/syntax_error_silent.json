@@ -1,0 +1,15 @@
+{
+ "case": {
+  "name": "syntax_error_silent",
+  "query": "select <% a %",
+  "silent": true
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "To send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

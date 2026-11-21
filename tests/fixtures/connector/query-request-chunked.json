@@ -1,0 +1,126 @@
+{
+  "code": null,
+  "data": {
+    "arrayBindSupported": false,
+    "chunkHeaders": {
+      "x-amz-server-side-encryption-customer-key": "<x-amz-server-side-encryption-customer-key>",
+      "x-amz-server-side-encryption-customer-key-md5": "<x-amz-server-side-encryption-customer-key-md5>"
+    },
+    "chunks": [
+      {
+        "compressedSize": 120941,
+        "rowCount": 6207,
+        "uncompressedSize": 204829,
+        "url": "<url>"
+      },
+      {
+        "compressedSize": 211864,
+        "rowCount": 10864,
+        "uncompressedSize": 368644,
+        "url": "<url>"
+      },
+      {
+        "compressedSize": 422702,
+        "rowCount": 21685,
+        "uncompressedSize": 737288,
+        "url": "<url>"
+      },
+      {
+        "compressedSize": 845618,
+        "rowCount": 43370,
+        "uncompressedSize": 1474578,
+        "url": "<url>"
+      },
+      {
+        "compressedSize": 1656626,
+        "rowCount": 84918,
+        "uncompressedSize": 2957317,
+        "url": "<url>"
+      },
+      {
+        "compressedSize": 583172,
+        "rowCount": 29893,
+        "uncompressedSize": 1046253,
+        "url": "<url>"
+      }
+    ],
+    "databaseProvider": null,
+    "finalDatabaseName": "<finalDatabaseName>",
+    "finalRoleName": "<finalRoleName>",
+    "finalSchemaName": "<finalSchemaName>",
+    "finalWarehouseName": "<finalWarehouseName>",
+    "numberOfBinds": 0,
+    "parameters": [
+      {
+        "name": "TIMEZONE",
+        "value": "America/Los_Angeles"
+      },
+      {
+        "name": "CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY",
+        "value": 3600
+      }
+    ],
+    "qrmk": "<qrmk>",
+    "queryContext": {
+      "entries": [
+        {
+          "context": "CLagJw==",
+          "id": 0,
+          "priority": 0,
+          "timestamp": 1795286982379446
+        }
+      ]
+    },
+    "queryId": "<queryId>",
+    "queryResultFormat": "json",
+    "returned": 200000,
+    "rowset": [
+      [
+        "0",
+        "mNOVaGlzY8RaiAyWXQtS"
+      ],
+      [
+        "1",
+        "r84gNYXWf2ZVzcAtt57m"
+      ],
+      [
+        "2",
+        "TMJmePZBmv87IoaNezCY"
+      ]
+    ],
+    "rowtype": [
+      {
+        "byteLength": null,
+        "collation": null,
+        "database": "",
+        "length": null,
+        "name": "ID",
+        "nullable": false,
+        "precision": 19,
+        "scale": 0,
+        "schema": "",
+        "table": "",
+        "type": "fixed"
+      },
+      {
+        "byteLength": 16777216,
+        "collation": null,
+        "database": "",
+        "length": 16777216,
+        "name": "S",
+        "nullable": false,
+        "precision": null,
+        "scale": null,
+        "schema": "",
+        "table": "",
+        "type": "text"
+      }
+    ],
+    "sendResultTime": 1795286982387,
+    "statementTypeId": 4096,
+    "total": 200000,
+    "version": 1
+  },
+  "message": null,
+  "success": true
+}

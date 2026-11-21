@@ -1,0 +1,24 @@
+{
+ "connector": "4.8.1",
+ "text": "select 'café;😀' as \"ñ;\"; select '€';",
+ "remove_comments": [
+  [
+   "select 'café;😀' as \"ñ;\";",
+   false
+  ],
+  [
+   "select '€';",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "select 'café;😀' as \"ñ;\";",
+   false
+  ],
+  [
+   "select '€';",
+   false
+  ]
+ ]
+}

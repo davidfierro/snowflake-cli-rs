@@ -1,0 +1,166 @@
+{
+ "sql": "SELECT '2024-01-02 03:04:05 +00:00'::TIMESTAMP_LTZ AS ltz, '2024-07-02 03:04:05.25 +00:00'::TIMESTAMP_LTZ(3) AS ltz_summer",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 41
+    }
+   ],
+   "rowType": [
+    {
+     "name": "LTZ",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_ltz",
+     "scale": 9
+    },
+    {
+     "name": "LTZ_SUMMER",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_ltz",
+     "scale": 3
+    }
+   ]
+  },
+  "data": [
+   [
+    "1704164645.000000000",
+    "1719889445.250"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=6813b8a7-77a7-4a72-b624-841e2f6efd92",
+  "requestId": "6813b8a7-77a7-4a72-b624-841e2f6efd92",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207326298
+ },
+ "partitions": [],
+ "show_parameters": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 80
+    }
+   ],
+   "rowType": [
+    {
+     "name": "key",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 16777216,
+     "nullable": true,
+     "collation": null,
+     "length": 16777216,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "value",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 16777216,
+     "nullable": true,
+     "collation": null,
+     "length": 16777216,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "default",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 16777216,
+     "nullable": true,
+     "collation": null,
+     "length": 16777216,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "level",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 16777216,
+     "nullable": true,
+     "collation": null,
+     "length": 16777216,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "description",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 16777216,
+     "nullable": true,
+     "collation": null,
+     "length": 16777216,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "type",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 16777216,
+     "nullable": true,
+     "collation": null,
+     "length": 16777216,
+     "type": "text",
+     "scale": null
+    }
+   ]
+  },
+  "data": [
+   [
+    "TIMEZONE",
+    "America/Los_Angeles",
+    "America/Los_Angeles",
+    "",
+    "time zone",
+    "STRING"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=030189f2-567a-4793-978e-a5918d026341",
+  "requestId": "030189f2-567a-4793-978e-a5918d026341",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207326549
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "case": {
+  "name": "comments_in_default_mode",
+  "query": "select '{# hidden #}' as a, 1 as b"
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select '' as a, 1 as b"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

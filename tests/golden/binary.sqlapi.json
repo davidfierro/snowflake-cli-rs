@@ -1,0 +1,57 @@
+{
+ "sql": "SELECT TO_BINARY('AB01FF', 'HEX') AS b, TO_BINARY('', 'HEX') AS b_empty",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 13
+    }
+   ],
+   "rowType": [
+    {
+     "name": "B",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 67108864,
+     "nullable": false,
+     "collation": null,
+     "length": 67108864,
+     "type": "binary",
+     "scale": null
+    },
+    {
+     "name": "B_EMPTY",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 67108864,
+     "nullable": false,
+     "collation": null,
+     "length": 67108864,
+     "type": "binary",
+     "scale": null
+    }
+   ]
+  },
+  "data": [
+   [
+    "AB01FF",
+    ""
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=1fe46cb5-11e4-492c-936a-a5bb1cf77880",
+  "requestId": "1fe46cb5-11e4-492c-936a-a5bb1cf77880",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207290744
+ },
+ "partitions": []
+}

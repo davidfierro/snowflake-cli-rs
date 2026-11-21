@@ -1,0 +1,30 @@
+{
+ "case": {
+  "name": "project_precedence",
+  "query": "select '<% ctx.env.a %>' as a, '<% ctx.env.b %>' as b, '<% ctx.env.c %>' as c, '<% d %>' as d",
+  "variables": [
+   "d=from_D"
+  ],
+  "env": [
+   "a=from_cli",
+   " c = x "
+  ],
+  "os_env": {
+   "a": "from_os",
+   "b": "from_os"
+  },
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  a: from_yml\n  b: from_yml\n  c: from_yml\n  d: from_yml\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'from_cli' as a, 'from_os' as b, 'x' as c, 'from_D' as d"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

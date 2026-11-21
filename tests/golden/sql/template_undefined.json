@@ -1,0 +1,30 @@
+{
+ "case": {
+  "name": "template_undefined",
+  "query": "select &a as a; select <% b %> as b; select 1 as c",
+  "no_request": true
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "Warning: &{ ... } syntax is deprecated and will no longer be supported. Use <% ... %> syntax instead.\nSQL template rendering error: 'a' is undefined\nSQL template rendering error: 'b' is undefined\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "plain": {
+   "exit": 1,
+   "stdout": "Warning: &{ ... } syntax is deprecated and will no longer be supported. Use <% ... %> syntax instead.\nSQL template rendering error: 'a' is undefined\nSQL template rendering error: 'b' is undefined\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "json": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  },
+  "csv": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ },
+ "exchanges": []
+}

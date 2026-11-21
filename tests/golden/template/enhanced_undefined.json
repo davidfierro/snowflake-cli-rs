@@ -1,0 +1,15 @@
+{
+ "case": {
+  "name": "enhanced_undefined",
+  "query": "select <% zz %>",
+  "enhanced_exit_codes": true
+ },
+ "outputs": {
+  "table": {
+   "exit": 5,
+   "statements": null,
+   "stdout": "SQL template rendering error: 'zz' is undefined\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

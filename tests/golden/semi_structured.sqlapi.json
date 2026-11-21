@@ -1,0 +1,113 @@
+{
+ "sql": "SELECT PARSE_JSON('{\"a\":1,\"b\":[1,2],\"c\":\"x\"}') AS v, OBJECT_CONSTRUCT('k','v') AS o, ARRAY_CONSTRUCT(1,'x',NULL) AS a, PARSE_JSON('\"str\"') AS v_str, PARSE_JSON('12') AS v_num, TO_VARIANT('=1') AS v_formula",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 164
+    }
+   ],
+   "rowType": [
+    {
+     "name": "V",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "variant",
+     "scale": null
+    },
+    {
+     "name": "O",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "object",
+     "scale": null
+    },
+    {
+     "name": "A",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "array",
+     "scale": null
+    },
+    {
+     "name": "V_STR",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "variant",
+     "scale": null
+    },
+    {
+     "name": "V_NUM",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "variant",
+     "scale": null
+    },
+    {
+     "name": "V_FORMULA",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "variant",
+     "scale": null
+    }
+   ]
+  },
+  "data": [
+   [
+    "{\n  \"a\": 1,\n  \"b\": [\n    1,\n    2\n  ],\n  \"c\": \"x\"\n}",
+    "{\n  \"k\": \"v\"\n}",
+    "[\n  1,\n  \"x\",\n  undefined\n]",
+    "\"str\"",
+    "12",
+    "\"=1\""
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=d5d1d765-b554-4cd1-8a33-e4cd93172979",
+  "requestId": "d5d1d765-b554-4cd1-8a33-e4cd93172979",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207335445
+ },
+ "partitions": []
+}

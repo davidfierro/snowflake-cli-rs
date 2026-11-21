@@ -1,0 +1,52 @@
+{
+ "sql": "SELECT 1 AS a, 'x' AS b WHERE FALSE",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 0,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 0,
+     "uncompressedSize": 0
+    }
+   ],
+   "rowType": [
+    {
+     "name": "A",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "B",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 4,
+     "nullable": false,
+     "collation": null,
+     "length": 1,
+     "type": "text",
+     "scale": null
+    }
+   ]
+  },
+  "data": [],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=e2ef9393-95fc-48d2-9f7e-44a939038360",
+  "requestId": "e2ef9393-95fc-48d2-9f7e-44a939038360",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207388778
+ },
+ "partitions": []
+}

@@ -1,0 +1,97 @@
+{
+ "case": {
+  "name": "opt_output_file_single",
+  "query": "select 'é' as s, 1.5 as f",
+  "options": [
+   "-o",
+   "OUTPUT_FILE = '{spool}'"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "select 'é' as s, 1.5 as f\n+---------+\n| S | F   |\n|---+-----|\n| é | 1.5 |\n+---------+\n",
+   "stderr": "",
+   "spool": "+---------+\n| S | F   |\n|---+-----|\n| é | 1.5 |\n+---------+\n"
+  },
+  "plain": {
+   "exit": 0,
+   "stdout": "select 'é' as s, 1.5 as f\nS  F  \né  1.5\n",
+   "stderr": "",
+   "spool": "S  F  \né  1.5\n"
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n    {\n        \"S\": \"\\u00e9\",\n        \"F\": \"1.5\"\n    }\n]\n",
+   "stderr": "",
+   "spool": "[\n    {\n        \"S\": \"\\u00e9\",\n        \"F\": \"1.5\"\n    }\n]\n"
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "S,F\né,1.5\n",
+   "stderr": "",
+   "spool": "S,F\né,1.5\n"
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 23
+      }
+     ],
+     "rowType": [
+      {
+       "name": "S",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 4,
+       "nullable": false,
+       "collation": null,
+       "length": 1,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "F",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 2,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 1
+      }
+     ]
+    },
+    "data": [
+     [
+      "é",
+      "1.5"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795271547149
+   },
+   "statement": "select 'é' as s, 1.5 as f"
+  }
+ ]
+}

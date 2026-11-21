@@ -1,0 +1,33 @@
+{
+ "case": {
+  "name": "template_mixed_syntaxes",
+  "query": "select &a as a, <% a %> as b",
+  "variables": [
+   "a=1"
+  ],
+  "no_request": true
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ The SQL query mixes &{ ... } syntax and <% ... %> syntax.                    │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "plain": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ The SQL query mixes &{ ... } syntax and <% ... %> syntax.                    │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "json": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ The SQL query mixes &{ ... } syntax and <% ... %> syntax.                    │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  },
+  "csv": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ The SQL query mixes &{ ... } syntax and <% ... %> syntax.                    │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ },
+ "exchanges": []
+}

@@ -1,0 +1,153 @@
+[
+  {
+    "name": "put_wildcard",
+    "sql": "PUT file://{DATA}/f*.csv @~/{STAGE}/",
+    "runs": {
+      "TABLE": {
+        "stdout": "PUT file://{DATA}/f*.csv @~/{STAGE}/\n+---------------------------------------------------------------------------------------------------------------+\n| source | target    | source_size | target_size | source_compression | target_compression | status   | message |\n|--------+-----------+-------------+-------------+--------------------+--------------------+----------+---------|\n| f1.csv | f1.csv.gz | 8           | 48          | NONE               | GZIP               | UPLOADED |         |\n| f2.csv | f2.csv.gz | 2           | 32          | NONE               | GZIP               | UPLOADED |         |\n+---------------------------------------------------------------------------------------------------------------+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"source\": \"f1.csv\",\n        \"target\": \"f1.csv.gz\",\n        \"source_size\": 8,\n        \"target_size\": 48,\n        \"source_compression\": \"NONE\",\n        \"target_compression\": \"GZIP\",\n        \"status\": \"UPLOADED\",\n        \"message\": \"\"\n    },\n    {\n        \"source\": \"f2.csv\",\n        \"target\": \"f2.csv.gz\",\n        \"source_size\": 2,\n        \"target_size\": 32,\n        \"source_compression\": \"NONE\",\n        \"target_compression\": \"GZIP\",\n        \"status\": \"UPLOADED\",\n        \"message\": \"\"\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "source,target,source_size,target_size,source_compression,target_compression,status,message\nf1.csv,f1.csv.gz,8,48,NONE,GZIP,UPLOADED,\nf2.csv,f2.csv.gz,2,32,NONE,GZIP,UPLOADED,\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "put_existing_skipped",
+    "sql": "PUT file://{DATA}/f*.csv @~/{STAGE}/",
+    "runs": {
+      "TABLE": {
+        "stdout": "PUT file://{DATA}/f*.csv @~/{STAGE}/\n+--------------------------------------------------------------------------------------------------------------+\n| source | target    | source_size | target_size | source_compression | target_compression | status  | message |\n|--------+-----------+-------------+-------------+--------------------+--------------------+---------+---------|\n| f1.csv | f1.csv.gz | 8           | 0           | NONE               | GZIP               | SKIPPED |         |\n| f2.csv | f2.csv.gz | 2           | 0           | NONE               | GZIP               | SKIPPED |         |\n+--------------------------------------------------------------------------------------------------------------+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"source\": \"f1.csv\",\n        \"target\": \"f1.csv.gz\",\n        \"source_size\": 8,\n        \"target_size\": 0,\n        \"source_compression\": \"NONE\",\n        \"target_compression\": \"GZIP\",\n        \"status\": \"SKIPPED\",\n        \"message\": \"\"\n    },\n    {\n        \"source\": \"f2.csv\",\n        \"target\": \"f2.csv.gz\",\n        \"source_size\": 2,\n        \"target_size\": 0,\n        \"source_compression\": \"NONE\",\n        \"target_compression\": \"GZIP\",\n        \"status\": \"SKIPPED\",\n        \"message\": \"\"\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "put_no_compress_overwrite",
+    "sql": "PUT file://{DATA}/f1.csv @~/{STAGE}/ AUTO_COMPRESS=FALSE OVERWRITE=TRUE",
+    "runs": {
+      "CSV": {
+        "stdout": "source,target,source_size,target_size,source_compression,target_compression,status,message\nf1.csv,f1.csv,8,16,NONE,NONE,UPLOADED,\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "put_already_gzip",
+    "sql": "PUT file://{DATA}/g.csv.gz @~/{STAGE}/",
+    "runs": {
+      "TABLE": {
+        "stdout": "PUT file://{DATA}/g.csv.gz @~/{STAGE}/\n+----------------------------------------------------------------------------------------------------------------+\n| source   | target   | source_size | target_size | source_compression | target_compression | status   | message |\n|----------+----------+-------------+-------------+--------------------+--------------------+----------+---------|\n| g.csv.gz | g.csv.gz | 22          | 32          | GZIP               | GZIP               | UPLOADED |         |\n+----------------------------------------------------------------------------------------------------------------+\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "get_files",
+    "sql": "GET @~/{STAGE}/ file://{DATA}/out/ PATTERN='.*f[12][.]csv[.]gz'",
+    "runs": {
+      "TABLE": {
+        "stdout": "GET @~/{STAGE}/ file://{DATA}/out/ PATTERN='.*f[12][.]csv[.]gz'\n+-----------------------------------------+\n| file      | size | status     | message |\n|-----------+------+------------+---------|\n| f1.csv.gz | 37   | DOWNLOADED |         |\n| f2.csv.gz | 31   | DOWNLOADED |         |\n+-----------------------------------------+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"file\": \"f1.csv.gz\",\n        \"size\": 37,\n        \"status\": \"DOWNLOADED\",\n        \"message\": \"\"\n    },\n    {\n        \"file\": \"f2.csv.gz\",\n        \"size\": 31,\n        \"status\": \"DOWNLOADED\",\n        \"message\": \"\"\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "file,size,status,message\nf1.csv.gz,37,DOWNLOADED,\nf2.csv.gz,31,DOWNLOADED,\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "select_then_put",
+    "sql": "SELECT 1 AS a; PUT file://{DATA}/f2.csv @~/{STAGE}/sub/ OVERWRITE=TRUE",
+    "runs": {
+      "TABLE": {
+        "stdout": "SELECT 1 AS a;\n+---+\n| A |\n|---|\n| 1 |\n+---+\nPUT file://{DATA}/f2.csv @~/{STAGE}/sub/ OVERWRITE=TRUE\n+---------------------------------------------------------------------------------------------------------------+\n| source | target    | source_size | target_size | source_compression | target_compression | status   | message |\n|--------+-----------+-------------+-------------+--------------------+--------------------+----------+---------|\n| f2.csv | f2.csv.gz | 2           | 32          | NONE               | GZIP               | UPLOADED |         |\n+---------------------------------------------------------------------------------------------------------------+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "A\n1\n\nsource,target,source_size,target_size,source_compression,target_compression,status,message\nf2.csv,f2.csv.gz,2,32,NONE,GZIP,UPLOADED,\n\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "error_missing_file",
+    "sql": "PUT file:///nonexistent/x.csv @~/{STAGE}/",
+    "runs": {
+      "TABLE": {
+        "stdout": "PUT file:///nonexistent/x.csv @~/{STAGE}/\n",
+        "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 253006: 253006: File doesn't exist: ['/nonexistent/x.csv']                   │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n",
+        "exit": 1
+      }
+    }
+  },
+  {
+    "name": "error_directory",
+    "sql": "PUT file:///tmp @~/{STAGE}/",
+    "runs": {
+      "TABLE": {
+        "stdout": "PUT file:///tmp @~/{STAGE}/\n",
+        "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 253006: 253006: Not a file but a directory: /tmp                             │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n",
+        "exit": 1
+      }
+    }
+  },
+  {
+    "name": "error_unsupported_compression",
+    "sql": "PUT file://{DATA}/z.xz @~/{STAGE}/",
+    "runs": {
+      "TABLE": {
+        "stdout": "PUT file://{DATA}/z.xz @~/{STAGE}/\n",
+        "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 253007: 253007: Feature is not supported: CompressionType(name='XZ',         │\n│ file_extension='.xz', mime_type='application', mime_subtypes=['xz', 'x-xz'], │\n│ is_supported=False)                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n",
+        "exit": 1
+      }
+    }
+  },
+  {
+    "name": "error_local_path",
+    "sql": "GET @~/{STAGE}/ file:///nonexistent/",
+    "runs": {
+      "TABLE": {
+        "stdout": "GET @~/{STAGE}/ file:///nonexistent/\n",
+        "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 253005: 253005: The local path is not a directory: /nonexistent/             │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n",
+        "exit": 1
+      }
+    }
+  },
+  {
+    "name": "error_nothing_to_get",
+    "sql": "GET @~/{STAGE}/none/ file://{DATA}/out/",
+    "runs": {
+      "TABLE": {
+        "stdout": "GET @~/{STAGE}/none/ file://{DATA}/out/\n",
+        "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 253006: 253006: While getting file(s) there was an error: the file does not  │\n│ exist.                                                                       │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n",
+        "exit": 1
+      }
+    }
+  }
+]

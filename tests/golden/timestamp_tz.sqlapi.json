@@ -1,0 +1,85 @@
+{
+ "sql": "SELECT '2024-01-02 03:04:05 +02:00'::TIMESTAMP_TZ AS tz, '2024-01-02 03:04:05.5 -05:30'::TIMESTAMP_TZ(3) AS tz3, '2024-01-02 03:04:05 +00:00'::TIMESTAMP_TZ AS tz_utc, '1960-06-01 12:00:00.123 +14:00'::TIMESTAMP_TZ(3) AS tz_pre",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 112
+    }
+   ],
+   "rowType": [
+    {
+     "name": "TZ",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_tz",
+     "scale": 9
+    },
+    {
+     "name": "TZ3",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_tz",
+     "scale": 3
+    },
+    {
+     "name": "TZ_UTC",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_tz",
+     "scale": 9
+    },
+    {
+     "name": "TZ_PRE",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_tz",
+     "scale": 3
+    }
+   ]
+  },
+  "data": [
+   [
+    "1704157445.000000000 1560",
+    "1704184445.500 1110",
+    "1704164645.000000000 1440",
+    "-302493599.877 2280"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=5729bfb0-bb60-4fba-81d6-e01e52a4020e",
+  "requestId": "5729bfb0-bb60-4fba-81d6-e01e52a4020e",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207317373
+ },
+ "partitions": []
+}

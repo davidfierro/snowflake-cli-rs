@@ -1,0 +1,19 @@
+{
+ "case": {
+  "name": "json_and_url_filters",
+  "query": "select '<% {'a': n, 'b': [1, none]} | tojson %>' as a, '<% 'a b/c?d=é' | urlencode %>' as b",
+  "variables": [
+   "n=1"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select '{\"a\": \"1\", \"b\": [1, null]}' as a, 'a%20b/c%3Fd%3D%C3%A9' as b"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

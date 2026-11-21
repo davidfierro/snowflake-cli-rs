@@ -1,0 +1,28 @@
+{
+ "case": {
+  "name": "opt_missing_equals",
+  "query": "select 1 as n",
+  "options": [
+   "-o",
+   " x "
+  ],
+  "no_request": true,
+  "formats": [
+   "table",
+   "json"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Invalid option 'x'. Use -o <option>=<value>.                                 │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "json": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Invalid option 'x'. Use -o <option>=<value>.                                 │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ },
+ "exchanges": []
+}

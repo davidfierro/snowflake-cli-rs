@@ -1,0 +1,266 @@
+{
+ "case": {
+  "name": "two_files",
+  "files": [
+   "select 1 as first_file;\nselect 'a' as s union all select 'b';\n",
+   "-- second file\nselect 2 as second_file;\nselect 3 as unterminated"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "select 1 as first_file;\n+------------+\n| FIRST_FILE |\n|------------|\n| 1          |\n+------------+\nselect 'a' as s union all select 'b';\n+---+\n| S |\n|---|\n| a |\n| b |\n+---+\nselect 2 as second_file;\n+-------------+\n| SECOND_FILE |\n|-------------|\n| 2           |\n+-------------+\nselect 3 as unterminated\n+--------------+\n| UNTERMINATED |\n|--------------|\n| 3            |\n+--------------+\n",
+   "stderr": ""
+  },
+  "plain": {
+   "exit": 0,
+   "stdout": "select 1 as first_file;\nFIRST_FILE\n1         \nselect 'a' as s union all select 'b';\nS\na\nb\nselect 2 as second_file;\nSECOND_FILE\n2          \nselect 3 as unterminated\nUNTERMINATED\n3           \n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n  [\n    {\n      \"FIRST_FILE\"  :   1\n    }\n  ],\n  [\n    {\n      \"S\"  :   \"a\"\n    }  ,\n    {\n      \"S\"  :   \"b\"\n    }\n  ],\n  [\n    {\n      \"SECOND_FILE\"  :   2\n    }\n  ],\n  [\n    {\n      \"UNTERMINATED\"  :   3\n    }\n  ]\n]\n\n",
+   "stderr": ""
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "FIRST_FILE\n1\n\nS\na\nb\n\nSECOND_FILE\n2\n\nUNTERMINATED\n3\n\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 57
+      }
+     ],
+     "rowType": [
+      {
+       "name": "multiple statement execution",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 134217728,
+       "nullable": false,
+       "collation": null,
+       "length": 134217728,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "Multiple statements executed successfully."
+     ]
+    ],
+    "code": "090001",
+    "statementHandles": [
+     "01234567-0000-0000-0000-000000000001",
+     "01234567-0000-0000-0000-000000000002",
+     "01234567-0000-0000-0000-000000000003",
+     "01234567-0000-0000-0000-000000000004"
+    ],
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000005?requestId=01234567-0000-0000-0000-000000000006",
+    "requestId": "01234567-0000-0000-0000-000000000006",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000005",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257130958
+   },
+   "statement": "select 1 as first_file;\nselect 'a' as s union all select 'b';\nselect 2 as second_file;\nselect 3 as unterminated\n;",
+   "parameters": {
+    "MULTI_STATEMENT_COUNT": "4"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000001",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "FIRST_FILE",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000007",
+    "requestId": "01234567-0000-0000-0000-000000000007",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257131143
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000002",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 2,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 2,
+       "uncompressedSize": 23
+      }
+     ],
+     "rowType": [
+      {
+       "name": "S",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 4,
+       "nullable": false,
+       "collation": null,
+       "length": 1,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "a"
+     ],
+     [
+      "b"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000002?requestId=01234567-0000-0000-0000-000000000008",
+    "requestId": "01234567-0000-0000-0000-000000000008",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000002",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257131198
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000003",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "SECOND_FILE",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "2"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000003?requestId=01234567-0000-0000-0000-000000000009",
+    "requestId": "01234567-0000-0000-0000-000000000009",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000003",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257131262
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000004",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "UNTERMINATED",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "3"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000004?requestId=01234567-0000-0000-0000-000000000010",
+    "requestId": "01234567-0000-0000-0000-000000000010",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000004",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257131308
+   }
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "case": {
+  "name": "default_filter_and_defined_test",
+  "query": "select '<% zz | default('dflt') %>' as a, '<% zz is defined %>' as b, '<% a is defined %>' as c",
+  "variables": [
+   "a=1"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'dflt' as a, 'False' as b, 'True' as c"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

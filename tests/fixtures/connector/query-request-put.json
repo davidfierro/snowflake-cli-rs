@@ -1,0 +1,75 @@
+{
+  "code": null,
+  "data": {
+    "autoCompress": true,
+    "clientShowEncryptionParameter": true,
+    "command": "UPLOAD",
+    "encryptionMaterial": {
+      "queryId": "<queryId>",
+      "queryStageMasterKey": "<queryStageMasterKey>",
+      "smkId": 0
+    },
+    "kind": null,
+    "operation": "Node",
+    "overwrite": false,
+    "parallel": 4,
+    "queryId": "<queryId>",
+    "sourceCompression": "auto_detect",
+    "src_locations": [
+      "<src_locations>"
+    ],
+    "stageInfo": {
+      "bucketName": null,
+      "ciphers": "AES_CBC",
+      "credExpiryTime": 1795294182000,
+      "creds": {
+        "AWS_ID": "<AWS_ID>",
+        "AWS_KEY": "<AWS_KEY>",
+        "AWS_KEY_ID": "<AWS_KEY_ID>",
+        "AWS_SECRET_KEY": "<AWS_SECRET_KEY>",
+        "AWS_TOKEN": "<AWS_TOKEN>"
+      },
+      "encryptionKmsKeyId": null,
+      "endPoint": null,
+      "isClientSideEncrypted": true,
+      "location": "<location>",
+      "locationType": "S3",
+      "path": "<path>",
+      "pathPrefix": null,
+      "presignedUrl": null,
+      "region": "<region>",
+      "storageAccount": null,
+      "useS3RegionalUrl": false,
+      "useVirtualUrl": false,
+      "volumeEncryptionMode": null
+    },
+    "threshold": 209715200,
+    "uploadInfo": {
+      "bucketName": null,
+      "ciphers": "AES_CBC",
+      "credExpiryTime": 1795294182000,
+      "creds": {
+        "AWS_ID": "<AWS_ID>",
+        "AWS_KEY": "<AWS_KEY>",
+        "AWS_KEY_ID": "<AWS_KEY_ID>",
+        "AWS_SECRET_KEY": "<AWS_SECRET_KEY>",
+        "AWS_TOKEN": "<AWS_TOKEN>"
+      },
+      "encryptionKmsKeyId": null,
+      "endPoint": null,
+      "isClientSideEncrypted": true,
+      "location": "<location>",
+      "locationType": "S3",
+      "path": "<path>",
+      "pathPrefix": null,
+      "presignedUrl": null,
+      "region": "<region>",
+      "storageAccount": null,
+      "useS3RegionalUrl": false,
+      "useVirtualUrl": false,
+      "volumeEncryptionMode": null
+    }
+  },
+  "message": null,
+  "success": true
+}

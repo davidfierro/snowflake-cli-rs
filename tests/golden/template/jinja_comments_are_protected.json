@@ -1,0 +1,23 @@
+{
+ "case": {
+  "name": "jinja_comments_are_protected",
+  "query": "-- {{ zz }} is not rendered\nselect {{ n }} as a; /* {% if %} */ select '-- {{ n }}' as b",
+  "variables": [
+   "n=5"
+  ],
+  "templating": [
+   "JINJA"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 5 as a;",
+    "select '-- 5' as b"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

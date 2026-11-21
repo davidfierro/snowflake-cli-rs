@@ -1,0 +1,19 @@
+{
+ "case": {
+  "name": "project_mixins_rendered",
+  "query": "select '<% ctx.mixins.m.x %>' as a",
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  a: one\nmixins:\n  m:\n    x: \"<% ctx.env.a %>!\"\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'one!' as a"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

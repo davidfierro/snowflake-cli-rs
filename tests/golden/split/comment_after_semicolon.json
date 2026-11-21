@@ -1,0 +1,40 @@
+{
+ "connector": "4.8.1",
+ "text": "select 1;   -- one\nselect 2; /* two */ select 3;\nselect 4;\t\n",
+ "remove_comments": [
+  [
+   "select 1;",
+   false
+  ],
+  [
+   "select 2;",
+   false
+  ],
+  [
+   "select 3;",
+   false
+  ],
+  [
+   "select 4;",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "select 1;   -- one",
+   false
+  ],
+  [
+   "select 2;",
+   false
+  ],
+  [
+   "/* two */ select 3;",
+   false
+  ],
+  [
+   "select 4;",
+   false
+  ]
+ ]
+}

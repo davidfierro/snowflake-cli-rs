@@ -1,0 +1,82 @@
+{
+ "case": {
+  "name": "template_both_listed",
+  "query": "select &a as a",
+  "variables": [
+   "a=1"
+  ],
+  "templating": [
+   "LEGACY",
+   "STANDARD"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "Warning: &{ ... } syntax is deprecated and will no longer be supported. Use <% ... %> syntax instead.\nselect 1 as a\n+---+\n| A |\n|---|\n| 1 |\n+---+\n",
+   "stderr": ""
+  },
+  "plain": {
+   "exit": 0,
+   "stdout": "Warning: &{ ... } syntax is deprecated and will no longer be supported. Use <% ... %> syntax instead.\nselect 1 as a\nA\n1\n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n    {\n        \"A\": 1\n    }\n]\n",
+   "stderr": ""
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "A\n1\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "A",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795259385111
+   },
+   "statement": "select 1 as a"
+  }
+ ]
+}

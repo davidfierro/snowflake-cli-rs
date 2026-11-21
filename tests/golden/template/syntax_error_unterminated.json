@@ -1,0 +1,27 @@
+{
+ "case": {
+  "name": "syntax_error_unterminated",
+  "query": "select <% a %",
+  "variables": [
+   "a=1"
+  ],
+  "formats": [
+   "table",
+   "json"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "\nAn unexpected exception occurred. Use --debug option to see the traceback. Exception message:\n\nunexpected 'end of template'\n",
+   "stderr": "To send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "json": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

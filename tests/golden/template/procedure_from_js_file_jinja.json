@@ -1,0 +1,22 @@
+{
+ "case": {
+  "name": "procedure_from_js_file_jinja",
+  "query": "select $${{ 'f.js' | procedure_from_js_file }}$$ as a",
+  "templating": [
+   "JINJA"
+  ],
+  "project": {
+   "f.js": "module.exports = () => 1;"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select $$var module = {};\nvar exports = {};\nmodule.exports = exports;\n(function() {\nmodule.exports = () => 1;\n})()\nreturn module.exports.apply(this, arguments);\n$$ as a"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

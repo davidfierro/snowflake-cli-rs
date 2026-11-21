@@ -1,0 +1,22 @@
+{
+ "case": {
+  "name": "jinja_set_and_macro",
+  "query": "{% set x = n | int * 2 %}{% macro m(v) %}'<{{ v }}>'{% endmacro %}select {{ x }} as a, {{ m(n) }} as b",
+  "variables": [
+   "n=4"
+  ],
+  "templating": [
+   "JINJA"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 8 as a, '<4>' as b"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

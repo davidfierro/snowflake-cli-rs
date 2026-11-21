@@ -1,0 +1,19 @@
+{
+ "case": {
+  "name": "project_v1_ignores_templates_and_env",
+  "query": "select '<% ctx.definition_version %>' as a, '<% ctx.streamlit.name %>' as b",
+  "project": {
+   "snowflake.yml": "definition_version: 1\nstreamlit:\n  name: \"<% ctx.env.x %>\"\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select '1' as a, '<% ctx.env.x %>' as b"
+   ],
+   "stdout": "Ignoring template pattern in project definition file. Update 'definition_version' to 1.1 or later in snowflake.yml to enable template expansion.\n",
+   "stderr": ""
+  }
+ }
+}

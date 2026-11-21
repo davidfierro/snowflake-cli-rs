@@ -1,0 +1,99 @@
+{
+ "sql": "SELECT 1 AS A, 2 AS A, 3 AS A_2, 4 AS A, 5 AS B",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 21
+    }
+   ],
+   "rowType": [
+    {
+     "name": "A",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "A",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "A_2",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "A",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "B",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    }
+   ]
+  },
+  "data": [
+   [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=6e588f84-cec9-4448-a74c-f29c6c8544de",
+  "requestId": "6e588f84-cec9-4448-a74c-f29c6c8544de",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207353276
+ },
+ "partitions": []
+}

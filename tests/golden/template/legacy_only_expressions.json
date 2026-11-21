@@ -1,0 +1,22 @@
+{
+ "case": {
+  "name": "legacy_only_expressions",
+  "query": "select &{ n | int * 10 } as b, '<% n %>' as c",
+  "variables": [
+   "n=2"
+  ],
+  "templating": [
+   "LEGACY"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 20 as b, '<% n %>' as c"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "case": {
+  "name": "read_file_content",
+  "query": "select '<% 'body.txt' | read_file_content %>' as a",
+  "project": {
+   "snowflake.yml": "definition_version: 2\n",
+   "body.txt": "hello"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'hello' as a"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

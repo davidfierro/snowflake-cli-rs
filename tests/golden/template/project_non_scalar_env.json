@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "project_non_scalar_env",
+  "query": "select '<% ctx.env.a %>'",
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  a: [1]\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Failed to read snowflake.yml file: During evaluation of DefinitionV20 in     │\n│ project definition following errors were encountered:                        │\n│ For field env.a.int you provided '['1']'. This caused: Input should be a     │\n│ valid integer                                                                │\n│ For field env.a.bool you provided '['1']'. This caused: Input should be a    │\n│ valid boolean                                                                │\n│ Input should be a valid string for field 'env.a.str', you provided '['1']'.  │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "case": {
+  "name": "read_file_content_jinja",
+  "query": "select '{{ 'sub/body.txt' | read_file_content }}' as a",
+  "templating": [
+   "JINJA"
+  ],
+  "project": {
+   "sub/body.txt": "nested"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'nested' as a"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "case": {
+  "name": "json_ext_empty",
+  "query": "select parse_json('[1]') as v where false",
+  "formats": [
+   "json_ext"
+  ]
+ },
+ "outputs": {
+  "json_ext": {
+   "exit": 0,
+   "stdout": "[]\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 0,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 0,
+       "uncompressedSize": 0
+      }
+     ],
+     "rowType": [
+      {
+       "name": "V",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      }
+     ]
+    },
+    "data": [],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795271475362
+   },
+   "statement": "select parse_json('[1]') as v where false"
+  }
+ ]
+}

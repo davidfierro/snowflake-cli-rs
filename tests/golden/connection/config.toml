@@ -1,0 +1,42 @@
+default_connection_name = "full"
+
+[cli]
+ignore_new_version_warning = false
+air_gapped = false
+auto_upgrade = false
+auto_upgrade_allow_major = false
+
+[cli.logs]
+save_logs = true
+path = "{HOME}/logs"
+level = "info"
+
+[connections.dev]
+account = "acc"
+user = "me"
+
+[connections.full]
+account = "a2"
+user = "u2"
+password = "pw"
+host = "H"
+region = "reg"
+port = 443
+protocol = "https"
+database = "D"
+schema = "S"
+warehouse = "W"
+role = "R"
+authenticator = "snowflake_jwt"
+workload_identity_provider = "aws"
+private_key_file = "key.p8"
+token_file_path = "token.txt"
+client_store_temporary_credential = true
+secondary_roles = "ALL"
+server_session_keep_alive = true
+
+[connections.quoted]
+account = "it's"
+user = 'say "hi"'
+private_key_file_pwd = "p"
+role = "a,b"

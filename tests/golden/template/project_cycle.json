@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "project_cycle",
+  "query": "select '<% ctx.env.a %>'",
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  a: \"<% ctx.env.b %>\"\n  b: \"<% ctx.env.a %>\"\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Failed to read snowflake.yml file: Cycle detected in template variable       │\n│ ctx.env.a                                                                    │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

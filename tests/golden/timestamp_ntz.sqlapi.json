@@ -1,0 +1,99 @@
+{
+ "sql": "SELECT '2024-01-02 03:04:05.123456789'::TIMESTAMP_NTZ(9) AS ntz9, '2024-01-02 03:04:05'::TIMESTAMP_NTZ AS ntz0, '2024-01-02 03:04:05.5'::TIMESTAMP_NTZ(3) AS ntz3, '1960-01-01 00:00:00.25'::TIMESTAMP_NTZ AS ntz_pre, '2024-01-02 03:04:05.000000999'::TIMESTAMP_NTZ(9) AS ntz_nanos",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 121
+    }
+   ],
+   "rowType": [
+    {
+     "name": "NTZ9",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_ntz",
+     "scale": 9
+    },
+    {
+     "name": "NTZ0",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_ntz",
+     "scale": 9
+    },
+    {
+     "name": "NTZ3",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_ntz",
+     "scale": 3
+    },
+    {
+     "name": "NTZ_PRE",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_ntz",
+     "scale": 9
+    },
+    {
+     "name": "NTZ_NANOS",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_ntz",
+     "scale": 9
+    }
+   ]
+  },
+  "data": [
+   [
+    "1704164645.123456789",
+    "1704164645.000000000",
+    "1704164645.500",
+    "-315619199.750000000",
+    "1704164645.000000999"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=afdda11f-cbb2-4658-ad0d-f3aace779746",
+  "requestId": "afdda11f-cbb2-4658-ad0d-f3aace779746",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207308417
+ },
+ "partitions": []
+}

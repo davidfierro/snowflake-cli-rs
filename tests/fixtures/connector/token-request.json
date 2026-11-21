@@ -1,0 +1,13 @@
+{
+  "code": null,
+  "data": {
+    "masterToken": "<masterToken>",
+    "sessionId": 0,
+    "sessionToken": "<sessionToken>",
+    "validityInSecondsMT": 14399,
+    "validityInSecondsST": 3599
+  },
+  "message": null,
+  "responseType": "SessionTokenResponse",
+  "success": true
+}

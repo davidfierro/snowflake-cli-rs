@@ -1,0 +1,20 @@
+{
+ "case": {
+  "name": "project_extra_field",
+  "query": "select <% a %>",
+  "variables": [
+   "a=1"
+  ],
+  "project": {
+   "snowflake.yml": "definition_version: 2\nother: x\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Failed to read snowflake.yml file: During evaluation of DefinitionV20 in     │\n│ project definition following errors were encountered:                        │\n│ Extra inputs are not permitted. You provided field 'other' with value 'x'    │\n│ that is not supported in given version.                                      │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

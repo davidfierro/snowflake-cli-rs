@@ -1,0 +1,40 @@
+{
+ "connector": "4.8.1",
+ "text": "PUT file:///tmp/a @s;\nget @s file:///tmp; select 1;\n  put x;",
+ "remove_comments": [
+  [
+   "PUT file:///tmp/a @s;",
+   true
+  ],
+  [
+   "get @s file:///tmp;",
+   true
+  ],
+  [
+   "select 1;",
+   false
+  ],
+  [
+   "put x;",
+   true
+  ]
+ ],
+ "keep_comments": [
+  [
+   "PUT file:///tmp/a @s;",
+   true
+  ],
+  [
+   "get @s file:///tmp;",
+   true
+  ],
+  [
+   "select 1;",
+   false
+  ],
+  [
+   "put x;",
+   true
+  ]
+ ]
+}

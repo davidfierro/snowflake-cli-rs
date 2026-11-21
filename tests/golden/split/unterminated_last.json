@@ -1,0 +1,24 @@
+{
+ "connector": "4.8.1",
+ "text": "select 1;\nselect 2\n  from dual",
+ "remove_comments": [
+  [
+   "select 1;",
+   false
+  ],
+  [
+   "select 2\n  from dual",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "select 1;",
+   false
+  ],
+  [
+   "select 2\n  from dual",
+   false
+  ]
+ ]
+}

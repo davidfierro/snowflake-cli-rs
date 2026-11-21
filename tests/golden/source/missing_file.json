@@ -1,0 +1,10 @@
+{
+ "snow": "3.34.0",
+ "statements": [
+  "select 1;",
+  "select 2;"
+ ],
+ "errors": [
+  "Could not read: files/missing.sql"
+ ]
+}

@@ -1,0 +1,7 @@
+{
+ "snow": "3.34.0",
+ "statements": [],
+ "errors": [
+  "Recursion detected: <root>/files/self.sql"
+ ]
+}

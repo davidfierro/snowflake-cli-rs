@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "undefined_attribute",
+  "query": "select <% a.upper %>; select <% d.k %>; select <% a.upper() %>; select <% zz.x %>; select <% zz(1) %>; select 1",
+  "variables": [
+   "a=q"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "SQL template rendering error: 'str object' has no attribute 'upper'\nSQL template rendering error: 'd' is undefined\nSQL template rendering error: 'str object' has no attribute 'upper'\nSQL template rendering error: 'zz' is undefined\nSQL template rendering error: 'zz' is undefined\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

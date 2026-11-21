@@ -1,0 +1,19 @@
+{
+ "case": {
+  "name": "project_env_section",
+  "query": "select '<% ctx.env.a %>' as a, '<% ctx.env.b %>' as b, '<% ctx.env.c %>' as c, '<% ctx.definition_version %>' as v, '<% ctx.entities %>' as e",
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  a: one\n  b: \"x<% ctx.env.a %>\"\n  c: 007\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'one' as a, 'xone' as b, '007' as c, '2' as v, '{}' as e"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

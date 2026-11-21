@@ -1,0 +1,306 @@
+# `snow sql` golden cases (ADR 0004, Decision 7). Synthetic SQL only: never read a table, and no
+# statement whose output or error names the role, user, database, warehouse or account.
+# Capture: scripts/capture-goldens.sh --sql [case ...]; tests/sql_golden.rs replays them offline.
+# Keys: query (-q), files (contents, one -f each, in order), stdin (-i), retain_comments, silent,
+# variables (-D, in order), templating (--enable-templating, in order), single_transaction,
+# no_request (snow-rs fails before sending anything), formats (default: table, plain, json,
+# csv), deviation (see below).
+
+[[case]]
+name = "query_single"
+query = "select 1 as a, 'x' as b"
+
+[[case]]
+name = "query_three"
+query = "select 1 as a, 2 as b union all select 3, 4; select 'x;y' as c; select 1 as z where false"
+
+[[case]]
+name = "two_files"
+files = [
+    "select 1 as first_file;\nselect 'a' as s union all select 'b';\n",
+    "-- second file\nselect 2 as second_file;\nselect 3 as unterminated",
+]
+
+[[case]]
+name = "stdin"
+stdin = "select 10 as n;\nselect 'from stdin' as src;\n"
+
+[[case]]
+name = "use_schema_then_query"
+query = "use schema information_schema; select current_schema() as s"
+
+[[case]]
+name = "status_rows"
+query = "begin; alter session set query_tag = 'snow-rs-golden'; commit"
+
+[[case]]
+name = "empty_results"
+query = "select 1 as a where false; select 2 as b where false"
+
+[[case]]
+name = "compile_error_middle"
+query = "select 1 as a; select no_such_function_xyz(1); select 2 as b"
+
+[[case]]
+name = "syntax_error_middle"
+query = "select 1 as a;\nselec 2;\nselect 3 as b"
+
+# Execution errors in a multi-statement run: the documented deviation (ADR 0004, Decision 5):
+# the panel has no sqlState. `deviation` names the text snow prints that snow-rs does not.
+[[case]]
+name = "execution_error_middle"
+query = "select 1 as a; select 1/0 as boom; select 2 as b"
+deviation = " (22012)"
+
+[[case]]
+name = "error_first"
+query = "select 1/0 as boom; select 2 as b"
+deviation = " (22012)"
+
+[[case]]
+name = "stray_semicolon"
+files = ["select 1 as a;\n;\nselect 2 as b;\n"]
+
+[[case]]
+name = "retain_comments"
+query = "-- leading comment\nselect 1 as a; -- trailing\n/* block */ select 2 as b;"
+retain_comments = true
+
+[[case]]
+name = "comments_removed"
+query = "-- leading comment\nselect 1 as a; -- trailing\n/* block */ select 2 as b;"
+
+[[case]]
+name = "silent"
+query = "select 1 as a; select 2 as b"
+silent = true
+
+[[case]]
+name = "timezone_change"
+query = "alter session set timezone = 'Asia/Tokyo'; select '2024-01-02 03:04:05 +00:00'::timestamp_ltz as ltz"
+
+[[case]]
+name = "ltz_without_change"
+query = "select '2024-01-02 03:04:05 +00:00'::timestamp_ltz as ltz; select 1 as a"
+
+[[case]]
+name = "many_rows_two_statements"
+query = "select seq4() as i, 'row' || seq4() as s from table(generator(rowcount => 3000)); select 1 as done"
+formats = ["json", "csv"]
+
+# Templating and --single-transaction.
+[[case]]
+name = "template_legacy"
+query = "select &a as a, '&{b}' as b, &{ a } + 1 as c"
+variables = ["a=1", " b = two "]
+
+[[case]]
+name = "template_legacy_escape"
+query = "select '&&a' as a, '&a' as b"
+variables = ["a=1"]
+
+[[case]]
+name = "template_standard"
+query = "select <% a %> as a, '<%b%>' as b, <%   a   %> as c"
+variables = ["a=1", "b=two", "a=3"]
+
+[[case]]
+name = "template_per_statement_syntax"
+query = "select &a as a; select <% a %> as b"
+variables = ["a=1"]
+
+[[case]]
+name = "template_undefined"
+query = "select &a as a; select <% b %> as b; select 1 as c"
+no_request = true
+
+[[case]]
+name = "template_undefined_standard"
+query = "select <% a %> as a, <% zz %> as b"
+variables = ["a=1"]
+no_request = true
+
+[[case]]
+name = "template_mixed_syntaxes"
+query = "select &a as a, <% a %> as b"
+variables = ["a=1"]
+no_request = true
+
+[[case]]
+name = "template_none"
+query = "select '&a <% a %>' as a"
+variables = ["a=1"]
+templating = ["NONE"]
+
+[[case]]
+name = "template_legacy_only"
+query = "select '&a <% a %>' as a"
+variables = ["a=1"]
+templating = ["LEGACY"]
+
+[[case]]
+name = "template_standard_only"
+query = "select '&a &&a <% a %>' as a"
+variables = ["a=1"]
+templating = ["standard"]
+
+[[case]]
+name = "template_both_listed"
+query = "select &a as a"
+variables = ["a=1"]
+templating = ["LEGACY", "STANDARD"]
+
+[[case]]
+name = "template_files_each_rendered"
+files = ["select &a as first_file", "select <% a %> as second_file"]
+variables = ["a=7"]
+
+[[case]]
+name = "single_transaction"
+query = "select 1 as a; select 2 as b"
+single_transaction = true
+
+[[case]]
+name = "single_transaction_runtime_error"
+query = "select 1 as a; select 1/0 as boom; select 2 as b"
+single_transaction = true
+deviation = " (22012)"
+
+[[case]]
+name = "single_transaction_syntax_error"
+query = "select 1 as a;\nselec 2;\nselect 3 as b"
+single_transaction = true
+
+[[case]]
+name = "template_legacy_silent"
+query = "select &a as a"
+variables = ["a=1"]
+silent = true
+formats = ["table", "plain"]
+
+[[case]]
+name = "template_undefined_silent"
+query = "select &a as a"
+silent = true
+no_request = true
+formats = ["table"]
+
+# `-o key=value`. `options` are extra raw arguments (`{spool}` is the spool file of the
+# run, whose contents are recorded as `spool`); `bare` omits --format, so the format comes from
+# `-o output_format`.
+[[case]]
+name = "json_ext_semi_structured"
+query = """select object_construct('a', 1, 'b', array_construct(1, 'x', null, 1.5, true), 'c', object_construct(), 'd', array_construct(), 'é', 'ü😀', 'n', 12345678901234567890::number(38,0), 'f', 1e300::float, 'g', -0.0::float, 'z', null) as o, array_construct(1, array_construct(2, 3), object_construct('k', 'v')) as arr, parse_json('"hello"') as v1, parse_json('42') as v2, parse_json('[1,2]') as v3, parse_json('null') as v4, 1 as n, 'x' as s, to_variant(null) as v5, parse_json('1.0') as v6, parse_json('1e5') as v7, parse_json('0.1') as v8, parse_json('{"a":"\\u001b[1mx"}') as v9"""
+formats = ["json_ext", "json", "csv", "table"]
+
+[[case]]
+name = "json_ext_multi"
+query = "select parse_json('[1,{\"a\":[]}]') as v, object_construct('k', 1) as o; select 1 as n; select array_construct() as e, object_construct('x', array_construct(1, 2)) as o"
+formats = ["json_ext", "json"]
+
+[[case]]
+name = "json_ext_empty"
+query = "select parse_json('[1]') as v where false"
+formats = ["json_ext"]
+
+[[case]]
+name = "opt_quiet"
+query = "select 1 as n; select 2 as m"
+options = ["-o", "quiet=true"]
+
+[[case]]
+name = "opt_quiet_off_values"
+query = "select 1 as n"
+options = ["-o", "quiet=true", "-o", " QUIET = Off "]
+
+[[case]]
+name = "opt_output_file"
+query = "select 1 as n, 'x' as s; select 2 as m"
+options = ["-o", "output_file={spool}"]
+
+[[case]]
+name = "opt_output_file_single"
+query = "select 'é' as s, 1.5 as f"
+options = ["-o", "OUTPUT_FILE = '{spool}'"]
+
+[[case]]
+name = "opt_output_file_quiet"
+query = "select 1 as n; select 2 as m"
+options = ["-o", "output_file={spool}", "-o", "quiet=yes"]
+
+[[case]]
+name = "opt_output_file_last_wins"
+query = "select 1 as n"
+options = ["-o", "output_file={spool}.first", "-o", "output_file={spool}"]
+
+[[case]]
+name = "opt_output_file_empty"
+query = "select 1 as n"
+options = ["-o", "output_file=", "-o", "output_file={spool}", "-o", "output_file= "]
+formats = ["table", "json"]
+
+[[case]]
+name = "opt_output_file_json_ext"
+query = "select parse_json('[1,{\"a\":2}]') as v; select 1 as n"
+options = ["-o", "output_file={spool}"]
+formats = ["json_ext"]
+
+[[case]]
+name = "opt_output_format_csv"
+query = "select 1 as n, 'x' as s"
+options = ["-o", "output_format=csv"]
+bare = true
+
+[[case]]
+name = "opt_output_format_json_ext"
+query = "select parse_json('[1]') as v; select 2 as m"
+options = ["-o", "OUTPUT_FORMAT = json_ext "]
+bare = true
+
+[[case]]
+name = "opt_output_format_plain_last_wins"
+query = "select 1 as n"
+options = ["-o", "output_format=csv", "-o", "output_format=plain"]
+bare = true
+
+[[case]]
+name = "opt_unknown_key"
+query = "select 1 as n"
+options = ["-o", "header=false"]
+no_request = true
+formats = ["table", "json"]
+
+[[case]]
+name = "opt_missing_equals"
+query = "select 1 as n"
+options = ["-o", " x "]
+no_request = true
+formats = ["table", "json"]
+
+[[case]]
+name = "opt_quiet_invalid"
+query = "select 1 as n"
+options = ["-o", "output_file={spool}", "-o", "quiet=maybe"]
+no_request = true
+formats = ["table", "json"]
+
+[[case]]
+name = "opt_output_format_invalid"
+query = "select 1 as n"
+options = ["-o", "output_format=xml"]
+no_request = true
+bare = true
+
+[[case]]
+name = "opt_output_format_empty"
+query = "select 1 as n"
+options = ["-o", "output_format="]
+no_request = true
+bare = true
+
+[[case]]
+name = "opt_output_format_conflicts_with_format"
+query = "select 1 as n"
+options = ["-o", "output_format=csv"]
+no_request = true
+formats = ["table", "json"]

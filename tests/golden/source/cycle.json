@@ -1,0 +1,10 @@
+{
+ "snow": "3.34.0",
+ "statements": [
+  "select 'c1';",
+  "select 'c2';"
+ ],
+ "errors": [
+  "Recursion detected: <root>/files/cycle1.sql -> <root>/files/cycle2.sql"
+ ]
+}

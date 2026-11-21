@@ -1,0 +1,32 @@
+{
+ "case": {
+  "name": "opt_quiet_invalid",
+  "query": "select 1 as n",
+  "options": [
+   "-o",
+   "output_file={spool}",
+   "-o",
+   "quiet=maybe"
+  ],
+  "no_request": true,
+  "formats": [
+   "table",
+   "json"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Invalid value for quiet: 'maybe'. Use true or false.                         │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n",
+   "spool": ""
+  },
+  "json": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Invalid value for quiet: 'maybe'. Use true or false.                         │\n╰──────────────────────────────────────────────────────────────────────────────╯\n",
+   "spool": ""
+  }
+ },
+ "exchanges": []
+}

@@ -1,0 +1,32 @@
+{
+ "connector": "4.8.1",
+ "text": "select 1;\r\nselect 'a\r\nb';\r\n-- c\r\nselect 3\r\n",
+ "remove_comments": [
+  [
+   "select 1;",
+   false
+  ],
+  [
+   "select 'a\r\nb';",
+   false
+  ],
+  [
+   "select 3",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "select 1;",
+   false
+  ],
+  [
+   "select 'a\r\nb';",
+   false
+  ],
+  [
+   "-- c\r\nselect 3",
+   false
+  ]
+ ]
+}

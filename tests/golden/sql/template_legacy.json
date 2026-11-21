@@ -1,0 +1,107 @@
+{
+ "case": {
+  "name": "template_legacy",
+  "query": "select &a as a, '&{b}' as b, &{ a } + 1 as c",
+  "variables": [
+   "a=1",
+   " b = two "
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "Warning: &{ ... } syntax is deprecated and will no longer be supported. Use <% ... %> syntax instead.\nselect 1 as a, 'two' as b, 1 + 1 as c\n+-------------+\n| A | B   | C |\n|---+-----+---|\n| 1 | two | 2 |\n+-------------+\n",
+   "stderr": ""
+  },
+  "plain": {
+   "exit": 0,
+   "stdout": "Warning: &{ ... } syntax is deprecated and will no longer be supported. Use <% ... %> syntax instead.\nselect 1 as a, 'two' as b, 1 + 1 as c\nA  B    C\n1  two  2\n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n    {\n        \"A\": 1,\n        \"B\": \"two\",\n        \"C\": 2\n    }\n]\n",
+   "stderr": ""
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "A,B,C\n1,two,2\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 15
+      }
+     ],
+     "rowType": [
+      {
+       "name": "A",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      },
+      {
+       "name": "B",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 12,
+       "nullable": false,
+       "collation": null,
+       "length": 3,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "C",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 2,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1",
+      "two",
+      "2"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795259207497
+   },
+   "statement": "select 1 as a, 'two' as b, 1 + 1 as c"
+  }
+ ]
+}

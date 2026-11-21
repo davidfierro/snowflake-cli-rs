@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "snowsql_variables_need_the_alternative_provider",
+  "query": "select '<% name %>' as a",
+  "home_files": {
+   "config": "[variables]\nname = from_snowsql\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "SQL template rendering error: 'name' is undefined\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

@@ -1,0 +1,237 @@
+{
+ "case": {
+  "name": "json_ext_multi",
+  "query": "select parse_json('[1,{\"a\":[]}]') as v, object_construct('k', 1) as o; select 1 as n; select array_construct() as e, object_construct('x', array_construct(1, 2)) as o",
+  "formats": [
+   "json_ext",
+   "json"
+  ]
+ },
+ "outputs": {
+  "json_ext": {
+   "exit": 0,
+   "stdout": "[\n  [\n    {\n      \"V\"  :   [\n        1  ,\n        {\n          \"a\"  :   []\n        }\n      ]  ,\n      \"O\"  :   {\n        \"k\"  :   1\n      }\n    }\n  ],\n  [\n    {\n      \"N\"  :   1\n    }\n  ],\n  [\n    {\n      \"E\"  :   []  ,\n      \"O\"  :   {\n        \"x\"  :   [\n          1  ,\n          2\n        ]\n      }\n    }\n  ]\n]\n\n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n  [\n    {\n      \"V\"  :   \"[\\n  1,\\n  {\\n    \\\"a\\\": []\\n  }\\n]\"  ,\n      \"O\"  :   \"{\\n  \\\"k\\\": 1\\n}\"\n    }\n  ],\n  [\n    {\n      \"N\"  :   1\n    }\n  ],\n  [\n    {\n      \"E\"  :   \"[]\"  ,\n      \"O\"  :   \"{\\n  \\\"x\\\": [\\n    1,\\n    2\\n  ]\\n}\"\n    }\n  ]\n]\n\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 57
+      }
+     ],
+     "rowType": [
+      {
+       "name": "multiple statement execution",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 134217728,
+       "nullable": false,
+       "collation": null,
+       "length": 134217728,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "Multiple statements executed successfully."
+     ]
+    ],
+    "code": "090001",
+    "statementHandles": [
+     "01234567-0000-0000-0000-000000000001",
+     "01234567-0000-0000-0000-000000000002",
+     "01234567-0000-0000-0000-000000000003"
+    ],
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000004?requestId=01234567-0000-0000-0000-000000000005",
+    "requestId": "01234567-0000-0000-0000-000000000005",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000004",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795271469877
+   },
+   "statement": "select parse_json('[1,{\"a\":[]}]') as v, object_construct('k', 1) as o;\nselect 1 as n;\nselect array_construct() as e, object_construct('x', array_construct(1, 2)) as o\n;",
+   "parameters": {
+    "MULTI_STATEMENT_COUNT": "3"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000002",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "N",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000002?requestId=01234567-0000-0000-0000-000000000006",
+    "requestId": "01234567-0000-0000-0000-000000000006",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000002",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795271470343
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000001",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 69
+      }
+     ],
+     "rowType": [
+      {
+       "name": "V",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      },
+      {
+       "name": "O",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "object",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "[\n  1,\n  {\n    \"a\": []\n  }\n]",
+      "{\n  \"k\": 1\n}"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000007",
+    "requestId": "01234567-0000-0000-0000-000000000007",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795271470265
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000003",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 56
+      }
+     ],
+     "rowType": [
+      {
+       "name": "E",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "array",
+       "scale": null
+      },
+      {
+       "name": "O",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "object",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "[]",
+      "{\n  \"x\": [\n    1,\n    2\n  ]\n}"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000003?requestId=01234567-0000-0000-0000-000000000008",
+    "requestId": "01234567-0000-0000-0000-000000000008",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000003",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795271470395
+   }
+  }
+ ]
+}

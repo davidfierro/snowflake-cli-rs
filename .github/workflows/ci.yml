@@ -1,0 +1,71 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup show active-toolchain
+      - run: cargo fmt --all --check
+
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo clippy --all-targets --all-features -- -D warnings
+
+  test:
+    runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build --all-targets --all-features
+      - run: cargo test --all-features
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Swatinem/rust-cache@v2
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-llvm-cov
+      - run: cargo llvm-cov --workspace --all-features --fail-under-lines 90
+
+  deny:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EmbarkStudios/cargo-deny-action@v2
+        with:
+          command: check advisories bans licenses sources
+
+  # Single check to require on `main`: fails unless every job above succeeded
+  # (a skipped or cancelled dependency also fails it).
+  ci:
+    if: always()
+    needs: [fmt, clippy, test, coverage, deny]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require all jobs to succeed
+        run: |
+          echo '${{ toJSON(needs) }}'
+          test "${{ needs.fmt.result }}" = success \
+            && test "${{ needs.clippy.result }}" = success \
+            && test "${{ needs.test.result }}" = success \
+            && test "${{ needs.coverage.result }}" = success \
+            && test "${{ needs.deny.result }}" = success

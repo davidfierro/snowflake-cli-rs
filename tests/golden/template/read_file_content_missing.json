@@ -1,0 +1,15 @@
+{
+ "case": {
+  "name": "read_file_content_missing",
+  "query": "select '<% 'nope.txt' | read_file_content %>' as a",
+  "project_arg": true
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "\nAn unexpected exception occurred. Use --debug option to see the traceback. Exception message:\n\n[Errno 2] No such file or directory: PosixPath('<PROJECT>/nope.txt')\n",
+   "stderr": "To send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

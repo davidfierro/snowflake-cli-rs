@@ -1,0 +1,113 @@
+{
+ "sql": "SELECT TRUE AS t, FALSE AS f, 'café,\"x\"' AS s, '' AS empty, 'plain' AS p, ' padded ' AS sp",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 63
+    }
+   ],
+   "rowType": [
+    {
+     "name": "T",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "boolean",
+     "scale": null
+    },
+    {
+     "name": "F",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "boolean",
+     "scale": null
+    },
+    {
+     "name": "S",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 32,
+     "nullable": false,
+     "collation": null,
+     "length": 8,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "EMPTY",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 4,
+     "nullable": false,
+     "collation": null,
+     "length": 1,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "P",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 20,
+     "nullable": false,
+     "collation": null,
+     "length": 5,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "SP",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 32,
+     "nullable": false,
+     "collation": null,
+     "length": 8,
+     "type": "text",
+     "scale": null
+    }
+   ]
+  },
+  "data": [
+   [
+    "true",
+    "false",
+    "café,\"x\"",
+    "",
+    "plain",
+    " padded "
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=bb53ae0b-5ff8-4dd6-8569-c37592fd4fa3",
+  "requestId": "bb53ae0b-5ff8-4dd6-8569-c37592fd4fa3",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207281837
+ },
+ "partitions": []
+}

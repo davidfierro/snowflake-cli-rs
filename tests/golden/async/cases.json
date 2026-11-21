@@ -1,0 +1,352 @@
+[
+  {
+    "name": "alone",
+    "query": "select 1 as a;>",
+    "runs": {
+      "TABLE": {
+        "stdout": "select 1 as a\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "select 1 as a\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "scheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "then_sync",
+    "query": "select 1 as a;> select 2 as b;",
+    "runs": {
+      "TABLE": {
+        "stdout": "select 1 as a\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\nselect 2 as b;\n+---+\n| B |\n|---|\n| 2 |\n+---+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "select 1 as a\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nselect 2 as b;\nB\n2\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n[\n    {\n        \"B\": 2\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "scheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nB\n2\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "between_sync",
+    "query": "select 1 as a; select 2 as b;> select 3 as c;",
+    "runs": {
+      "TABLE": {
+        "stdout": "select 1 as a;\n+---+\n| A |\n|---|\n| 1 |\n+---+\nselect 2 as b\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\nselect 3 as c;\n+---+\n| C |\n|---|\n| 3 |\n+---+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "select 1 as a;\nA\n1\nselect 2 as b\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nselect 3 as c;\nC\n3\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n  [\n    {\n      \"A\"  :   1\n    }\n  ][\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n,\n  [\n    {\n      \"C\"  :   3\n    }\n  ]\n]\n\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "A\n1\n\nscheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nC\n3\n\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "after_one_sync",
+    "query": "select 1 as a; select 2 as b;>",
+    "runs": {
+      "TABLE": {
+        "stdout": "select 1 as a;\n+---+\n| A |\n|---|\n| 1 |\n+---+\nselect 2 as b\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "select 1 as a;\nA\n1\nselect 2 as b\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"A\": 1\n    }\n]\n[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "A\n1\nscheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "last_of_three",
+    "query": "select 1 as a; select 2 as b; select 3 as c;>",
+    "runs": {
+      "TABLE": {
+        "stdout": "select 1 as a;\n+---+\n| A |\n|---|\n| 1 |\n+---+\nselect 2 as b;\n+---+\n| B |\n|---|\n| 2 |\n+---+\nselect 3 as c\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "select 1 as a;\nA\n1\nselect 2 as b;\nB\n2\nselect 3 as c\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n  [\n    {\n      \"A\"  :   1\n    }\n  ],\n  [\n    {\n      \"B\"  :   2\n    }\n  ][\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n\n]\n\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "A\n1\n\nB\n2\n\nscheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "first_of_three",
+    "query": "select 1 as a;> select 2 as b; select 3 as c",
+    "runs": {
+      "TABLE": {
+        "stdout": "select 1 as a\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\nselect 2 as b;\n+---+\n| B |\n|---|\n| 2 |\n+---+\nselect 3 as c\n+---+\n| C |\n|---|\n| 3 |\n+---+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "select 1 as a\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nselect 2 as b;\nB\n2\nselect 3 as c\nC\n3\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n  [\n    {\n      \"B\"  :   2\n    }\n  ],\n  [\n    {\n      \"C\"  :   3\n    }\n  ]\n]\n\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "scheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nB\n2\n\nC\n3\n\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "two_in_a_row",
+    "query": "select 1 as a;>\nselect 2 as b ;>\nselect 3 as c;",
+    "runs": {
+      "TABLE": {
+        "stdout": "select 1 as a\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\nselect 2 as b \n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\nselect 3 as c;\n+---+\n| C |\n|---|\n| 3 |\n+---+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "select 1 as a\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nselect 2 as b \nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nselect 3 as c;\nC\n3\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n[\n    {\n        \"C\": 3\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "scheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nscheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nC\n3\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "not_checked",
+    "query": "selec 1;> select 2 as b",
+    "runs": {
+      "TABLE": {
+        "stdout": "selec 1\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\nselect 2 as b\n+---+\n| B |\n|---|\n| 2 |\n+---+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "selec 1\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nselect 2 as b\nB\n2\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n[\n    {\n        \"B\": 2\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "scheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nB\n2\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "files",
+    "files": [
+      "select 1 as a;>\nselect 2 as b;\n",
+      "select 3 as c;>\n"
+    ],
+    "runs": {
+      "TABLE": {
+        "stdout": "select 1 as a\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\nselect 2 as b;\n+---+\n| B |\n|---|\n| 2 |\n+---+\nselect 3 as c\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "select 1 as a\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nselect 2 as b;\nB\n2\nselect 3 as c\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n[\n    {\n        \"B\": 2\n    }\n]\n[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "scheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nB\n2\nscheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "stdin",
+    "stdin": "select 1 as a;>\nselect 2 as b;\n",
+    "runs": {
+      "TABLE": {
+        "stdout": "select 1 as a\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\nselect 2 as b;\n+---+\n| B |\n|---|\n| 2 |\n+---+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "select 1 as a\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nselect 2 as b;\nB\n2\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n[\n    {\n        \"B\": 2\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "scheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nB\n2\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "single_transaction",
+    "query": "select 1 as a;> select 2 as b",
+    "args": [
+      "--single-transaction"
+    ],
+    "runs": {
+      "TABLE": {
+        "stdout": "BEGIN;\n+----------------------------------+\n| status                           |\n|----------------------------------|\n| Statement executed successfully. |\n+----------------------------------+\nselect 1 as a\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\nselect 2 as b\n+---+\n| B |\n|---|\n| 2 |\n+---+\nCOMMIT;\n+----------------------------------+\n| status                           |\n|----------------------------------|\n| Statement executed successfully. |\n+----------------------------------+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "BEGIN;\nstatus                          \nStatement executed successfully.\nselect 1 as a\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nselect 2 as b\nB\n2\nCOMMIT;\nstatus                          \nStatement executed successfully.\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n  [\n    {\n      \"status\"  :   \"Statement executed successfully.\"\n    }\n  ][\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n,\n  [\n    {\n      \"B\"  :   2\n    }\n  ],\n  [\n    {\n      \"status\"  :   \"Statement executed successfully.\"\n    }\n  ]\n]\n\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "status\nStatement executed successfully.\n\nscheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nB\n2\n\nstatus\nStatement executed successfully.\n\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "retained_comment",
+    "query": "-- lead\nselect 1 as a;>\nselect 2 as b;",
+    "args": [
+      "--retain-comments"
+    ],
+    "runs": {
+      "TABLE": {
+        "stdout": "-- lead\nselect 1 as a\n+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\nselect 2 as b;\n+---+\n| B |\n|---|\n| 2 |\n+---+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "-- lead\nselect 1 as a\nscheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nselect 2 as b;\nB\n2\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n[\n    {\n        \"B\": 2\n    }\n]\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "scheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nB\n2\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  },
+  {
+    "name": "silent",
+    "query": "select 1 as a;> select 2 as b; select 3 as c",
+    "args": [
+      "--silent"
+    ],
+    "runs": {
+      "TABLE": {
+        "stdout": "+--------------------------------------+\n| scheduled query ID                   |\n|--------------------------------------|\n| xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx |\n+--------------------------------------+\n+---+\n| B |\n|---|\n| 2 |\n+---+\n+---+\n| C |\n|---|\n| 3 |\n+---+\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "PLAIN": {
+        "stdout": "scheduled query ID                  \nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nB\n2\nC\n3\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "JSON": {
+        "stdout": "[\n[\n    {\n        \"scheduled query ID\": \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n    }\n]\n  [\n    {\n      \"B\"  :   2\n    }\n  ],\n  [\n    {\n      \"C\"  :   3\n    }\n  ]\n]\n\n",
+        "stderr": "",
+        "exit": 0
+      },
+      "CSV": {
+        "stdout": "scheduled query ID\nxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\nB\n2\n\nC\n3\n\n",
+        "stderr": "",
+        "exit": 0
+      }
+    }
+  }
+]

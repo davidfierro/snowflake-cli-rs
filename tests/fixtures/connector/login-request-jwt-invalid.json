@@ -1,0 +1,13 @@
+{
+  "code": "390144",
+  "data": {
+    "authnMethod": "KEYPAIR",
+    "loginName": "<loginName>",
+    "nextAction": "RETRY_LOGIN",
+    "requestId": "<requestId>",
+    "signInOptions": {}
+  },
+  "message": "JWT token is invalid.  [<uuid>]",
+  "responseType": "LoginResponse",
+  "success": false
+}

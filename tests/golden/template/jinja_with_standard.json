@@ -1,0 +1,23 @@
+{
+ "case": {
+  "name": "jinja_with_standard",
+  "query": "select '<% n %>' as a, {{ n }} as b",
+  "variables": [
+   "n=3"
+  ],
+  "templating": [
+   "STANDARD",
+   "JINJA"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select '3' as a, 3 as b"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

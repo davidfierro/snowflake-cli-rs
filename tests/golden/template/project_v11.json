@@ -1,0 +1,19 @@
+{
+ "case": {
+  "name": "project_v11",
+  "query": "select '<% ctx.env.a %>' as a",
+  "project": {
+   "snowflake.yml": "definition_version: '1.1'\nenv:\n  a: one\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'one' as a"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

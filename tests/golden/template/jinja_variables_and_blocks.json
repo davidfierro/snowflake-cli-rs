@@ -1,0 +1,24 @@
+{
+ "case": {
+  "name": "jinja_variables_and_blocks",
+  "query": "{% for t in ['a', 'b'] %}select '{{ t }}{{ n }}' as c_{{ t }};\n{% endfor %}{% if n == '1' %}select 'one' as d;{% endif %}",
+  "variables": [
+   "n=1"
+  ],
+  "templating": [
+   "JINJA"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'a1' as c_a;",
+    "select 'b1' as c_b;",
+    "select 'one' as d;"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

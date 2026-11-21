@@ -1,0 +1,15 @@
+{
+ "case": {
+  "name": "read_file_content_absolute_outside_root",
+  "query": "select '<% '/etc/hostname' | read_file_content %>' as a",
+  "project_arg": true
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ read_file_content: path '/etc/hostname' is outside the project root.         │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ }
+}

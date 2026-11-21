@@ -1,0 +1,438 @@
+{
+  "scenarios": [
+    {
+      "name": "connection-list",
+      "command": "connection list",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.0013842949000000002,
+        "peak_rss_kib": 13160
+      },
+      "snow": {
+        "median_s": 1.56265680974,
+        "peak_rss_kib": 150004
+      }
+    },
+    {
+      "name": "connection-test",
+      "command": "connection test",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.18845782982,
+        "peak_rss_kib": 12736
+      },
+      "snow": {
+        "median_s": 4.4204863002,
+        "peak_rss_kib": 167724
+      }
+    },
+    {
+      "name": "connection-add",
+      "command": "connection add",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.0025884143200000003,
+        "peak_rss_kib": 12948
+      },
+      "snow": {
+        "median_s": 1.55412967494,
+        "peak_rss_kib": 150148
+      }
+    },
+    {
+      "name": "connection-remove",
+      "command": "connection remove",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.00230705946,
+        "peak_rss_kib": 12984
+      },
+      "snow": {
+        "median_s": 1.5541127368800003,
+        "peak_rss_kib": 150584
+      }
+    },
+    {
+      "name": "connection-set-default",
+      "command": "connection set-default",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.0025246035600000006,
+        "peak_rss_kib": 13064
+      },
+      "snow": {
+        "median_s": 1.5431294360200003,
+        "peak_rss_kib": 149944
+      }
+    },
+    {
+      "name": "connection-generate-jwt",
+      "command": "connection generate-jwt",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.0030735420600000005,
+        "peak_rss_kib": 12920
+      },
+      "snow": {
+        "median_s": 4.73745380948,
+        "peak_rss_kib": 168724
+      }
+    },
+    {
+      "name": "trivial-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.15682813664000003,
+        "peak_rss_kib": 13004
+      },
+      "snow": {
+        "median_s": 4.183239117419999,
+        "peak_rss_kib": 167464
+      }
+    },
+    {
+      "name": "1m-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 6.4449362361,
+        "peak_rss_kib": 210108
+      },
+      "snow": {
+        "median_s": 22.93083334512,
+        "peak_rss_kib": 422556
+      }
+    },
+    {
+      "name": "multi-small-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 1.33792312012,
+        "peak_rss_kib": 20992
+      },
+      "snow": {
+        "median_s": 5.4449526223,
+        "peak_rss_kib": 169708
+      }
+    },
+    {
+      "name": "multi-2x100k-csv",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 2.54584362488,
+        "peak_rss_kib": 39788
+      },
+      "snow": {
+        "median_s": 7.04877735772,
+        "peak_rss_kib": 204468
+      }
+    },
+    {
+      "name": "templated-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.16004116322,
+        "peak_rss_kib": 13044
+      },
+      "snow": {
+        "median_s": 4.32257671166,
+        "peak_rss_kib": 167444
+      }
+    },
+    {
+      "name": "single-transaction-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.6494204217,
+        "peak_rss_kib": 13036
+      },
+      "snow": {
+        "median_s": 4.5545553097600004,
+        "peak_rss_kib": 169696
+      }
+    },
+    {
+      "name": "connection-test-diag",
+      "command": "connection test",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 3.2211217644,
+        "peak_rss_kib": 13096
+      },
+      "snow": {
+        "median_s": 10.154634845419999,
+        "peak_rss_kib": 171928
+      }
+    },
+    {
+      "name": "root-info",
+      "command": "--info",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.0015497808,
+        "peak_rss_kib": 12720
+      },
+      "snow": {
+        "median_s": 1.2291333386399999,
+        "peak_rss_kib": 129932
+      }
+    },
+    {
+      "name": "root-structure",
+      "command": "--structure",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.0013373578599999996,
+        "peak_rss_kib": 12724
+      },
+      "snow": {
+        "median_s": 1.68827159658,
+        "peak_rss_kib": 155144
+      }
+    },
+    {
+      "name": "decimal-precision-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.17284715596000003,
+        "peak_rss_kib": 12768
+      },
+      "snow": {
+        "median_s": 4.1710510451,
+        "peak_rss_kib": 168804
+      }
+    },
+    {
+      "name": "source-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.16452018216,
+        "peak_rss_kib": 12792
+      },
+      "snow": {
+        "median_s": 4.22651008146,
+        "peak_rss_kib": 167640
+      }
+    },
+    {
+      "name": "local-only-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.16785150752,
+        "peak_rss_kib": 12784
+      },
+      "snow": {
+        "median_s": 4.23683763676,
+        "peak_rss_kib": 167788
+      }
+    },
+    {
+      "name": "json-ext",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 1.7136064276,
+        "peak_rss_kib": 31808
+      },
+      "snow": {
+        "median_s": 11.966150852919998,
+        "peak_rss_kib": 197328
+      }
+    },
+    {
+      "name": "output-file-csv",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 1.21331611022,
+        "peak_rss_kib": 33364
+      },
+      "snow": {
+        "median_s": 7.10306558388,
+        "peak_rss_kib": 199684
+      }
+    },
+    {
+      "name": "quiet-csv",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 1.238541834,
+        "peak_rss_kib": 32600
+      },
+      "snow": {
+        "median_s": 7.10099367002,
+        "peak_rss_kib": 193044
+      }
+    },
+    {
+      "name": "connection-generate-workload-identity-token",
+      "command": "connection generate-workload-identity-token",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.0006257792600000002,
+        "peak_rss_kib": 13084
+      },
+      "snow": {
+        "median_s": 1.9976717346600001,
+        "peak_rss_kib": 151064
+      }
+    },
+    {
+      "name": "secondary-roles-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.52563725902,
+        "peak_rss_kib": 13132
+      },
+      "snow": {
+        "median_s": 4.23424241284,
+        "peak_rss_kib": 167592
+      }
+    },
+    {
+      "name": "templated-jinja-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.57050204588,
+        "peak_rss_kib": 13100
+      },
+      "snow": {
+        "median_s": 4.3612346362,
+        "peak_rss_kib": 167244
+      }
+    },
+    {
+      "name": "templated-project-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.16348593008,
+        "peak_rss_kib": 12976
+      },
+      "snow": {
+        "median_s": 4.5130683206999995,
+        "peak_rss_kib": 167784
+      }
+    },
+    {
+      "name": "templating-none-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 1.6982139944999999,
+        "peak_rss_kib": 18804
+      },
+      "snow": {
+        "median_s": 6.61011632934,
+        "peak_rss_kib": 167696
+      }
+    },
+    {
+      "name": "put-small-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.7737963870400001,
+        "peak_rss_kib": 16428
+      },
+      "snow": {
+        "median_s": 4.72888315974,
+        "peak_rss_kib": 188856
+      }
+    },
+    {
+      "name": "put-100mb-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 1.8430512543400002,
+        "peak_rss_kib": 13096
+      },
+      "snow": {
+        "median_s": 5.8163400436399995,
+        "peak_rss_kib": 267968
+      }
+    },
+    {
+      "name": "get-small-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 1.02759197058,
+        "peak_rss_kib": 19632
+      },
+      "snow": {
+        "median_s": 4.95373239428,
+        "peak_rss_kib": 194460
+      }
+    },
+    {
+      "name": "get-100mb-json",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 3.40158236914,
+        "peak_rss_kib": 16800
+      },
+      "snow": {
+        "median_s": 7.27317371122,
+        "peak_rss_kib": 313680
+      }
+    },
+    {
+      "name": "repl-startup",
+      "command": "sql",
+      "date": "2026-11-21",
+      "snow_version": "3.34.0",
+      "rs": {
+        "median_s": 0.39349521826,
+        "peak_rss_kib": 12944
+      },
+      "snow": {
+        "median_s": 5.43523062378,
+        "peak_rss_kib": 169856
+      }
+    }
+  ]
+}

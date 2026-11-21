@@ -1,0 +1,153 @@
+{
+ "sql": "SELECT ROW_NUMBER() OVER (ORDER BY SEQ8()) AS i, MOD(ROW_NUMBER() OVER (ORDER BY SEQ8()), 7) = 0 AS b FROM TABLE(GENERATOR(ROWCOUNT => 25))",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 25,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 25,
+     "uncompressedSize": 397
+    }
+   ],
+   "rowType": [
+    {
+     "name": "I",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 18,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "B",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "boolean",
+     "scale": null
+    }
+   ]
+  },
+  "data": [
+   [
+    "1",
+    "false"
+   ],
+   [
+    "2",
+    "false"
+   ],
+   [
+    "3",
+    "false"
+   ],
+   [
+    "4",
+    "false"
+   ],
+   [
+    "5",
+    "false"
+   ],
+   [
+    "6",
+    "false"
+   ],
+   [
+    "7",
+    "true"
+   ],
+   [
+    "8",
+    "false"
+   ],
+   [
+    "9",
+    "false"
+   ],
+   [
+    "10",
+    "false"
+   ],
+   [
+    "11",
+    "false"
+   ],
+   [
+    "12",
+    "false"
+   ],
+   [
+    "13",
+    "false"
+   ],
+   [
+    "14",
+    "true"
+   ],
+   [
+    "15",
+    "false"
+   ],
+   [
+    "16",
+    "false"
+   ],
+   [
+    "17",
+    "false"
+   ],
+   [
+    "18",
+    "false"
+   ],
+   [
+    "19",
+    "false"
+   ],
+   [
+    "20",
+    "false"
+   ],
+   [
+    "21",
+    "true"
+   ],
+   [
+    "22",
+    "false"
+   ],
+   [
+    "23",
+    "false"
+   ],
+   [
+    "24",
+    "false"
+   ],
+   [
+    "25",
+    "false"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=c28c4813-25c8-4b67-86e2-622af20aad90",
+  "requestId": "c28c4813-25c8-4b67-86e2-622af20aad90",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207397681
+ },
+ "partitions": []
+}

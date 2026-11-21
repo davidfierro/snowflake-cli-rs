@@ -1,0 +1,24 @@
+{
+ "connector": "4.8.1",
+ "text": "\n\n   \nselect\n\n  1\n   ;\n\n\n",
+ "remove_comments": [
+  [
+   "select\n\n  1\n   ;",
+   false
+  ],
+  [
+   "",
+   null
+  ]
+ ],
+ "keep_comments": [
+  [
+   "select\n\n  1\n   ;",
+   false
+  ],
+  [
+   "",
+   null
+  ]
+ ]
+}

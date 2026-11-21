@@ -1,0 +1,32 @@
+{
+ "connector": "4.8.1",
+ "text": "/* head ; */ select 1 /* mid ; */ as a;\nselect /* multi\nline ; */ 2;\n/* c */ ;",
+ "remove_comments": [
+  [
+   "select 1  as a;",
+   false
+  ],
+  [
+   "select  2;",
+   false
+  ],
+  [
+   ";",
+   null
+  ]
+ ],
+ "keep_comments": [
+  [
+   "/* head ; */ select 1 /* mid ; */ as a;",
+   false
+  ],
+  [
+   "select /* multi\nline ; */ 2;",
+   false
+  ],
+  [
+   "/* c */ ;",
+   null
+  ]
+ ]
+}

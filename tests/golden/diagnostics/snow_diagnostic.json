@@ -1,0 +1,82 @@
+{
+    "Diagnostic": {
+        "checks": [
+            {
+                "host": "acct.snowflakecomputing.com",
+                "port": 443,
+                "type": "SNOWFLAKE_DEPLOYMENT",
+                "status": "Healthy",
+                "error": null,
+                "cert_issuer": "Amazon",
+                "cert_expires": "Jun  5 12:00:00 2027 GMT",
+                "latency_ms": 12.3
+            },
+            {
+                "host": "stage.example.com",
+                "port": 443,
+                "type": "STAGE",
+                "status": "Healthy",
+                "error": null,
+                "cert_issuer": "DigiCert Inc",
+                "cert_expires": null,
+                "latency_ms": 5.0
+            },
+            {
+                "host": "ocsp.example.com",
+                "port": 80,
+                "type": "OCSP_RESPONDER",
+                "status": "Healthy",
+                "error": null,
+                "cert_issuer": null,
+                "cert_expires": null,
+                "latency_ms": 1.5
+            },
+            {
+                "host": "*.apps.example.com",
+                "port": 443,
+                "type": "SNOWSQL_REGION",
+                "status": "Skipped",
+                "error": "non-resolvable pattern",
+                "cert_issuer": null,
+                "cert_expires": null,
+                "latency_ms": null
+            },
+            {
+                "host": "down.example.com",
+                "port": 443,
+                "type": "STAGE",
+                "status": "Unhealthy",
+                "error": "TLS handshake failed: bad certificate",
+                "cert_issuer": null,
+                "cert_expires": null,
+                "latency_ms": null
+            },
+            {
+                "host": "typeless.example.com",
+                "port": 443,
+                "type": "UNKNOWN",
+                "status": "Healthy",
+                "error": null,
+                "cert_issuer": null,
+                "cert_expires": null,
+                "latency_ms": 2.0
+            }
+        ],
+        "healthy": 4,
+        "unhealthy": 1,
+        "skipped": 1,
+        "tested": 5,
+        "network_policy": {
+            "current_ip": "1.2.3.4",
+            "account_policy": null,
+            "user_policy": null,
+            "effective_policy": null,
+            "allowed_ip_list": [],
+            "blocked_ip_list": [],
+            "allowed_network_rule_list": [],
+            "blocked_network_rule_list": [],
+            "rules": [],
+            "error": null
+        }
+    }
+}

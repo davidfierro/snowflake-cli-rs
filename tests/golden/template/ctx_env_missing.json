@@ -1,0 +1,14 @@
+{
+ "case": {
+  "name": "ctx_env_missing",
+  "query": "select '<% ctx.env.NOPE %>' as a"
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "SQL template rendering error: 'snowflake.cli.api.utils.models.ProjectEnvironment object' has no attribute 'NOPE'\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

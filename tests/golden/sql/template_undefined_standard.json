@@ -1,0 +1,33 @@
+{
+ "case": {
+  "name": "template_undefined_standard",
+  "query": "select <% a %> as a, <% zz %> as b",
+  "variables": [
+   "a=1"
+  ],
+  "no_request": true
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "SQL template rendering error: 'zz' is undefined\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "plain": {
+   "exit": 1,
+   "stdout": "SQL template rendering error: 'zz' is undefined\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "json": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  },
+  "csv": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ SQL rendering error                                                          │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ },
+ "exchanges": []
+}

@@ -1,0 +1,22 @@
+{
+ "case": {
+  "name": "jinja_only_leaves_other_syntaxes",
+  "query": "select '{{ n }}' as a, '<% n %>' as b, '&n' as c",
+  "variables": [
+   "n=1"
+  ],
+  "templating": [
+   "JINJA"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select '1' as a, '<% n %>' as b, '&n' as c"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

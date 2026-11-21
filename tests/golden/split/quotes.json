@@ -1,0 +1,24 @@
+{
+ "connector": "4.8.1",
+ "text": "select 'a;b' as x, 'it''s;' as y, 'esc\\';q' as z; select \"we;ird\" from t;",
+ "remove_comments": [
+  [
+   "select 'a;b' as x, 'it''s;' as y, 'esc\\';q' as z;",
+   false
+  ],
+  [
+   "select \"we;ird\" from t;",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "select 'a;b' as x, 'it''s;' as y, 'esc\\';q' as z;",
+   false
+  ],
+  [
+   "select \"we;ird\" from t;",
+   false
+  ]
+ ]
+}

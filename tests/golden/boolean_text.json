@@ -1,0 +1,10 @@
+[
+    {
+        "T": true,
+        "F": false,
+        "S": "caf\u00e9,\"x\"",
+        "EMPTY": "",
+        "P": "plain",
+        "SP": " padded "
+    }
+]

@@ -1,0 +1,28 @@
+{
+ "case": {
+  "name": "opt_unknown_key",
+  "query": "select 1 as n",
+  "options": [
+   "-o",
+   "header=false"
+  ],
+  "no_request": true,
+  "formats": [
+   "table",
+   "json"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Unknown option 'header'. Only output_file, quiet and output_format are       │\n│ supported.                                                                   │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "json": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Unknown option 'header'. Only output_file, quiet and output_format are       │\n│ supported.                                                                   │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ },
+ "exchanges": []
+}

@@ -1,0 +1,34 @@
+=========Connectivity diagnostic report================================
+INITIAL: Specified snowflake account: ACCT
+INITIAL: Host based on specified account: acct.snowflakecomputing.com
+INITIAL: Allowlist is not a valid list of json objects. Please run 'select system$allowlist();' and provide as a json file using the connection_diag_allowlist_path option.
+
+=========Proxy information - These are best guesses, not guarantees====
+PROXY: Proxies with Env vars removed(SYSTEM PROXIES): {}
+PROXY: Proxies with Env vars restored(ENV PROXIES): {'https': 'http://***@proxy.corp:3128', 'no': 'localhost'}
+PROXY: Could not determine if a proxy does or does not exist based on Exception: HTTPSConnectionPool(host='nonexistentdomain.invalid', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='nonexistentdomain.invalid', port=443): Failed to resolve 'nonexistentdomain.invalid' ([Errno -2] Name or service not known)"))
+
+=========Snowflake URL information=====================================
+SNOWFLAKE_URL: acct.snowflakecomputing.com: nslookup results: public ip: 54.1.2.3
+SNOWFLAKE_URL: acct.snowflakecomputing.com:443: URL Check: Connected Successfully
+SNOWFLAKE_URL: acct.snowflakecomputing.com: Cert info:
+SNOWFLAKE_URL: acct.snowflakecomputing.com: subject: {'C': 'US', 'ST': 'California', 'O': 'Snowflake Inc.', 'CN': '*.snowflakecomputing.com'}
+SNOWFLAKE_URL: acct.snowflakecomputing.com: issuer: {'C': 'US', 'O': 'Amazon', 'CN': 'Test Amazon CA'}
+SNOWFLAKE_URL: acct.snowflakecomputing.com: serialNumber: 220047411758230900080721827967644813597269925001
+SNOWFLAKE_URL: acct.snowflakecomputing.com: version: 2
+SNOWFLAKE_URL: acct.snowflakecomputing.com: notBefore: 2026-11-21 14:37:00
+SNOWFLAKE_URL: acct.snowflakecomputing.com: notAfter: 2126-10-28 14:37:00
+SNOWFLAKE_URL: acct.snowflakecomputing.com: subjectAltName: DNS:*.snowflakecomputing.com, DNS:localhost, IP Address:127.0.0.1
+SNOWFLAKE_URL: acct.snowflakecomputing.com: crlUrls: ['crl.test-ca.example']
+SNOWFLAKE_URL: acct.snowflakecomputing.com: ocspURLs: ['ocsp.test-ca.example', 'crt.test-ca.example']
+
+=========Snowflake Stage information - Unavailable=====================
+We could not connect to Snowflake to get allowlist, so we do not have stage
+diagnostic info
+
+=========Snowflake OCSP information====================================
+We were unable to retrieve system allowlist.
+These OCSP hosts only came from the certificate.
+OCSP_RESPONDER: crt.test-ca.example:80: URL Check: Connected Successfully
+OCSP_RESPONDER: ocsp.snowflakecomputing.com:80: URL Check: Connected Successfully
+OCSP_RESPONDER: ocsp.test-ca.example:80: URL Check: Connected Successfully

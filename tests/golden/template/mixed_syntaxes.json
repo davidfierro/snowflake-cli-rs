@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "mixed_syntaxes",
+  "query": "select &a, <% a %>",
+  "variables": [
+   "a=1"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ The SQL query mixes &{ ... } syntax and <% ... %> syntax.                    │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

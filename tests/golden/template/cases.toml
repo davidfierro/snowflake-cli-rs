@@ -1,0 +1,458 @@
+# `snow sql` templating cases (ADR 0006). Capture: scripts/capture-template-goldens.sh runs the
+# official snow 3.34.0 on each case with statement execution replaced by a recorder and writes
+# tests/golden/template/<name>.json; tests/it/template_golden.rs compares this crate with it.
+# Keys: query (-q), files (one -f each), variables (-D), templating (--enable-templating),
+# env (--env), project (file name -> content, passed as --project), project_arg (--project to an
+# empty directory), os_env (environment variables), home_files (file name -> content, written
+# 0600 in the home directory), unset_snowflake_home, silent, enhanced_exit_codes, formats
+# (default: table).
+
+# Expressions in STANDARD and LEGACY templates.
+[[case]]
+name = "standard_expressions"
+query = "select <% a | upper %> as a, <% 1 + 2 * 3 %> as b, '<% a ~ '-' ~ b %>' as c, <% n | int + 1 %> as d, '<% 'x' if n == '2' else 'y' %>' as e, '<% [1, 'a'] %>' as f, '<% none %>' as g, '<% true %>' as h, <% 7 / 2 %> as i, '<% a | replace('q', 'z') | title %>' as k, '<% (a, n) | join(',') %>' as l, <% n | length %> as m"
+variables = ["a=q", "b=r", "n=2"]
+
+[[case]]
+name = "floor_division_is_a_comment_to_the_splitter"
+query = "select <% 7 // 2 %> as j"
+
+[[case]]
+name = "legacy_expressions"
+query = "select &{ a | upper } as a, &{ n | int * 10 } as b, '&{ a ~ n }' as c, &n as d"
+variables = ["a=q", "n=2"]
+
+[[case]]
+name = "legacy_only_expressions"
+query = "select &{ n | int * 10 } as b, '<% n %>' as c"
+variables = ["n=2"]
+templating = ["LEGACY"]
+
+[[case]]
+name = "standard_dict_and_items"
+query = "select '<% {'k': n} %>' as a, '<% {'k': n}['k'] %>' as b, '<% {'k': n}.k %>' as c, '<% n[0] %>' as d, '<% range(3) | list %>' as e"
+variables = ["n=42"]
+
+[[case]]
+name = "comments_in_default_mode"
+query = "select '{# hidden #}' as a, 1 as b"
+
+[[case]]
+name = "unterminated_comment"
+query = "select '{#' as a"
+
+[[case]]
+name = "crlf_line_ends"
+query = "select 1 as a\r\n, 2 as b\r, 3 as c"
+
+[[case]]
+name = "crlf_line_ends_none"
+query = "select 1 as a\r\n, 2 as b"
+templating = ["NONE"]
+
+[[case]]
+name = "default_filter_and_defined_test"
+query = "select '<% zz | default('dflt') %>' as a, '<% zz is defined %>' as b, '<% a is defined %>' as c"
+variables = ["a=1"]
+
+# Undefined values.
+[[case]]
+name = "undefined_attribute"
+query = "select <% a.upper %>; select <% d.k %>; select <% a.upper() %>; select <% zz.x %>; select <% zz(1) %>; select 1"
+variables = ["a=q"]
+
+[[case]]
+name = "undefined_items"
+query = "select <% {'k': 1}['z'] %>; select <% [1][5] %>; select 1"
+
+[[case]]
+name = "undefined_silent_json"
+query = "select <% zz %>"
+formats = ["table", "plain", "json", "csv"]
+
+# Errors that stop the run.
+[[case]]
+name = "syntax_error_unterminated"
+query = "select <% a %"
+variables = ["a=1"]
+formats = ["table", "json"]
+
+[[case]]
+name = "syntax_error_unclosed_expression"
+query = "select <% a "
+variables = ["a=1"]
+
+[[case]]
+name = "syntax_error_empty"
+query = "select <% %>"
+
+[[case]]
+name = "syntax_error_silent"
+query = "select <% a %"
+silent = true
+
+[[case]]
+name = "unknown_filter"
+query = "select <% a | nofilter %>"
+variables = ["a=1"]
+
+[[case]]
+name = "division_by_zero"
+query = "select <% 1 / 0 %>"
+
+[[case]]
+name = "reserved_variable"
+query = "select 1"
+variables = ["fn=1"]
+
+[[case]]
+name = "invalid_variable"
+query = "select 1"
+variables = ["novalue"]
+
+[[case]]
+name = "invalid_env_override"
+query = "select 1"
+env = ["novalue"]
+
+[[case]]
+name = "mixed_syntaxes"
+query = "select &a, <% a %>"
+variables = ["a=1"]
+
+# JINJA.
+[[case]]
+name = "jinja_variables_and_blocks"
+query = "{% for t in ['a', 'b'] %}select '{{ t }}{{ n }}' as c_{{ t }};\n{% endfor %}{% if n == '1' %}select 'one' as d;{% endif %}"
+variables = ["n=1"]
+templating = ["JINJA"]
+
+[[case]]
+name = "jinja_only_leaves_other_syntaxes"
+query = "select '{{ n }}' as a, '<% n %>' as b, '&n' as c"
+variables = ["n=1"]
+templating = ["JINJA"]
+
+[[case]]
+name = "jinja_all_syntaxes_in_order"
+query = "select '<% x %>' as a, '{{ n }}' as b"
+variables = ["x={{ n }}", "n=2"]
+templating = ["ALL"]
+
+[[case]]
+name = "jinja_with_standard"
+query = "select '<% n %>' as a, {{ n }} as b"
+variables = ["n=3"]
+templating = ["STANDARD", "JINJA"]
+
+[[case]]
+name = "jinja_comments_are_protected"
+query = "-- {{ zz }} is not rendered\nselect {{ n }} as a; /* {% if %} */ select '-- {{ n }}' as b"
+variables = ["n=5"]
+templating = ["JINJA"]
+
+[[case]]
+name = "jinja_comments_retained"
+query = "-- {{ zz }}\nselect {{ n }} as a"
+variables = ["n=5"]
+templating = ["JINJA"]
+
+[[case]]
+name = "jinja_undefined_is_fatal"
+query = "select {{ n }}; select {{ zz }}"
+variables = ["n=1"]
+templating = ["JINJA"]
+
+[[case]]
+name = "jinja_set_and_macro"
+query = "{% set x = n | int * 2 %}{% macro m(v) %}'<{{ v }}>'{% endmacro %}select {{ x }} as a, {{ m(n) }} as b"
+variables = ["n=4"]
+templating = ["JINJA"]
+
+[[case]]
+name = "jinja_files_each_rendered"
+files = ["select {{ n }} as first_file", "{% for i in range(2) %}select {{ i }} as second_{{ i }};{% endfor %}"]
+variables = ["n=7"]
+templating = ["jinja"]
+
+[[case]]
+name = "jinja_legacy_warning_once_per_input"
+query = "select &a as a; select &a as b; select {{ a }} as c"
+variables = ["a=1"]
+templating = ["ALL"]
+
+[[case]]
+name = "jinja_mixed_syntaxes"
+query = "select &a; select <% a %>"
+variables = ["a=1"]
+templating = ["ALL"]
+
+[[case]]
+name = "jinja_include_has_no_loader"
+query = "{% include 'x.sql' %}"
+templating = ["JINJA"]
+
+# ctx.env without snowflake.yml: --env, then the process environment.
+[[case]]
+name = "ctx_env_without_project"
+query = "select '<% ctx.env.FOO %>' as a, '<% ctx.env.BAR %>' as b"
+env = ["BAR=from_cli"]
+os_env = { FOO = "from_os", BAR = "from_os" }
+
+[[case]]
+name = "ctx_env_missing"
+query = "select '<% ctx.env.NOPE %>' as a"
+
+[[case]]
+name = "ctx_env_missing_jinja"
+query = "select '{{ ctx.env.NOPE }}' as a"
+templating = ["JINJA"]
+
+[[case]]
+name = "fn_needs_a_project"
+query = "select '<% fn.str_to_id('a b') %>' as a"
+
+# snowflake.yml.
+[[case]]
+name = "project_env_section"
+query = "select '<% ctx.env.a %>' as a, '<% ctx.env.b %>' as b, '<% ctx.env.c %>' as c, '<% ctx.definition_version %>' as v, '<% ctx.entities %>' as e"
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  a: one\n  b: \"x<% ctx.env.a %>\"\n  c: 007\n" }
+
+[[case]]
+name = "project_precedence"
+query = "select '<% ctx.env.a %>' as a, '<% ctx.env.b %>' as b, '<% ctx.env.c %>' as c, '<% d %>' as d"
+variables = ["d=from_D"]
+env = ["a=from_cli", " c = x "]
+os_env = { a = "from_os", b = "from_os" }
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  a: from_yml\n  b: from_yml\n  c: from_yml\n  d: from_yml\n" }
+
+[[case]]
+name = "project_env_override_feeds_references"
+query = "select '<% ctx.env.full %>' as a"
+env = ["name=cli"]
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  name: yml\n  full: \"<% ctx.env.name %>_suffix\"\n" }
+
+[[case]]
+name = "project_d_variable_shadows_nothing_in_ctx"
+query = "select '<% env %>' as a, '<% ctx.env.env %>' as b"
+variables = ["env=from_D"]
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  env: from_yml\n" }
+
+[[case]]
+name = "project_functions"
+query = "select '<% fn.concat_ids('a', ctx.env.x) %>' as a, '<% fn.str_to_id('a b') %>' as b, '<% fn.id_to_str('\"q\"\"r\"') %>' as c, '<% fn.sanitize_id('9-x') %>' as d, '<% fn.get_username('fb') %>' as e, '<% ctx.env.y %>' as f"
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  x: \"y z\"\n  y: \"<% fn.concat_ids('p', ctx.env.x) %>\"\n" }
+os_env = { USER = "tester_user" }
+
+[[case]]
+name = "project_function_errors"
+query = "select '<% fn.str_to_id('a', 'b') %>' as a"
+project = { "snowflake.yml" = "definition_version: 2\n" }
+
+[[case]]
+name = "project_local_override"
+query = "select '<% ctx.env.a %>' as a, '<% ctx.env.b %>' as b"
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  a: base\n  b: base\n", "snowflake.local.yml" = "env:\n  b: local\n" }
+
+[[case]]
+name = "project_mixins_rendered"
+query = "select '<% ctx.mixins.m.x %>' as a"
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  a: one\nmixins:\n  m:\n    x: \"<% ctx.env.a %>!\"\n" }
+
+[[case]]
+name = "project_v11"
+query = "select '<% ctx.env.a %>' as a"
+project = { "snowflake.yml" = "definition_version: '1.1'\nenv:\n  a: one\n" }
+
+[[case]]
+name = "project_v1_ignores_templates_and_env"
+query = "select '<% ctx.definition_version %>' as a, '<% ctx.streamlit.name %>' as b"
+project = { "snowflake.yml" = "definition_version: 1\nstreamlit:\n  name: \"<% ctx.env.x %>\"\n" }
+
+[[case]]
+name = "project_v1_env_missing"
+query = "select '<% ctx.env.a %>' as a"
+project = { "snowflake.yml" = "definition_version: 1\nstreamlit:\n  name: x\n" }
+
+[[case]]
+name = "project_not_read_without_templates"
+query = "select 1 as a"
+project = { "snowflake.yml" = "definition_version: 9\n" }
+
+[[case]]
+name = "project_unsupported_version"
+query = "select <% a %>"
+variables = ["a=1"]
+project = { "snowflake.yml" = "definition_version: 3\n" }
+
+[[case]]
+name = "project_missing_version"
+query = "select <% a %>"
+variables = ["a=1"]
+project = { "snowflake.yml" = "env:\n  a: 1\n" }
+
+[[case]]
+name = "project_extra_field"
+query = "select <% a %>"
+variables = ["a=1"]
+project = { "snowflake.yml" = "definition_version: 2\nother: x\n" }
+
+[[case]]
+name = "project_duplicate_key"
+query = "select <% a %>"
+variables = ["a=1"]
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  a: 1\n  a: 2\n" }
+
+[[case]]
+name = "project_cycle"
+query = "select '<% ctx.env.a %>'"
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  a: \"<% ctx.env.b %>\"\n  b: \"<% ctx.env.a %>\"\n" }
+
+[[case]]
+name = "project_unknown_reference"
+query = "select '<% ctx.env.a %>'"
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  a: \"<% ctx.env.nope %>\"\n" }
+
+[[case]]
+name = "project_non_scalar_env"
+query = "select '<% ctx.env.a %>'"
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  a: [1]\n" }
+
+[[case]]
+name = "project_reference_to_mapping"
+query = "select '<% ctx.env.a %>'"
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  a: \"<% ctx.mixins %>\"\nmixins:\n  m: {}\n" }
+
+[[case]]
+name = "project_dir_without_definition"
+query = "select '<% ctx.env.X %>' as a"
+project_arg = true
+os_env = { X = "os" }
+
+# Files confined to the project root.
+[[case]]
+name = "read_file_content"
+query = "select '<% 'body.txt' | read_file_content %>' as a"
+project = { "snowflake.yml" = "definition_version: 2\n", "body.txt" = "hello" }
+
+[[case]]
+name = "read_file_content_jinja"
+query = "select '{{ 'sub/body.txt' | read_file_content }}' as a"
+templating = ["JINJA"]
+project = { "sub/body.txt" = "nested" }
+
+[[case]]
+name = "read_file_content_outside_root"
+query = "select '<% '../secret.txt' | read_file_content %>' as a"
+project = { "snowflake.yml" = "definition_version: 2\n" }
+
+[[case]]
+name = "read_file_content_absolute_outside_root"
+query = "select '<% '/etc/hostname' | read_file_content %>' as a"
+project_arg = true
+
+[[case]]
+name = "read_file_content_missing"
+query = "select '<% 'nope.txt' | read_file_content %>' as a"
+project_arg = true
+
+[[case]]
+name = "procedure_from_js_file"
+query = "select $$<% 'f.js' | procedure_from_js_file %>$$ as a"
+project = { "f.js" = "module.exports = () => 1;" }
+
+[[case]]
+name = "procedure_from_js_file_jinja"
+query = "select $${{ 'f.js' | procedure_from_js_file }}$$ as a"
+templating = ["JINJA"]
+project = { "f.js" = "module.exports = () => 1;" }
+
+[[case]]
+name = "json_and_url_filters"
+query = "select '<% {'a': n, 'b': [1, none]} | tojson %>' as a, '<% 'a b/c?d=é' | urlencode %>' as b"
+variables = ["n=1"]
+
+# --enhanced-exit-codes: snowflake.yml errors exit 2, rendering errors 5, the others 1.
+[[case]]
+name = "enhanced_project_error"
+query = "select <% a %>"
+variables = ["a=1"]
+project = { "snowflake.yml" = "definition_version: 3\n" }
+enhanced_exit_codes = true
+
+[[case]]
+name = "enhanced_undefined"
+query = "select <% zz %>"
+enhanced_exit_codes = true
+
+[[case]]
+name = "enhanced_syntax_error"
+query = "select <% a %"
+enhanced_exit_codes = true
+
+[[case]]
+name = "enhanced_mixed_syntaxes"
+query = "select &a, <% a %>"
+variables = ["a=1"]
+enhanced_exit_codes = true
+
+# `[variables]` of the config files. `snow` reads them only with the alternative config
+# provider (SNOWFLAKE_CLI_CONFIG_V2_ENABLED); `-D` wins. `home_files` are written (0600) into the
+# home directory, which is also SNOWFLAKE_HOME unless `unset_snowflake_home`.
+[[case]]
+name = "snowsql_variables"
+query = "select '<% name %>' as a, <% other %> as b, '<% upper %>' as d"
+variables = ["other=3"]
+home_files = { "config" = "[connections]\naccountname = ignored\n[variables]\nname = from_snowsql\nother = 2\nUPPER = keys lowercased\n" }
+os_env = { SNOWFLAKE_CLI_CONFIG_V2_ENABLED = "1" }
+formats = ["table", "json"]
+
+[[case]]
+name = "snowsql_variables_legacy_syntax"
+query = "select '&name' as a, &{ other | int + 1 } as b"
+home_files = { "config" = "[variables]\nname = from_snowsql\nother = 2\n" }
+os_env = { SNOWFLAKE_CLI_CONFIG_V2_ENABLED = "1" }
+
+[[case]]
+name = "snowsql_variables_need_the_alternative_provider"
+query = "select '<% name %>' as a"
+home_files = { "config" = "[variables]\nname = from_snowsql\n" }
+
+[[case]]
+name = "snowsql_variables_interpolation"
+query = "select '<% a %>' as a, '<% b %>' as b, '<% d %>' as d"
+home_files = { "config" = "[DEFAULT]\nd = from_default\n[variables]\na = 50%%\nb = %(a)s and %(d)s\n" }
+os_env = { SNOWFLAKE_CLI_CONFIG_V2_ENABLED = "true" }
+
+[[case]]
+name = "snowsql_variables_bad_interpolation_drops_the_file"
+query = "select '<% a %>' as a"
+home_files = { "config" = "[variables]\na = 50%\n" }
+os_env = { SNOWFLAKE_CLI_CONFIG_V2_ENABLED = "1" }
+
+[[case]]
+name = "config_toml_variables_replace_snowsql"
+query = "select '<% t %>' as t, '<% b %>' as b, '<% f %>' as f"
+home_files = { "config" = "[variables]\nname = from_snowsql\n", "config.toml" = "[variables]\nt = 7\nb = true\nf = 1.5\n" }
+os_env = { SNOWFLAKE_CLI_CONFIG_V2_ENABLED = "1" }
+
+[[case]]
+name = "config_toml_variables_hide_snowsql_ones"
+query = "select '<% name %>' as a"
+home_files = { "config" = "[variables]\nname = from_snowsql\n", "config.toml" = "[variables]\nt = 7\n" }
+os_env = { SNOWFLAKE_CLI_CONFIG_V2_ENABLED = "1" }
+
+[[case]]
+name = "snowsql_variables_from_user_files"
+query = "select '<% a %>' as a, '<% b %>' as b"
+home_files = { ".snowsql.cnf" = "[variables]\na = legacy\nb = legacy\n", ".snowsql/config" = "[variables]\nb = current\n" }
+unset_snowflake_home = true
+os_env = { SNOWFLAKE_CLI_CONFIG_V2_ENABLED = "1" }
+
+[[case]]
+name = "snowsql_variables_with_jinja_and_project"
+query = "select '{{ x }}' as x, '{{ ctx.env.x }}' as y"
+templating = ["JINJA"]
+home_files = { "config" = "[variables]\nx = from_snowsql\n" }
+project = { "snowflake.yml" = "definition_version: 2\nenv:\n  x: from_yml\n" }
+os_env = { SNOWFLAKE_CLI_CONFIG_V2_ENABLED = "1" }

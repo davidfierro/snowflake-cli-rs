@@ -1,0 +1,21 @@
+{
+ "case": {
+  "name": "standard_expressions",
+  "query": "select <% a | upper %> as a, <% 1 + 2 * 3 %> as b, '<% a ~ '-' ~ b %>' as c, <% n | int + 1 %> as d, '<% 'x' if n == '2' else 'y' %>' as e, '<% [1, 'a'] %>' as f, '<% none %>' as g, '<% true %>' as h, <% 7 / 2 %> as i, '<% a | replace('q', 'z') | title %>' as k, '<% (a, n) | join(',') %>' as l, <% n | length %> as m",
+  "variables": [
+   "a=q",
+   "b=r",
+   "n=2"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select Q as a, 7 as b, 'q-r' as c, 3 as d, 'x' as e, '[1, 'a']' as f, 'None' as g, 'True' as h, 3.5 as i, 'Z' as k, 'q,2' as l, 1 as m"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

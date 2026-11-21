@@ -1,0 +1,99 @@
+{
+ "sql": "SELECT CHR(27) || '[31mred' || CHR(27) || '[0m' AS colored, 'a' || CHR(27) || 'Mb' AS fe, 'bell' || CHR(7) AS bell, 'tab' || CHR(9) || 'x' AS tab, 1 AS \"x[1m\" ",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 75
+    }
+   ],
+   "rowType": [
+    {
+     "name": "COLORED",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 48,
+     "nullable": false,
+     "collation": null,
+     "length": 12,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "FE",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 16,
+     "nullable": false,
+     "collation": null,
+     "length": 4,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "BELL",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 20,
+     "nullable": false,
+     "collation": null,
+     "length": 5,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "TAB",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 20,
+     "nullable": false,
+     "collation": null,
+     "length": 5,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "x[1m",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    }
+   ]
+  },
+  "data": [
+   [
+    "\u001b[31mred\u001b[0m",
+    "a\u001bMb",
+    "bell\u0007",
+    "tab\tx",
+    "1"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=8c1f53c7-f4fc-4f08-92dd-1f5026b4509f",
+  "requestId": "8c1f53c7-f4fc-4f08-92dd-1f5026b4509f",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207362192
+ },
+ "partitions": []
+}

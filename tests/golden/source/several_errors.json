@@ -1,0 +1,12 @@
+{
+ "snow": "3.34.0",
+ "statements": [
+  "select 1;"
+ ],
+ "errors": [
+  "Could not read: files/missing.sql",
+  "Unknown source: ftp://h/a.sql",
+  "Plaintext http:// sources are not allowed: http://h/a.sql. Use https:// or a local file.",
+  "Unknown command: nope"
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "case": {
+  "name": "syntax_error_middle",
+  "query": "select 1 as a;\nselec 2;\nselect 3 as b"
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "select 1 as a;\n+---+\n| A |\n|---|\n| 1 |\n+---+\nselec 2;\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 001003 (42000): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: SQL compilation error: │\n│ syntax error line 1 at position 0 unexpected 'selec'.                        │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "plain": {
+   "exit": 1,
+   "stdout": "select 1 as a;\nA\n1\nselec 2;\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 001003 (42000): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: SQL compilation error: │\n│ syntax error line 1 at position 0 unexpected 'selec'.                        │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "json": {
+   "exit": 1,
+   "stdout": "[\n  [\n    {\n      \"A\"  :   1\n    }\n  ]",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 001003 (42000): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: SQL compilation error: │\n│ syntax error line 1 at position 0 unexpected 'selec'.                        │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  },
+  "csv": {
+   "exit": 1,
+   "stdout": "A\n1\n\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 001003 (42000): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: SQL compilation error: │\n│ syntax error line 1 at position 0 unexpected 'selec'.                        │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 422,
+   "response": {
+    "code": "001003",
+    "message": "SQL compilation error:\nsyntax error line 2 at position 0 unexpected 'selec'.",
+    "sqlState": "42000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001"
+   },
+   "statement": "select 1 as a;\nselec 2;\nselect 3 as b\n;",
+   "parameters": {
+    "MULTI_STATEMENT_COUNT": "3"
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "A",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000002?requestId=01234567-0000-0000-0000-000000000003",
+    "requestId": "01234567-0000-0000-0000-000000000003",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000002",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257477294
+   },
+   "statement": "select 1 as a;"
+  },
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 422,
+   "response": {
+    "code": "001003",
+    "message": "SQL compilation error:\nsyntax error line 1 at position 0 unexpected 'selec'.",
+    "sqlState": "42000",
+    "statementHandle": "01234567-0000-0000-0000-000000000004"
+   },
+   "statement": "selec 2;"
+  }
+ ]
+}

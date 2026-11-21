@@ -1,0 +1,22 @@
+{
+ "case": {
+  "name": "project_functions",
+  "query": "select '<% fn.concat_ids('a', ctx.env.x) %>' as a, '<% fn.str_to_id('a b') %>' as b, '<% fn.id_to_str('\"q\"\"r\"') %>' as c, '<% fn.sanitize_id('9-x') %>' as d, '<% fn.get_username('fb') %>' as e, '<% ctx.env.y %>' as f",
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  x: \"y z\"\n  y: \"<% fn.concat_ids('p', ctx.env.x) %>\"\n"
+  },
+  "os_env": {
+   "USER": "tester_user"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select '\"ay z\"' as a, '\"a b\"' as b, 'q\"r' as c, '_9x' as d, 'tester_user' as e, '\"py z\"' as f"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

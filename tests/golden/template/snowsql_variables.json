@@ -1,0 +1,37 @@
+{
+ "case": {
+  "name": "snowsql_variables",
+  "query": "select '<% name %>' as a, <% other %> as b, '<% upper %>' as d",
+  "variables": [
+   "other=3"
+  ],
+  "home_files": {
+   "config": "[connections]\naccountname = ignored\n[variables]\nname = from_snowsql\nother = 2\nUPPER = keys lowercased\n"
+  },
+  "os_env": {
+   "SNOWFLAKE_CLI_CONFIG_V2_ENABLED": "1"
+  },
+  "formats": [
+   "table",
+   "json"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'from_snowsql' as a, 3 as b, 'keys lowercased' as d"
+   ],
+   "stdout": "",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "statements": [
+    "select 'from_snowsql' as a, 3 as b, 'keys lowercased' as d"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

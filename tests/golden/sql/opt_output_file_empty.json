@@ -1,0 +1,79 @@
+{
+ "case": {
+  "name": "opt_output_file_empty",
+  "query": "select 1 as n",
+  "options": [
+   "-o",
+   "output_file=",
+   "-o",
+   "output_file={spool}",
+   "-o",
+   "output_file= "
+  ],
+  "formats": [
+   "table",
+   "json"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "stdout": "select 1 as n\n+---+\n| N |\n|---|\n| 1 |\n+---+\n",
+   "stderr": "",
+   "spool": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n    {\n        \"N\": 1\n    }\n]\n",
+   "stderr": "",
+   "spool": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "N",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795271594176
+   },
+   "statement": "select 1 as n"
+  }
+ ]
+}

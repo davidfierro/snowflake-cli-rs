@@ -1,0 +1,16 @@
+{
+ "case": {
+  "name": "crlf_line_ends",
+  "query": "select 1 as a\r\n, 2 as b\r, 3 as c"
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 1 as a\n, 2 as b\n, 3 as c"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

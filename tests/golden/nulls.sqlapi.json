@@ -1,0 +1,169 @@
+{
+ "sql": "SELECT NULL AS n, NULL::NUMBER AS ni, NULL::NUMBER(10,2) AS nd, NULL::FLOAT AS nf, NULL::TEXT AS nt, NULL::DATE AS ndate, NULL::BOOLEAN AS nb, NULL::BINARY AS nbin, NULL::VARIANT AS nv, NULL::TIMESTAMP_NTZ AS nts",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 62
+    }
+   ],
+   "rowType": [
+    {
+     "name": "N",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 0,
+     "nullable": true,
+     "collation": null,
+     "length": 0,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "NI",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 38,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "ND",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 10,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 2
+    },
+    {
+     "name": "NF",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "real",
+     "scale": null
+    },
+    {
+     "name": "NT",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 134217728,
+     "nullable": true,
+     "collation": null,
+     "length": 134217728,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "NDATE",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "date",
+     "scale": null
+    },
+    {
+     "name": "NB",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "boolean",
+     "scale": null
+    },
+    {
+     "name": "NBIN",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 67108864,
+     "nullable": true,
+     "collation": null,
+     "length": 67108864,
+     "type": "binary",
+     "scale": null
+    },
+    {
+     "name": "NV",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "variant",
+     "scale": null
+    },
+    {
+     "name": "NTS",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 0,
+     "byteLength": null,
+     "nullable": true,
+     "collation": null,
+     "length": null,
+     "type": "timestamp_ntz",
+     "scale": 9
+    }
+   ]
+  },
+  "data": [
+   [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=c0e291d1-2c0f-4b4a-be79-c28ed3eef9f3",
+  "requestId": "c0e291d1-2c0f-4b4a-be79-c28ed3eef9f3",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207344401
+ },
+ "partitions": []
+}

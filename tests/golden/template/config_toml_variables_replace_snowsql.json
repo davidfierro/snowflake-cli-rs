@@ -1,0 +1,23 @@
+{
+ "case": {
+  "name": "config_toml_variables_replace_snowsql",
+  "query": "select '<% t %>' as t, '<% b %>' as b, '<% f %>' as f",
+  "home_files": {
+   "config": "[variables]\nname = from_snowsql\n",
+   "config.toml": "[variables]\nt = 7\nb = true\nf = 1.5\n"
+  },
+  "os_env": {
+   "SNOWFLAKE_CLI_CONFIG_V2_ENABLED": "1"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select '7' as t, 'True' as b, '1.5' as f"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

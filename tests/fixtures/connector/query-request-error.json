@@ -1,0 +1,19 @@
+{
+  "code": "002003",
+  "data": {
+    "age": 0,
+    "errorCode": "002003",
+    "internalError": false,
+    "line": 1,
+    "pos": 14,
+    "queryContext": null,
+    "queryId": "<queryId>",
+    "sourceLocationValid": true,
+    "sqlState": "42S02",
+    "type": "COMPILATION",
+    "unredactedFromSecureObject": false
+  },
+  "headers": null,
+  "message": "SQL compilation error:\nObject 'SNOW_RS_NO_SUCH_TABLE_FOR_FIXTURES' does not exist or not authorized. Your primary role <snowflake_role> or one of your secondary roles must have at least one privilege granted on TABLE SNOW_RS_NO_SUCH_TABLE_FOR_FIXTURES.",
+  "success": false
+}

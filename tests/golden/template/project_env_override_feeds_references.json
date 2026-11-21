@@ -1,0 +1,22 @@
+{
+ "case": {
+  "name": "project_env_override_feeds_references",
+  "query": "select '<% ctx.env.full %>' as a",
+  "env": [
+   "name=cli"
+  ],
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  name: yml\n  full: \"<% ctx.env.name %>_suffix\"\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'cli_suffix' as a"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

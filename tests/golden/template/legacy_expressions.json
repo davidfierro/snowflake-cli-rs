@@ -1,0 +1,20 @@
+{
+ "case": {
+  "name": "legacy_expressions",
+  "query": "select &{ a | upper } as a, &{ n | int * 10 } as b, '&{ a ~ n }' as c, &n as d",
+  "variables": [
+   "a=q",
+   "n=2"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select Q as a, 20 as b, 'q2' as c, 2 as d"
+   ],
+   "stdout": "Warning: &{ ... } syntax is deprecated and will no longer be supported. Use <% ... %> syntax instead.\n",
+   "stderr": ""
+  }
+ }
+}

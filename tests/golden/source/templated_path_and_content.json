@@ -1,0 +1,7 @@
+{
+ "snow": "3.34.0",
+ "statements": [
+  "select 7 as v;"
+ ],
+ "errors": []
+}

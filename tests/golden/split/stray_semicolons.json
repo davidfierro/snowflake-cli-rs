@@ -1,0 +1,48 @@
+{
+ "connector": "4.8.1",
+ "text": "select 1;\n;\n  ;  \nselect 2;;",
+ "remove_comments": [
+  [
+   "select 1;",
+   false
+  ],
+  [
+   ";",
+   null
+  ],
+  [
+   ";",
+   null
+  ],
+  [
+   "select 2;",
+   false
+  ],
+  [
+   ";",
+   null
+  ]
+ ],
+ "keep_comments": [
+  [
+   "select 1;",
+   false
+  ],
+  [
+   ";",
+   null
+  ],
+  [
+   ";",
+   null
+  ],
+  [
+   "select 2;",
+   false
+  ],
+  [
+   ";",
+   null
+  ]
+ ]
+}

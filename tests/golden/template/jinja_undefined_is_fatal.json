@@ -1,0 +1,20 @@
+{
+ "case": {
+  "name": "jinja_undefined_is_fatal",
+  "query": "select {{ n }}; select {{ zz }}",
+  "variables": [
+   "n=1"
+  ],
+  "templating": [
+   "JINJA"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "\nAn unexpected exception occurred. Use --debug option to see the traceback. Exception message:\n\n'zz' is undefined\n",
+   "stderr": "To send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "case": {
+  "name": "project_unknown_reference",
+  "query": "select '<% ctx.env.a %>'",
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  a: \"<% ctx.env.nope %>\"\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "statements": null,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Failed to read snowflake.yml file: Could not find template variable          │\n│ ctx.env.nope                                                                 │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ }
+}

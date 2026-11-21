@@ -1,0 +1,22 @@
+{
+ "case": {
+  "name": "jinja_comments_retained",
+  "query": "-- {{ zz }}\nselect {{ n }} as a",
+  "variables": [
+   "n=5"
+  ],
+  "templating": [
+   "JINJA"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 5 as a"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}

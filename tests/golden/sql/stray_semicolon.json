@@ -1,0 +1,89 @@
+{
+ "case": {
+  "name": "stray_semicolon",
+  "files": [
+   "select 1 as a;\n;\nselect 2 as b;\n"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "select 1 as a;\n+---+\n| A |\n|---|\n| 1 |\n+---+\n;\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 000900 (42601): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: SQL compilation error: │\n│ Empty SQL statement.                                                         │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "plain": {
+   "exit": 1,
+   "stdout": "select 1 as a;\nA\n1\n;\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 000900 (42601): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: SQL compilation error: │\n│ Empty SQL statement.                                                         │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "json": {
+   "exit": 1,
+   "stdout": "[\n  [\n    {\n      \"A\"  :   1\n    }\n  ]",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 000900 (42601): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: SQL compilation error: │\n│ Empty SQL statement.                                                         │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  },
+  "csv": {
+   "exit": 1,
+   "stdout": "A\n1\n\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 000900 (42601): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: SQL compilation error: │\n│ Empty SQL statement.                                                         │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "A",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257308369
+   },
+   "statement": "select 1 as a;"
+  },
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 422,
+   "response": {
+    "code": "000900",
+    "message": "SQL compilation error:\nEmpty SQL statement.",
+    "sqlState": "42601",
+    "statementHandle": "01234567-0000-0000-0000-000000000003"
+   },
+   "statement": ";"
+  }
+ ]
+}

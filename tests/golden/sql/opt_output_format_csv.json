@@ -1,0 +1,79 @@
+{
+ "case": {
+  "name": "opt_output_format_csv",
+  "query": "select 1 as n, 'x' as s",
+  "options": [
+   "-o",
+   "output_format=csv"
+  ],
+  "bare": true
+ },
+ "outputs": {
+  "default": {
+   "exit": 0,
+   "stdout": "N,S\n1,x\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 9
+      }
+     ],
+     "rowType": [
+      {
+       "name": "N",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      },
+      {
+       "name": "S",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 4,
+       "nullable": false,
+       "collation": null,
+       "length": 1,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "1",
+      "x"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795271604446
+   },
+   "statement": "select 1 as n, 'x' as s"
+  }
+ ]
+}

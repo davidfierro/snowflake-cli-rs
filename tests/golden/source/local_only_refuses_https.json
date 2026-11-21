@@ -1,0 +1,9 @@
+{
+ "snow": "3.34.0",
+ "statements": [
+  "select 1;"
+ ],
+ "errors": [
+  "Loading SQL from URLs is disabled (--local-only): https://example.invalid/a.sql"
+ ]
+}

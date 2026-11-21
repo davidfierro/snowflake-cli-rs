@@ -1,0 +1,32 @@
+{
+ "connector": "4.8.1",
+ "text": "select 'x' from @s/https://a.b//c; list s3://bucket//x/y; select 1 //c\n;",
+ "remove_comments": [
+  [
+   "select 'x' from @s/https://a.b//c;",
+   false
+  ],
+  [
+   "list s3://bucket//x/y;",
+   false
+  ],
+  [
+   "select 1 \n;",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "select 'x' from @s/https://a.b//c;",
+   false
+  ],
+  [
+   "list s3://bucket//x/y;",
+   false
+  ],
+  [
+   "select 1 //c\n;",
+   false
+  ]
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "case": {
+  "name": "opt_output_format_conflicts_with_format",
+  "query": "select 1 as n",
+  "options": [
+   "-o",
+   "output_format=csv"
+  ],
+  "no_request": true,
+  "formats": [
+   "table",
+   "json"
+  ]
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ --format cannot be combined with -o output_format. Use only one of them.     │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "json": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ --format cannot be combined with -o output_format. Use only one of them.     │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ },
+ "exchanges": []
+}

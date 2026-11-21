@@ -1,0 +1,20 @@
+{
+ "case": {
+  "name": "opt_output_format_empty",
+  "query": "select 1 as n",
+  "options": [
+   "-o",
+   "output_format="
+  ],
+  "no_request": true,
+  "bare": true
+ },
+ "outputs": {
+  "default": {
+   "exit": 1,
+   "stdout": "",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ Invalid output format: ''. Must be one of: TABLE, JSON, JSON_EXT, CSV,       │\n│ PLAIN.                                                                       │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  }
+ },
+ "exchanges": []
+}

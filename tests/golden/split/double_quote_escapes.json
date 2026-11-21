@@ -1,0 +1,24 @@
+{
+ "connector": "4.8.1",
+ "text": "select \"a\"\"b;\" as c; select \"x\\\";y\";",
+ "remove_comments": [
+  [
+   "select \"a\"\"b;\" as c;",
+   false
+  ],
+  [
+   "select \"x\\\";y\";",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "select \"a\"\"b;\" as c;",
+   false
+  ],
+  [
+   "select \"x\\\";y\";",
+   false
+  ]
+ ]
+}

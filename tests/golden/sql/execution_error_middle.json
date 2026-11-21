@@ -1,0 +1,227 @@
+{
+ "case": {
+  "name": "execution_error_middle",
+  "query": "select 1 as a; select 1/0 as boom; select 2 as b",
+  "deviation": " (22012)"
+ },
+ "outputs": {
+  "table": {
+   "exit": 1,
+   "stdout": "select 1 as a;\n+---+\n| A |\n|---|\n| 1 |\n+---+\nselect 1/0 as boom;\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 100051 (22012): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: Division by zero       │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "plain": {
+   "exit": 1,
+   "stdout": "select 1 as a;\nA\n1\nselect 1/0 as boom;\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 100051 (22012): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: Division by zero       │\n╰──────────────────────────────────────────────────────────────────────────────╯\nTo send feedback about Snowflake CLI: snow feedback\n"
+  },
+  "json": {
+   "exit": 1,
+   "stdout": "[\n  [\n    {\n      \"A\"  :   1\n    }\n  ]",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 100051 (22012): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: Division by zero       │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  },
+  "csv": {
+   "exit": 1,
+   "stdout": "A\n1\n\n",
+   "stderr": "╭─ Error ──────────────────────────────────────────────────────────────────────╮\n│ 100051 (22012): xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx: Division by zero       │\n╰──────────────────────────────────────────────────────────────────────────────╯\n"
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 422,
+   "response": {
+    "code": "100132",
+    "message": "JavaScript execution error: Uncaught Execution of multiple statements failed on statement \"select 1/0 as boom\" (at line 2, position 0).\nDivision by zero in SYSTEM$MULTISTMT at '    throw `Execution of multiple statements failed on statement {0} (at line {1}, position {2}).`.replace('{1}', LINES[i])' position 4\nstackstrace: \nSYSTEM$MULTISTMT line: 10",
+    "sqlState": "P0000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001"
+   },
+   "statement": "select 1 as a;\nselect 1/0 as boom;\nselect 2 as b\n;",
+   "parameters": {
+    "MULTI_STATEMENT_COUNT": "3"
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 26
+      }
+     ],
+     "rowType": [
+      {
+       "name": "SESSION_ID",
+       "database": "",
+       "schema": "",
+       "table": "SYS$_VIEW_40",
+       "precision": 38,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "12866460617"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000002?requestId=01234567-0000-0000-0000-000000000003",
+    "requestId": "01234567-0000-0000-0000-000000000003",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000002",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257268443
+   },
+   "statement": "SELECT SESSION_ID FROM TABLE(SNOWFLAKE.INFORMATION_SCHEMA.QUERY_HISTORY_BY_USER(END_TIME_RANGE_START => DATEADD('minute', -10, CURRENT_TIMESTAMP()), RESULT_LIMIT => 10000)) WHERE QUERY_ID = '01234567-0000-0000-0000-000000000001'"
+  },
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 3,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 3,
+       "uncompressedSize": 278
+      }
+     ],
+     "rowType": [
+      {
+       "name": "QUERY_ID",
+       "database": "",
+       "schema": "",
+       "table": "SYS$_VIEW_29",
+       "precision": null,
+       "byteLength": 134217728,
+       "nullable": true,
+       "collation": null,
+       "length": 134217728,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "QUERY_TEXT",
+       "database": "",
+       "schema": "",
+       "table": "SYS$_VIEW_29",
+       "precision": null,
+       "byteLength": 134217728,
+       "nullable": true,
+       "collation": null,
+       "length": 134217728,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "EXECUTION_STATUS",
+       "database": "",
+       "schema": "",
+       "table": "SYS$_VIEW_29",
+       "precision": null,
+       "byteLength": 134217728,
+       "nullable": true,
+       "collation": null,
+       "length": 134217728,
+       "type": "text",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "01234567-0000-0000-0000-000000000001",
+      "select 1 as a;\nselect 1/0 as boom;\nselect 2 as b\n;",
+      "FAILED_WITH_ERROR"
+     ],
+     [
+      "01234567-0000-0000-0000-000000000004",
+      "select 1 as a",
+      "SUCCESS"
+     ],
+     [
+      "01234567-0000-0000-0000-000000000005",
+      "select 1/0 as boom",
+      "FAILED_WITH_ERROR"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000006?requestId=01234567-0000-0000-0000-000000000007",
+    "requestId": "01234567-0000-0000-0000-000000000007",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000006",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257269153
+   },
+   "statement": "SELECT QUERY_ID, QUERY_TEXT, EXECUTION_STATUS FROM TABLE(SNOWFLAKE.INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION(SESSION_ID => 12866460617, RESULT_LIMIT => 10000)) ORDER BY START_TIME"
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000005",
+   "status": 200,
+   "response": {
+    "code": "100051",
+    "message": "Division by zero"
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/v2/statements/01234567-0000-0000-0000-000000000004",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 5
+      }
+     ],
+     "rowType": [
+      {
+       "name": "A",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      }
+     ]
+    },
+    "data": [
+     [
+      "1"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000004?requestId=01234567-0000-0000-0000-000000000008",
+    "requestId": "01234567-0000-0000-0000-000000000008",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000004",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795257268135
+   }
+  }
+ ]
+}

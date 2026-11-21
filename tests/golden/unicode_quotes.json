@@ -1,0 +1,11 @@
+[
+    {
+        "U": "\u00f1 \u65e5\u672c \ud83d\ude00",
+        "Q": "\"quoted\", comma",
+        "NL": "line1\nline2",
+        "CR": "cr\rlf",
+        "BS": "back\\slash",
+        "APOS": "it's",
+        "\u65e5\u672c": 1
+    }
+]

@@ -1,0 +1,249 @@
+{
+ "case": {
+  "name": "json_ext_semi_structured",
+  "query": "select object_construct('a', 1, 'b', array_construct(1, 'x', null, 1.5, true), 'c', object_construct(), 'd', array_construct(), 'é', 'ü😀', 'n', 12345678901234567890::number(38,0), 'f', 1e300::float, 'g', -0.0::float, 'z', null) as o, array_construct(1, array_construct(2, 3), object_construct('k', 'v')) as arr, parse_json('\"hello\"') as v1, parse_json('42') as v2, parse_json('[1,2]') as v3, parse_json('null') as v4, 1 as n, 'x' as s, to_variant(null) as v5, parse_json('1.0') as v6, parse_json('1e5') as v7, parse_json('0.1') as v8, parse_json('{\"a\":\"\\u001b[1mx\"}') as v9",
+  "formats": [
+   "json_ext",
+   "json",
+   "csv",
+   "table"
+  ]
+ },
+ "outputs": {
+  "json_ext": {
+   "exit": 0,
+   "stdout": "[\n    {\n        \"O\": \"{\\n  \\\"a\\\": 1,\\n  \\\"b\\\": [\\n    1,\\n    \\\"x\\\",\\n    undefined,\\n    1.5,\\n    true\\n  ],\\n  \\\"c\\\": {},\\n  \\\"d\\\": [],\\n  \\\"f\\\": 1.000000000000000e+300,\\n  \\\"g\\\": -0.000000000000000e+00,\\n  \\\"n\\\": 12345678901234567890,\\n  \\\"\\u00e9\\\": \\\"\\u00fc\\ud83d\\ude00\\\"\\n}\",\n        \"ARR\": [\n            1,\n            [\n                2,\n                3\n            ],\n            {\n                \"k\": \"v\"\n            }\n        ],\n        \"V1\": \"hello\",\n        \"V2\": 42,\n        \"V3\": [\n            1,\n            2\n        ],\n        \"V4\": null,\n        \"N\": 1,\n        \"S\": \"x\",\n        \"V5\": null,\n        \"V6\": 1,\n        \"V7\": 100000.0,\n        \"V8\": 0.1,\n        \"V9\": {\n            \"a\": \"x\"\n        }\n    }\n]\n",
+   "stderr": ""
+  },
+  "json": {
+   "exit": 0,
+   "stdout": "[\n    {\n        \"O\": \"{\\n  \\\"a\\\": 1,\\n  \\\"b\\\": [\\n    1,\\n    \\\"x\\\",\\n    undefined,\\n    1.5,\\n    true\\n  ],\\n  \\\"c\\\": {},\\n  \\\"d\\\": [],\\n  \\\"f\\\": 1.000000000000000e+300,\\n  \\\"g\\\": -0.000000000000000e+00,\\n  \\\"n\\\": 12345678901234567890,\\n  \\\"\\u00e9\\\": \\\"\\u00fc\\ud83d\\ude00\\\"\\n}\",\n        \"ARR\": \"[\\n  1,\\n  [\\n    2,\\n    3\\n  ],\\n  {\\n    \\\"k\\\": \\\"v\\\"\\n  }\\n]\",\n        \"V1\": \"\\\"hello\\\"\",\n        \"V2\": \"42\",\n        \"V3\": \"[\\n  1,\\n  2\\n]\",\n        \"V4\": \"null\",\n        \"N\": 1,\n        \"S\": \"x\",\n        \"V5\": null,\n        \"V6\": \"1\",\n        \"V7\": \"1.000000000000000e+05\",\n        \"V8\": \"0.1\",\n        \"V9\": \"{\\n  \\\"a\\\": \\\"\\\\u001b[1mx\\\"\\n}\"\n    }\n]\n",
+   "stderr": ""
+  },
+  "csv": {
+   "exit": 0,
+   "stdout": "O,ARR,V1,V2,V3,V4,N,S,V5,V6,V7,V8,V9\n\"{\n  \"\"a\"\": 1,\n  \"\"b\"\": [\n    1,\n    \"\"x\"\",\n    undefined,\n    1.5,\n    true\n  ],\n  \"\"c\"\": {},\n  \"\"d\"\": [],\n  \"\"f\"\": 1.000000000000000e+300,\n  \"\"g\"\": -0.000000000000000e+00,\n  \"\"n\"\": 12345678901234567890,\n  \"\"é\"\": \"\"ü😀\"\"\n}\",\"[\n  1,\n  [\n    2,\n    3\n  ],\n  {\n    \"\"k\"\": \"\"v\"\"\n  }\n]\",\"\"\"hello\"\"\",42,\"[\n  1,\n  2\n]\",null,1,x,,1,1.000000000000000e+05,0.1,\"{\n  \"\"a\"\": \"\"\\u001b[1mx\"\"\n}\"\n",
+   "stderr": ""
+  },
+  "table": {
+   "exit": 0,
+   "stdout": "select object_construct('a', 1, 'b', array_construct(1, 'x', null, 1.5, true), 'c', object_construct(), 'd', array_construct(), 'é', 'ü😀', 'n', 12345678901234567890::number(38,0), 'f', 1e300::float, 'g', -0.0::float, 'z', null) as o, array_construct(1, array_construct(2, 3), object_construct('k', 'v')) as arr, parse_json('\"hello\"') as v1, parse_json('42') as v2, parse_json('[1,2]') as v3, parse_json('null') as v4, 1 as n, 'x' as s, to_variant(null) as v5, parse_json('1.0') as v6, parse_json('1e5') as v7, parse_json('0.1') as v8, parse_json('{\"a\":\"\\u001b[1mx\"}') as v9\n+----------------------------------------------------------------------------------------------------------------------------------------------------+\n| O                              | ARR          | V1      | V2 | V3   | V4   | N | S | V5   | V6 | V7                    | V8  | V9                  |\n|--------------------------------+--------------+---------+----+------+------+---+---+------+----+-----------------------+-----+---------------------|\n| {                              | [            | \"hello\" | 42 | [    | null | 1 | x | None | 1  | 1.000000000000000e+05 | 0.1 | {                   |\n|   \"a\": 1,                      |   1,         |         |    |   1, |      |   |   |      |    |                       |     |   \"a\": \"\\u001b[1mx\" |\n|   \"b\": [                       |   [          |         |    |   2  |      |   |   |      |    |                       |     | }                   |\n|     1,                         |     2,       |         |    | ]    |      |   |   |      |    |                       |     |                     |\n|     \"x\",                       |     3        |         |    |      |      |   |   |      |    |                       |     |                     |\n|     undefined,                 |   ],         |         |    |      |      |   |   |      |    |                       |     |                     |\n|     1.5,                       |   {          |         |    |      |      |   |   |      |    |                       |     |                     |\n|     true                       |     \"k\": \"v\" |         |    |      |      |   |   |      |    |                       |     |                     |\n|   ],                           |   }          |         |    |      |      |   |   |      |    |                       |     |                     |\n|   \"c\": {},                     | ]            |         |    |      |      |   |   |      |    |                       |     |                     |\n|   \"d\": [],                     |              |         |    |      |      |   |   |      |    |                       |     |                     |\n|   \"f\": 1.000000000000000e+300, |              |         |    |      |      |   |   |      |    |                       |     |                     |\n|   \"g\": -0.000000000000000e+00, |              |         |    |      |      |   |   |      |    |                       |     |                     |\n|   \"n\": 12345678901234567890,   |              |         |    |      |      |   |   |      |    |                       |     |                     |\n|   \"é\": \"ü😀\"                   |              |         |    |      |      |   |   |      |    |                       |     |                     |\n| }                              |              |         |    |      |      |   |   |      |    |                       |     |                     |\n+----------------------------------------------------------------------------------------------------------------------------------------------------+\n",
+   "stderr": ""
+  }
+ },
+ "exchanges": [
+  {
+   "method": "POST",
+   "path": "/api/v2/statements",
+   "status": 200,
+   "response": {
+    "resultSetMetaData": {
+     "numRows": 1,
+     "format": "jsonv2",
+     "partitionInfo": [
+      {
+       "rowCount": 1,
+       "uncompressedSize": 445
+      }
+     ],
+     "rowType": [
+      {
+       "name": "O",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "object",
+       "scale": null
+      },
+      {
+       "name": "ARR",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "array",
+       "scale": null
+      },
+      {
+       "name": "V1",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      },
+      {
+       "name": "V2",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      },
+      {
+       "name": "V3",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      },
+      {
+       "name": "V4",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      },
+      {
+       "name": "N",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": 1,
+       "byteLength": null,
+       "nullable": false,
+       "collation": null,
+       "length": null,
+       "type": "fixed",
+       "scale": 0
+      },
+      {
+       "name": "S",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": 4,
+       "nullable": false,
+       "collation": null,
+       "length": 1,
+       "type": "text",
+       "scale": null
+      },
+      {
+       "name": "V5",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      },
+      {
+       "name": "V6",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      },
+      {
+       "name": "V7",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      },
+      {
+       "name": "V8",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      },
+      {
+       "name": "V9",
+       "database": "",
+       "schema": "",
+       "table": "",
+       "precision": null,
+       "byteLength": null,
+       "nullable": true,
+       "collation": null,
+       "length": null,
+       "type": "variant",
+       "scale": null
+      }
+     ]
+    },
+    "data": [
+     [
+      "{\n  \"a\": 1,\n  \"b\": [\n    1,\n    \"x\",\n    undefined,\n    1.5,\n    true\n  ],\n  \"c\": {},\n  \"d\": [],\n  \"f\": 1.000000000000000e+300,\n  \"g\": -0.000000000000000e+00,\n  \"n\": 12345678901234567890,\n  \"é\": \"ü😀\"\n}",
+      "[\n  1,\n  [\n    2,\n    3\n  ],\n  {\n    \"k\": \"v\"\n  }\n]",
+      "\"hello\"",
+      "42",
+      "[\n  1,\n  2\n]",
+      "null",
+      "1",
+      "x",
+      null,
+      "1",
+      "1.000000000000000e+05",
+      "0.1",
+      "{\n  \"a\": \"\\u001b[1mx\"\n}"
+     ]
+    ],
+    "code": "090001",
+    "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000001?requestId=01234567-0000-0000-0000-000000000002",
+    "requestId": "01234567-0000-0000-0000-000000000002",
+    "sqlState": "00000",
+    "statementHandle": "01234567-0000-0000-0000-000000000001",
+    "message": "Statement executed successfully.",
+    "createdOn": 1795271460167
+   },
+   "statement": "select object_construct('a', 1, 'b', array_construct(1, 'x', null, 1.5, true), 'c', object_construct(), 'd', array_construct(), 'é', 'ü😀', 'n', 12345678901234567890::number(38,0), 'f', 1e300::float, 'g', -0.0::float, 'z', null) as o, array_construct(1, array_construct(2, 3), object_construct('k', 'v')) as arr, parse_json('\"hello\"') as v1, parse_json('42') as v2, parse_json('[1,2]') as v3, parse_json('null') as v4, 1 as n, 'x' as s, to_variant(null) as v5, parse_json('1.0') as v6, parse_json('1e5') as v7, parse_json('0.1') as v8, parse_json('{\"a\":\"\\u001b[1mx\"}') as v9"
+  }
+ ]
+}

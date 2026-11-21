@@ -1,0 +1,9 @@
+snowflake-cli-rs
+Copyright 2026 The snowflake-cli-rs contributors
+
+This product is a Rust port of the Snowflake CLI (`snow`), developed at
+https://github.com/snowflakedb/snowflake-cli, Copyright Snowflake Inc., licensed under the
+Apache License, Version 2.0. The help texts, option descriptions, error messages and output
+formats of `snow` that this project reproduces come from that work.
+
+This project is not affiliated with or endorsed by Snowflake Inc.

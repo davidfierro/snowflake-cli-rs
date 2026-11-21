@@ -1,0 +1,183 @@
+{
+ "sql": "SELECT '=1+1' AS f1, '+x' AS f2, '-y' AS f3, '@z' AS f4, CHR(9) || 'tab' AS f5, CHR(13) || 'cr' AS f6, -5 AS n, -1.5::NUMBER(4,1) AS dn, -2.5::FLOAT AS fl, 'a=b' AS mid, 1 AS \"=X\" ",
+ "response": {
+  "resultSetMetaData": {
+   "numRows": 1,
+   "format": "jsonv2",
+   "partitionInfo": [
+    {
+     "rowCount": 1,
+     "uncompressedSize": 78
+    }
+   ],
+   "rowType": [
+    {
+     "name": "F1",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 16,
+     "nullable": false,
+     "collation": null,
+     "length": 4,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "F2",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 8,
+     "nullable": false,
+     "collation": null,
+     "length": 2,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "F3",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 8,
+     "nullable": false,
+     "collation": null,
+     "length": 2,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "F4",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 8,
+     "nullable": false,
+     "collation": null,
+     "length": 2,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "F5",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 16,
+     "nullable": false,
+     "collation": null,
+     "length": 4,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "F6",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 12,
+     "nullable": false,
+     "collation": null,
+     "length": 3,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "N",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    },
+    {
+     "name": "DN",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 4,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 1
+    },
+    {
+     "name": "FL",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "real",
+     "scale": null
+    },
+    {
+     "name": "MID",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": null,
+     "byteLength": 12,
+     "nullable": false,
+     "collation": null,
+     "length": 3,
+     "type": "text",
+     "scale": null
+    },
+    {
+     "name": "=X",
+     "database": "",
+     "schema": "",
+     "table": "",
+     "precision": 1,
+     "byteLength": null,
+     "nullable": false,
+     "collation": null,
+     "length": null,
+     "type": "fixed",
+     "scale": 0
+    }
+   ]
+  },
+  "data": [
+   [
+    "=1+1",
+    "+x",
+    "-y",
+    "@z",
+    "\ttab",
+    "\rcr",
+    "-5",
+    "-1.5",
+    "-2.5",
+    "a=b",
+    "1"
+   ]
+  ],
+  "code": "090001",
+  "statementStatusUrl": "/api/v2/statements/01234567-0000-0000-0000-000000000000?requestId=3191daec-99a7-4bd7-b54d-068cef8306bb",
+  "requestId": "3191daec-99a7-4bd7-b54d-068cef8306bb",
+  "sqlState": "00000",
+  "statementHandle": "01234567-0000-0000-0000-000000000000",
+  "message": "Statement executed successfully.",
+  "createdOn": 1795207371115
+ },
+ "partitions": []
+}

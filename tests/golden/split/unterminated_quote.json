@@ -1,0 +1,16 @@
+{
+ "connector": "4.8.1",
+ "text": "select 'abc;\nselect 2;",
+ "remove_comments": [
+  [
+   "select 'abc;\nselect 2;",
+   false
+  ]
+ ],
+ "keep_comments": [
+  [
+   "select 'abc;\nselect 2;",
+   false
+  ]
+ ]
+}

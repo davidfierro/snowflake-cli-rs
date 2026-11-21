@@ -1,0 +1,20 @@
+{
+ "case": {
+  "name": "project_local_override",
+  "query": "select '<% ctx.env.a %>' as a, '<% ctx.env.b %>' as b",
+  "project": {
+   "snowflake.yml": "definition_version: 2\nenv:\n  a: base\n  b: base\n",
+   "snowflake.local.yml": "env:\n  b: local\n"
+  }
+ },
+ "outputs": {
+  "table": {
+   "exit": 0,
+   "statements": [
+    "select 'base' as a, 'local' as b"
+   ],
+   "stdout": "",
+   "stderr": ""
+  }
+ }
+}
