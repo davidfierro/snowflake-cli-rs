@@ -322,9 +322,6 @@ mod tests {
         assert_eq!(file, p.config_file);
         let text = std::fs::read_to_string(&p.config_file).unwrap();
         let logs = dir.path().join("deep/er/logs");
-        let logs = std::fs::canonicalize(logs.parent().unwrap())
-            .unwrap()
-            .join("logs");
         assert_eq!(
             text,
             format!(

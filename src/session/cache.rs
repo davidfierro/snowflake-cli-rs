@@ -247,6 +247,8 @@ fn lookup(base: &str, segments: &[&str]) -> Option<PathBuf> {
 }
 
 fn mkdir(dir: &Path, mode: u32) {
+    #[cfg_attr(not(unix), allow(unused_mut))]
+    // `mut` is needed only by the unix-only mode call below
     let mut builder = std::fs::DirBuilder::new();
     #[cfg(unix)]
     {
@@ -373,6 +375,8 @@ impl DirLock {
         let mut backoff = LOCK_FIRST_BACKOFF;
         for _ in 0..LOCK_RETRIES {
             backoff *= 2;
+            #[cfg_attr(not(unix), allow(unused_mut))]
+            // `mut` is needed only by the unix-only mode call below
             let mut builder = std::fs::DirBuilder::new();
             #[cfg(unix)]
             {

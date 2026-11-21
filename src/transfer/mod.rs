@@ -396,6 +396,8 @@ struct TempDir(PathBuf);
 impl TempDir {
     fn new() -> Result<Self> {
         let path = std::env::temp_dir().join(format!("snow-rs-transfer-{}", uuid::Uuid::new_v4()));
+        #[cfg_attr(not(unix), allow(unused_mut))]
+        // `mut` is needed only by the unix-only mode call below
         let mut builder = std::fs::DirBuilder::new();
         #[cfg(unix)]
         std::os::unix::fs::DirBuilderExt::mode(&mut builder, 0o700);
