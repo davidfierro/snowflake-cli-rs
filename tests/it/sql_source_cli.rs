@@ -100,6 +100,9 @@ fn http_and_other_schemes_are_refused_without_a_request() {
     assert_eq!(any.calls(), 0);
 }
 
+// errno 111 and its text are Linux's (macOS: 61, Windows: 10061); the OS-agnostic shape of this
+// message is covered by `script::source::tests::an_unreachable_url_reports_the_os_error`.
+#[cfg(target_os = "linux")]
 #[test]
 fn an_unreachable_https_url_is_a_fetch_error() {
     let port = {

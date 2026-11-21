@@ -18,7 +18,9 @@ use snowflake_cli_rs::commands::Prompter;
 use snowflake_cli_rs::env::Env;
 use snowflake_cli_rs::error::Result;
 use std::collections::VecDeque;
-use std::path::{Path, PathBuf};
+#[cfg(unix)]
+use std::path::Path;
+use std::path::PathBuf;
 use tempfile::TempDir;
 
 const GOLDEN: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/tests/golden/connection");

@@ -183,7 +183,6 @@ fn check_permissions(_path: &Path, _custom: bool) -> Result<()> {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use std::path::PathBuf;
     use tempfile::TempDir;
 
     /// A temp SNOWFLAKE_HOME with the given files, each written with mode 0600.
@@ -363,7 +362,7 @@ pub(crate) mod tests {
 
         fn load_with_mode(file: &str, mode: u32, custom: bool) -> Result<ConfigSource> {
             let (dir, mut paths) = home_with(&[(file, "[x]\n")]);
-            let path: PathBuf = dir.path().join(file);
+            let path: std::path::PathBuf = dir.path().join(file);
             set_mode(&path, mode);
             if custom {
                 paths.config_file = path;

@@ -626,10 +626,7 @@ fn the_binary_probes_local_sockets_listed_in_the_allowlist_file() {
     assert!(checks[0]["latency_ms"].is_number());
     assert_eq!(checks[1]["status"], "Unhealthy");
     assert!(
-        checks[1]["error"]
-            .as_str()
-            .unwrap()
-            .starts_with("[Errno 111]"),
+        checks[1]["error"].as_str().unwrap().starts_with("[Errno "),
         "{}",
         checks[1]["error"]
     );
