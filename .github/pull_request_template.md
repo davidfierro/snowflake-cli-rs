@@ -8,4 +8,5 @@
 - [ ] `cargo fmt --all --check`, `cargo clippy --all-targets --all-features -- -D warnings` and `RUSTFLAGS="-D warnings" cargo test --all-features` pass locally.
 - [ ] A new or changed command or option has its scenario in `bench/run.sh` and the README matrix is regenerated (`UPDATE_README=1 cargo test --test it command_matrix`).
 - [ ] No secrets, account names or private data in the diff.
+- [ ] The branch, the commit subjects and the PR title follow the naming rules in `CONTRIBUTING.md` (`scripts/check-naming.sh`).
 - [ ] One PR against `main`; I understand that only maintainers merge, after a green `ci`.
