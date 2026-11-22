@@ -1,0 +1,91 @@
+# PyPI wheels (ADR 0007). The `vX.Y.Z` tag that release-plz pushes builds a
+# maturin `bindings = "bin"` wheel per target plus an sdist, and publishes them
+# to PyPI as `snowflake-cli-rs` with trusted publishing (OIDC): no API token.
+#
+# Never runs on pull requests. The PyPI trusted publisher is registered for this
+# file name (`pypi.yml`) and the `pypi` environment: renaming either breaks
+# publishing until the publisher on PyPI is updated too.
+name: pypi
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  wheels:
+    name: wheel (${{ matrix.platform.name }})
+    runs-on: ${{ matrix.platform.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - { name: manylinux x86_64, runner: ubuntu-22.04, target: x86_64, manylinux: auto, smoke: true }
+          - { name: manylinux aarch64, runner: ubuntu-22.04-arm, target: aarch64, manylinux: auto, smoke: true }
+          # musl wheels can't be installed on the glibc runner, so they are not smoke-tested.
+          - { name: musllinux x86_64, runner: ubuntu-22.04, target: x86_64, manylinux: musllinux_1_2, smoke: false }
+          - { name: musllinux aarch64, runner: ubuntu-22.04-arm, target: aarch64, manylinux: musllinux_1_2, smoke: false }
+          - { name: macos x86_64, runner: macos-15-intel, target: x86_64, manylinux: "", smoke: true }
+          - { name: macos aarch64, runner: macos-15, target: aarch64, manylinux: "", smoke: true }
+          - { name: windows x86_64, runner: windows-2022, target: x64, manylinux: "", smoke: true }
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      # No `--release`: it would override `profile = "dist"` in pyproject.toml.
+      - uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.platform.target }}
+          manylinux: ${{ matrix.platform.manylinux }}
+          args: --out dist
+      - name: Smoke-test the wheel
+        if: matrix.platform.smoke
+        shell: bash
+        run: |
+          py=$(command -v python3 || command -v python)
+          "$py" -m venv smoke
+          bin=smoke/bin; [ -d smoke/Scripts ] && bin=smoke/Scripts
+          "$bin/pip" install --no-index --find-links dist snowflake-cli-rs
+          "$bin/snow-rs" --version
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wheels-${{ matrix.platform.runner }}-${{ matrix.platform.target }}-${{ matrix.platform.manylinux || 'native' }}
+          path: dist
+
+  sdist:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: PyO3/maturin-action@v1
+        with:
+          command: sdist
+          args: --out dist
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wheels-sdist
+          path: dist
+
+  publish:
+    needs: [wheels, sdist]
+    runs-on: ubuntu-22.04
+    environment:
+      name: pypi
+      url: https://pypi.org/project/snowflake-cli-rs/
+    permissions:
+      # Trusted publishing: the OIDC token is the only credential, and only this job gets it.
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: wheels-*
+          path: dist
+          merge-multiple: true
+      - uses: pypa/gh-action-pypi-publish@release/v1

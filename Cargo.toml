@@ -4,7 +4,15 @@ version = "0.1.0"
 edition = "2024"
 description = "Rust port of the Snowflake CLI (snow)"
 license = "Apache-2.0"
-publish = false
+repository = "https://github.com/davidfierro/snowflake-cli-rs"
+readme = "README.md"
+keywords = ["snowflake", "cli", "sql", "data-warehouse"]
+categories = ["command-line-utilities", "database"]
+# The toolchain pinned in rust-toolchain.toml: the only one CI builds and tests with.
+rust-version = "1.100"
+# What the published crate needs to build. Tests, goldens, fixtures, bench data and docs stay in
+# the repository (ADR 0007).
+include = ["/src/**/*.rs", "/Cargo.toml", "/Cargo.lock", "/README.md", "/LICENSE", "/NOTICE"]
 
 [[bin]]
 name = "snow-rs"
@@ -64,3 +72,19 @@ libc = "0.2"
 # rexpect drives a pty, which only exists on Unix (see `mod repl` in tests/it/main.rs).
 [target."cfg(unix)".dev-dependencies]
 rexpect = "0.7.1"
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
+
+# `cargo binstall snowflake-cli-rs` downloads the archives that dist publishes on the GitHub Release
+# (ADR 0007). Tarballs hold a `<name>-<target>/` directory; dist's Windows zips are flat.
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/v{ version }/{ name }-{ target }{ archive-suffix }"
+bin-dir = "{ name }-{ target }/{ bin }{ binary-ext }"
+pkg-fmt = "txz"
+
+[package.metadata.binstall.overrides.x86_64-pc-windows-msvc]
+pkg-fmt = "zip"
+bin-dir = "{ bin }{ binary-ext }"
