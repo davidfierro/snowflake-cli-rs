@@ -1,0 +1,41 @@
+name: naming
+
+# Validates the naming rules of CONTRIBUTING.md on every pull request: the branch name, the PR
+# title (it becomes the squash commit on `main`) and the commit subjects. `edited` re-runs it when
+# the title changes. It is its own workflow so that a title edit does not re-run the whole `ci`.
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: naming-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  naming:
+    runs-on: ubuntu-latest
+    # The PR's texts reach the script only through `env`, never interpolated into `run`: they
+    # are written by the PR author.
+    env:
+      PR_TITLE: ${{ github.event.pull_request.title }}
+      PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+      FROM_FORK: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+    steps:
+      # The default checkout is the merge commit of the PR: HEAD^1 is the base, HEAD^2 the PR head.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: PR title
+        run: scripts/check-naming.sh title "$PR_TITLE"
+      - name: Commit subjects
+        if: always()
+        run: scripts/check-naming.sh commits 'HEAD^1..HEAD^2'
+      # A fork's branch lives in someone else's repository and cannot be renamed without
+      # reopening the PR, so the rule covers only branches of this repository.
+      - name: Branch name
+        if: always() && env.FROM_FORK == 'false'
+        run: scripts/check-naming.sh branch "$PR_BRANCH"
