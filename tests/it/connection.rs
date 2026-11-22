@@ -61,6 +61,7 @@ impl Home {
         cmd.env_clear()
             .env("SNOWFLAKE_HOME", self.dir.path())
             .current_dir(self.dir.path());
+        crate::common::keep_system_env(&mut cmd);
         // Keep coverage profiling working under `cargo llvm-cov`.
         if let Some(profile) = std::env::var_os("LLVM_PROFILE_FILE") {
             cmd.env("LLVM_PROFILE_FILE", profile);
@@ -68,11 +69,17 @@ impl Home {
         cmd
     }
 
+    /// The home's path as it goes inside a TOML string: forward slashes on Windows, where a
+    /// backslash would start an escape.
+    fn home_text(&self) -> String {
+        self.dir.path().display().to_string().replace('\\', "/")
+    }
+
     /// Loads a golden file, `{HOME}` standing for this home's path.
     fn golden(&self, name: &str) -> String {
         std::fs::read_to_string(format!("{GOLDEN}/{name}"))
             .unwrap()
-            .replace("{HOME}", &self.dir.path().display().to_string())
+            .replace("{HOME}", &self.home_text())
     }
 
     /// Writes the golden `config.toml` (what snow wrote for dev, full and quoted).
@@ -196,6 +203,8 @@ const ADD_ALL: &[&str] = &[
 
 /// Golden: snow wrote this file for `add dev`, then `add full … --default` (captured from snow
 /// 3.34.0 with `scripts/capture-connection-goldens.sh`).
+// The golden holds a POSIX log path as a TOML basic string; a Windows path with `\` is written as a literal string.
+#[cfg(unix)]
 #[test]
 fn add_with_every_flag_writes_what_snow_writes() {
     let home = Home::new();
@@ -250,7 +259,11 @@ fn add_flag_aliases_and_the_json_message() {
         out,
         format!(
             "{{\n    \"message\": \"Wrote new connection x to {}\"\n}}\n",
-            home.path("config.toml").display()
+            // JSON escapes the backslashes of a Windows path.
+            home.path("config.toml")
+                .display()
+                .to_string()
+                .replace('\\', "\\\\")
         )
     );
     let config: toml::Table = home.read("config.toml").parse().unwrap();

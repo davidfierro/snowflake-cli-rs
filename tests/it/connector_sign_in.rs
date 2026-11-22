@@ -143,6 +143,7 @@ impl Home {
             .env("HOME", self.dir.path())
             .env("SNOWFLAKE_PROTOCOL", "http")
             .current_dir(self.dir.path());
+        crate::common::keep_system_env(&mut cmd);
         if let Some(profile) = std::env::var_os("LLVM_PROFILE_FILE") {
             cmd.env("LLVM_PROFILE_FILE", profile);
         }

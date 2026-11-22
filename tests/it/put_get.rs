@@ -262,6 +262,8 @@ fn arrange(name: &str, server: &MockServer, data: &Path, stage: &Path) {
     }
 }
 
+// The goldens are snow's output for POSIX paths (`file:///tmp`).
+#[cfg(unix)]
 #[test]
 fn put_get_output_matches_snow() {
     let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/golden/put_get/cases.json");
