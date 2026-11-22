@@ -1004,7 +1004,7 @@ fn generate_jwt_from_a_configured_connection_and_encrypted_key() {
         "config.toml",
         &format!(
             "[connections.k]\naccount = \"acct\"\nuser = \"u\"\nauthenticator = \"snowflake_jwt\"\nprivate_key_file = \"{}\"\nprivate_key_file_pwd = \"test-passphrase\"\n",
-            key_path("aes256.p8").display()
+            crate::common::key_path_toml("aes256.p8")
         ),
     );
     let out = stdout(home.snow().args(["connection", "generate-jwt", "-c", "k"]));
@@ -1198,7 +1198,7 @@ fn test_names_the_connection_and_reports_what_is_not_set() {
         "config.toml",
         &format!(
             "[connections.k]\naccount = \"acct\"\nuser = \"u\"\nauthenticator = \"snowflake_jwt\"\nprivate_key_file = \"{}\"\nhost = \"{}\"\nport = {}\nprotocol = \"http\"\n",
-            key_path("unencrypted.p8").display(),
+            crate::common::key_path_toml("unencrypted.p8"),
             server.host(),
             server.port()
         ),

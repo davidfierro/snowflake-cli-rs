@@ -29,6 +29,12 @@ pub fn key_path(name: &str) -> PathBuf {
         .join(name)
 }
 
+/// [`key_path`] as it goes inside a TOML string: forward slashes, because on Windows a backslash
+/// starts an escape.
+pub fn key_path_toml(name: &str) -> String {
+    key_path(name).display().to_string().replace('\\', "/")
+}
+
 /// A connection pointing at the mock server, signed with the unencrypted fixture key.
 pub fn connection(server: &MockServer) -> ConnectionConfig {
     ConnectionConfig {
