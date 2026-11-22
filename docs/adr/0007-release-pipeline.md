@@ -117,7 +117,7 @@ the registry, release-plz keeps the current version: the first release PR only a
 
 The tag workflows trust the tag, and PyPI's trusted publisher trusts the workflow file and
 environment, not the ref. A tag on a commit that never went through the PR, `ci` and the
-maintainer's merge (pushed by mistake, or by hand by an admin identity, an agent or the
+maintainer's merge (pushed by mistake, or by hand by any identity with push access, including the
 `RELEASE_PLZ_TOKEN` PAT) would publish that commit to PyPI and to the GitHub Release the installers
 fetch. The check below stops that for mistakes; see "Limits" for what it does not stop. crates.io is
 already gated: it publishes from a push to `main`.
@@ -129,18 +129,18 @@ already gated: it publishes from a push to `main`.
   injected by dist from `.github/release-guard.yml` (`github-build-setup` in
   `dist-workspace.toml`). `host`, which creates the GitHub Release, needs every build job to
   succeed, so nothing is released.
-- A tag ruleset on `refs/tags/v*` (a host step) restricts updates and deletions, so a published
+- A tag ruleset on `refs/tags/v*` (set once in the repository settings) restricts updates and deletions, so a published
   release tag can't be moved to another commit.
 - **Limits.** The check lives in the tagged commit's own workflow files, so it is a safety net
   against mistakes, not a boundary against someone who can push both a branch and a tag: that
   person can remove the check in the same commit they tag. Required reviewers on the `pypi`
   environment were considered and not added:
-  - the only possible reviewer is the identity that pushes tags (the agents use the maintainer's
-    account), so a review wouldn't stop that identity;
+  - the only possible reviewer is the identity that pushes tags (the maintainer's account, which
+    the release automation also acts as), so a review wouldn't stop that identity;
   - "Prevent self-review" would block the release, because release-plz pushes the tag with the
     maintainer's PAT;
-  - revisit this if releases are ever pushed by an identity separate from the agents' (a GitHub
-    App, or a second maintainer).
+  - revisit this if releases are ever pushed by an identity separate from the maintainer's (a
+    GitHub App, or a second maintainer).
 
 Alternative: a custom dist `plan-jobs` reusable workflow. dist 0.34.0 renders its call as
 `uses: $/.github/workflows/<name>.yml`, which GitHub and actionlint reject, so it can't be used.
