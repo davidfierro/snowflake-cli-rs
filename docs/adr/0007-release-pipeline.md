@@ -28,7 +28,7 @@ clashes with the official `snow` on the same `PATH`.
 `release-plz.yml` runs on every push to `main`:
 
 - `release-pr` opens or updates a release PR with the version bump and `CHANGELOG.md`, generated
-  from Conventional Commits (documented in `CONTRIBUTING.md`, not linted).
+  from Conventional Commits (`CONTRIBUTING.md`; the `naming` check validates them on every PR).
 - `release` publishes the crate to crates.io and pushes the `vX.Y.Z` tag, but only when the pushed
   commit is a merged release PR (`release_always = false`). Merging the release PR is the release.
 

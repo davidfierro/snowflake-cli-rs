@@ -135,16 +135,12 @@ scripts/check-naming.sh commits origin/main..HEAD
 scripts/check-naming.sh title "feat(sql): support --retain-comments"
 ```
 
-### Commit messages and PR titles
+### Versions and the CHANGELOG
 
-Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
-`<type>[(scope)][!]: <summary>`, for example `feat(sql): support --retain-comments` or
-`fix: keep CRLF in goldens`. The PR title follows the same form, since it becomes the squash
-commit. The CHANGELOG and the next version come from these messages. While we are on 0.x, a
-breaking change (`!` or a `BREAKING CHANGE:` footer) bumps the minor version and anything else the
-patch; from 1.0, `feat` bumps the minor and a breaking change the major. Other common types:
-`docs`, `test`, `refactor`, `perf`, `ci`, `chore`. Nothing lints them; a message that doesn't
-follow the form lands under "Other" in the CHANGELOG.
+release-plz builds the CHANGELOG and picks the next version from these commit subjects (the
+squash commits on `main`). While we are on 0.x, a breaking change (`!` or a `BREAKING CHANGE:`
+footer) bumps the minor version and anything else the patch; from 1.0, `feat` bumps the minor and a
+breaking change the major.
 
 ## Releasing
 
