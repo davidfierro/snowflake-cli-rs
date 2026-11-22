@@ -158,6 +158,8 @@ fn connection_without_subcommand_shows_help_and_fails() {
 
 // ------------------------------------------------------------------- add
 
+// Used only by the Unix-only `add_with_every_flag_writes_what_snow_writes`.
+#[cfg(unix)]
 const ADD_ALL: &[&str] = &[
     "connection",
     "add",

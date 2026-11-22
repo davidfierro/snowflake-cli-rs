@@ -15,6 +15,8 @@ use std::path::Path;
 const LOGIN: &str = "/session/v1/login-request";
 const QUERY: &str = "/queries/v1/query-request";
 const STAGE: &str = "goldens_test";
+// Used only by the Unix-only golden test below.
+#[cfg(unix)]
 /// `gzip.compress(b"x\n", mtime=0)`: the 22-byte `g.csv.gz` of the goldens.
 const G_CSV_GZ: &str = "1f8b08000000000002ffabe002001f08ea4602000000";
 
@@ -161,6 +163,8 @@ fn data_dir() -> tempfile::TempDir {
     dir
 }
 
+// Used only by the Unix-only golden test below.
+#[cfg(unix)]
 /// Sets up the mocked answers of one golden case.
 fn arrange(name: &str, server: &MockServer, data: &Path, stage: &Path) {
     let d = data.display().to_string();

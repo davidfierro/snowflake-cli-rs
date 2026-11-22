@@ -28,8 +28,6 @@ impl Sources for Rooted {
     }
 }
 
-// The goldens hold `<root>/files/…` paths; Windows canonical paths (`\\?\C:\…`) and `\` do not match them.
-#[cfg(unix)]
 #[test]
 fn sources_match_snow() {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/golden/source");

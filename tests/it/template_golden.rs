@@ -180,8 +180,6 @@ fn check(name: &str, record: &serde_json::Value, failures: &mut Vec<String>) {
     }
 }
 
-// The goldens hold snow's POSIX path texts (`PosixPath('…/project/nope.txt')`) and read `HOME`; Windows paths and `USERPROFILE` differ.
-#[cfg(unix)]
 #[test]
 fn templating_matches_snow() {
     let mut names: Vec<String> = std::fs::read_dir(golden_dir())

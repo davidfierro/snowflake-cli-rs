@@ -16,6 +16,8 @@ mod repl;
 mod sandbox;
 mod secrets;
 mod sign_in;
+// The goldens hold `<root>/files/…` paths; Windows canonical paths (`\\?\C:\…`) and `\` do not match them.
+#[cfg(unix)]
 mod source_golden;
 mod split_golden;
 mod sql_async;
@@ -26,5 +28,7 @@ mod sql_script;
 mod sql_secrets;
 mod sql_source_cli;
 mod sql_stream;
+// The goldens hold snow's POSIX path texts (`PosixPath('…/project/nope.txt')`) and read `HOME`; Windows paths and `USERPROFILE` differ.
+#[cfg(unix)]
 mod template_golden;
 mod template_overhead;
