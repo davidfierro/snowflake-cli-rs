@@ -158,8 +158,10 @@ the release PR.
 3. The tag starts `release.yml` (dist: archives, checksums, installers and the GitHub Release)
    and `pypi.yml` (wheels and sdist to PyPI).
 
-Both tag workflows first check that the tag's commit is on `main` and stop otherwise, so a tag
-pushed by hand on an unmerged commit publishes nothing. A tag ruleset on `v*` blocks moving or
+Both tag workflows first check that the tag's commit is on `main` and stop otherwise, so an
+accidental or hand-pushed tag on an unmerged commit doesn't publish. The check lives in the tagged
+commit's own workflow files, so it is a safety net against mistakes, not a boundary against someone
+who can push both a branch and a tag. A tag ruleset on `v*` blocks moving or
 deleting a release tag. Never push release tags by hand; release-plz does.
 
 If a job fails after the tag exists for a reason outside the code (a runner, a network or registry
