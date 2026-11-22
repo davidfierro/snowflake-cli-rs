@@ -135,6 +135,37 @@ scripts/check-naming.sh commits origin/main..HEAD
 scripts/check-naming.sh title "feat(sql): support --retain-comments"
 ```
 
+### Commit messages and PR titles
+
+Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
+`<type>[(scope)][!]: <summary>`, for example `feat(sql): support --retain-comments` or
+`fix: keep CRLF in goldens`. The PR title follows the same form, since it becomes the squash
+commit. The CHANGELOG and the next version come from these messages. While we are on 0.x, a
+breaking change (`!` or a `BREAKING CHANGE:` footer) bumps the minor version and anything else the
+patch; from 1.0, `feat` bumps the minor and a breaking change the major. Other common types: `docs`, `test`, `refactor`, `perf`, `ci`, `chore`. Nothing lints them; a
+message that doesn't follow the form lands under "Other" in the CHANGELOG.
+
+## Releasing
+
+Releases are automated ([ADR 0007](docs/adr/0007-release-pipeline.md)); a maintainer only merges
+the release PR.
+
+1. On every push to `main`, `release-plz` opens or updates a PR titled `chore: release vX.Y.Z`,
+   with the version bump and the new `CHANGELOG.md` section. Edit the CHANGELOG in that PR if
+   needed. `ci` runs on it like on any PR.
+2. Merging it publishes the crate to crates.io and pushes the `vX.Y.Z` tag.
+3. The tag starts `release.yml` (dist: archives, checksums, installers and the GitHub Release)
+   and `pypi.yml` (wheels and sdist to PyPI).
+
+If a job fails after the tag exists for a reason outside the code (a runner, a network or registry
+outage, a missing secret), re-run the failed jobs of that workflow run. Don't move or re-push the
+tag: a version already on crates.io or PyPI can't be replaced, so a fix that needs a code change
+ships as the next version.
+
+`release.yml` is generated: change `dist-workspace.toml` and run `dist generate` (check locally
+with `dist plan`), never edit the file by hand. Locally, `dist build`, `maturin build` and
+`cargo package` reproduce the three channels' builds.
+
 ## Conduct and security
 
 Everyone follows the [Code of Conduct](CODE_OF_CONDUCT.md). Report vulnerabilities as

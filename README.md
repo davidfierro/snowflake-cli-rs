@@ -14,8 +14,34 @@ official `snow`, which are ported, and how this CLI compares on time and memory.
 
 ## Install
 
+Prebuilt binaries cover Linux (x86_64, aarch64), macOS (Intel, Apple Silicon) and Windows (x86_64).
+Each channel installs the same `snow-rs` binary.
+
+Installer script (from the latest [GitHub Release](https://github.com/davidfierro/snowflake-cli-rs/releases)):
+
 ```sh
-cargo install --git https://github.com/davidfierro/snowflake-cli-rs
+# Linux and macOS
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/davidfierro/snowflake-cli-rs/releases/latest/download/snowflake-cli-rs-installer.sh | sh
+```
+
+```powershell
+# Windows
+powershell -ExecutionPolicy Bypass -c "irm https://github.com/davidfierro/snowflake-cli-rs/releases/latest/download/snowflake-cli-rs-installer.ps1 | iex"
+```
+
+From PyPI, into an isolated environment:
+
+```sh
+pipx install snowflake-cli-rs
+# or
+uv tool install snowflake-cli-rs
+```
+
+From crates.io:
+
+```sh
+cargo binstall snowflake-cli-rs   # downloads the prebuilt binary
+cargo install snowflake-cli-rs    # compiles it
 ```
 
 Or build from source (the toolchain is pinned in `rust-toolchain.toml`):
