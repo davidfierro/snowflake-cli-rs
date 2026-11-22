@@ -113,6 +113,27 @@ builds and tests with. `homepage` is not set: Cargo warns that it is redundant w
 the registry, release-plz keeps the current version: the first release PR only adds
 `CHANGELOG.md` for 0.1.0. Merging it publishes 0.1.0 to all three channels.
 
+## Decision 8: a tag publishes only if its commit is on `main`
+
+The tag workflows trust the tag, and PyPI's trusted publisher trusts the workflow file and
+environment, not the ref. Without a check, anyone who can push a tag (an admin identity, an agent,
+the `RELEASE_PLZ_TOKEN` PAT) could publish an unreviewed commit to PyPI and to the GitHub Release
+the installers fetch, skipping the PR, `ci` and the maintainer's merge. crates.io is already gated:
+it publishes from a push to `main`.
+
+- `pypi.yml` starts with a `guard` job (full history, then
+  `git merge-base --is-ancestor "$GITHUB_SHA" origin/main`). The build, sdist and publish jobs all
+  need it.
+- `release.yml` runs the same check as the first step of every `build-local-artifacts` job,
+  injected by dist from `.github/release-guard.yml` (`github-build-setup` in
+  `dist-workspace.toml`). `host`, which creates the GitHub Release, needs every build job to
+  succeed, so nothing is released.
+- A tag ruleset on `refs/tags/v*` (a host step) restricts updates and deletions, so a published
+  release tag can't be moved to another commit.
+
+Alternative: a custom dist `plan-jobs` reusable workflow. dist 0.34.0 renders its call as
+`uses: $/.github/workflows/<name>.yml`, which GitHub and actionlint reject, so it can't be used.
+
 ## Consequences
 
 - A release is: merge the release PR. Everything after that is automated.
@@ -120,6 +141,7 @@ the registry, release-plz keeps the current version: the first release PR only a
   "Other".
 - None of this can run end to end before the first real release. `tests/it/release_config.rs`
   guards the decisions above (targets, installers, dynamic wheel version, a single GitHub Release,
-  no secrets or `pull_request_target` on PRs, OIDC only on publishing jobs).
+  no secrets or `pull_request_target` on PRs, OIDC only on publishing jobs, the `main` check in both
+  tag workflows).
 - Upgrading dist means `dist init` with the new version and committing the regenerated
   `release.yml`.

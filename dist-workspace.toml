@@ -19,3 +19,5 @@ hosting = "github"
 install-updater = false
 # Ship the Apache-2.0 NOTICE with every archive, next to LICENSE and README.md (licence section 4d)
 include = ["NOTICE"]
+# Refuse to build a tag whose commit is not on `main` (relative to .github/workflows; ADR 0007)
+github-build-setup = "../release-guard.yml"

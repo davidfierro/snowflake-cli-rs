@@ -1,0 +1,12 @@
+# Steps that dist runs in every build-local-artifacts job of release.yml, before `dist build`
+# (`github-build-setup` in dist-workspace.toml; ADR 0007, Decision 8). The `host` job, which creates
+# the GitHub Release, needs every build job to succeed, so a tag whose commit is not on `main`
+# builds and publishes nothing. pypi.yml runs the same check in its `guard` job.
+- name: Refuse a tag whose commit is not on main
+  shell: bash
+  run: |
+    git fetch --no-tags --unshallow --filter=blob:none origin +refs/heads/main:refs/remotes/origin/main
+    if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+      echo "::error::$GITHUB_REF_NAME points at $GITHUB_SHA, which is not on main: not releasing."
+      exit 1
+    fi

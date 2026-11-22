@@ -142,8 +142,9 @@ Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
 `fix: keep CRLF in goldens`. The PR title follows the same form, since it becomes the squash
 commit. The CHANGELOG and the next version come from these messages. While we are on 0.x, a
 breaking change (`!` or a `BREAKING CHANGE:` footer) bumps the minor version and anything else the
-patch; from 1.0, `feat` bumps the minor and a breaking change the major. Other common types: `docs`, `test`, `refactor`, `perf`, `ci`, `chore`. Nothing lints them; a
-message that doesn't follow the form lands under "Other" in the CHANGELOG.
+patch; from 1.0, `feat` bumps the minor and a breaking change the major. Other common types:
+`docs`, `test`, `refactor`, `perf`, `ci`, `chore`. Nothing lints them; a message that doesn't
+follow the form lands under "Other" in the CHANGELOG.
 
 ## Releasing
 
@@ -157,14 +158,19 @@ the release PR.
 3. The tag starts `release.yml` (dist: archives, checksums, installers and the GitHub Release)
    and `pypi.yml` (wheels and sdist to PyPI).
 
+Both tag workflows first check that the tag's commit is on `main` and stop otherwise, so a tag
+pushed by hand on an unmerged commit publishes nothing. A tag ruleset on `v*` blocks moving or
+deleting a release tag. Never push release tags by hand; release-plz does.
+
 If a job fails after the tag exists for a reason outside the code (a runner, a network or registry
 outage, a missing secret), re-run the failed jobs of that workflow run. Don't move or re-push the
 tag: a version already on crates.io or PyPI can't be replaced, so a fix that needs a code change
 ships as the next version.
 
 `release.yml` is generated: change `dist-workspace.toml` and run `dist generate` (check locally
-with `dist plan`), never edit the file by hand. Locally, `dist build`, `maturin build` and
-`cargo package` reproduce the three channels' builds.
+with `dist plan`), never edit the file by hand. Its `main` check lives in
+`.github/release-guard.yml`, which dist injects through `github-build-setup`. Locally, `dist build`,
+`maturin build` and `cargo package` reproduce the three channels' builds.
 
 ## Conduct and security
 

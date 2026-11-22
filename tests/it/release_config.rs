@@ -136,3 +136,44 @@ fn only_the_publish_jobs_get_an_oidc_token() {
         );
     }
 }
+
+#[test]
+fn a_tag_whose_commit_is_not_on_main_publishes_nothing() {
+    let check = r#"git merge-base --is-ancestor "$GITHUB_SHA" origin/main"#;
+
+    // pypi.yml: a `guard` job that every other job waits for.
+    let pypi = read(".github/workflows/pypi.yml");
+    let guard = pypi.split("\n  wheels:").next().expect("jobs");
+    assert!(guard.contains("\n  guard:") && guard.contains(check));
+    assert!(
+        guard.contains("fetch-depth: 0"),
+        "the guard needs main's history"
+    );
+    assert_eq!(
+        pypi.matches("    needs: guard\n").count(),
+        2,
+        "wheels and sdist"
+    );
+    assert!(pypi.contains("    needs: [guard, wheels, sdist]\n"));
+
+    // release.yml: the same check, injected by dist into every build job before `dist build`,
+    // so `host` (which creates the GitHub Release) never runs.
+    let dist = toml("dist-workspace.toml");
+    assert_eq!(
+        dist["dist"]["github-build-setup"].as_str(),
+        Some("../release-guard.yml")
+    );
+    assert!(read(".github/release-guard.yml").contains(check));
+    let release = read(".github/workflows/release.yml");
+    let build = release
+        .split("\n  build-local-artifacts:")
+        .nth(1)
+        .and_then(|rest| rest.split("\n  build-global-artifacts:").next())
+        .expect("build-local-artifacts job");
+    let guard_at = build.find(check).expect("guard in the build job");
+    let build_at = build.find("dist build ").expect("dist build step");
+    assert!(
+        guard_at < build_at,
+        "the guard must run before `dist build`"
+    );
+}
