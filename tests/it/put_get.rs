@@ -14,6 +14,8 @@ use std::path::Path;
 
 const LOGIN: &str = "/session/v1/login-request";
 const QUERY: &str = "/queries/v1/query-request";
+// Used only by the Unix-only golden test.
+#[cfg(unix)]
 const STAGE: &str = "goldens_test";
 /// `gzip.compress(b"x\n", mtime=0)`: the 22-byte `g.csv.gz` of the goldens.
 const G_CSV_GZ: &str = "1f8b08000000000002ffabe002001f08ea4602000000";
