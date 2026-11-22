@@ -425,6 +425,8 @@ mod tests {
         assert!(sources.fetch_url("https://127.0.0.1:1/", "u").is_err());
     }
 
+    // Expects POSIX absolute paths (`/x/y.sql`); Windows paths start with a drive
+    #[cfg(unix)]
     #[test]
     fn resolve_normalizes_a_path_that_does_not_exist() {
         let resolved = resolve(Path::new("/nonexistent-dir/../x/./y.sql"));

@@ -895,6 +895,8 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let root = std::fs::canonicalize(dir.path()).unwrap();
         assert_eq!(absolute(&root.join("./a/../b/./c")), root.join("b/c"));
+        // Windows resolves `/` against a drive, so this is POSIX-only.
+        #[cfg(unix)]
         assert_eq!(absolute(Path::new("/")), PathBuf::from("/"));
     }
 }

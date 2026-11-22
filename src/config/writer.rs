@@ -301,6 +301,9 @@ mod tests {
 
     const COMMENTED: &str = "# my config\ndefault_connection_name = \"b\" # the default\n\n[cli]\n  # keep me\noutput_format = 'json'\n\n[connections.b]\n# about b\nuser   = \"bob\"  # inline\naccount = \"b1\"\n\n[connections.a]\naccount = \"a1\"\n";
 
+    // Expects the TOML encoding of a POSIX path (a basic string); a Windows path with `\` is
+    // written as a literal string, and the test also checks the 0600 mode.
+    #[cfg(unix)]
     #[test]
     fn missing_file_and_directory_are_created_with_snow_defaults_and_0600() {
         let dir = TempDir::new().unwrap();

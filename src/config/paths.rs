@@ -213,6 +213,8 @@ mod tests {
         assert!(paths.config_file_is_custom);
     }
 
+    // Expected values use `/` separators; on Windows `Path::join` yields `\`
+    #[cfg(unix)]
     #[test]
     fn expand_user_with_covers_every_form() {
         let home = Some(Path::new("/h"));
