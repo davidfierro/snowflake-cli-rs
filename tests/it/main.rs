@@ -13,6 +13,7 @@ mod golden;
 #[cfg(unix)]
 mod naming;
 mod put_get;
+mod release_config;
 // The REPL tests drive a pty through rexpect, which is Unix-only.
 #[cfg(unix)]
 mod repl;
