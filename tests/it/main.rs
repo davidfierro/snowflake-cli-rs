@@ -9,6 +9,9 @@ mod connection_diag;
 mod connector_sign_in;
 mod global_options;
 mod golden;
+// The naming check is a bash script that CI runs on Linux.
+#[cfg(unix)]
+mod naming;
 mod put_get;
 // The REPL tests drive a pty through rexpect, which is Unix-only.
 #[cfg(unix)]

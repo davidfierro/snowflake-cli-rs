@@ -76,13 +76,64 @@ variables are in [bench/README.md](bench/README.md).
 | benchmarks | `WRITE_RESULTS=1 bench/run.sh <scenario>…` (by hand, your Snowflake account, not in CI) |
 | snow snapshot | `scripts/snapshot-snow-surface.sh` (by hand; rewrites `docs/snow-surface.json`) |
 | `ci` | Aggregate: passes only if all of the above succeeded. This is the check required on `main`. |
+| `naming` | `scripts/check-naming.sh` (its own workflow, not part of `ci`; see [Naming](#naming-branches-commits-and-pr-titles)) |
 
 ## Pull requests
 
-1. Fork the repository and create a branch (any name).
-2. Make small commits with clear messages.
-3. Open one PR against `main`, filling in the PR template.
-4. Only maintainers merge, and only after a green `ci` check.
+1. Create a branch named as below (in a fork, any name works).
+2. Make small commits, with subjects in the form below.
+3. Open one PR against `main`, with a title in the same form, filling in the PR template.
+4. Only maintainers merge, by squash and only after a green `ci` check.
+
+## Naming: branches, commits and PR titles
+
+The `naming` check validates all three on every PR, with `scripts/check-naming.sh`.
+
+**Commit subjects and PR titles** follow
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
+
+```text
+<type>[(scope)][!]: <summary>
+```
+
+- `type` is one of:
+
+  | Type | Use it for |
+  |---|---|
+  | `feat` | a new command, option or behaviour a user can see |
+  | `fix` | a bug fix |
+  | `perf` | a change that only makes something faster or lighter |
+  | `refactor` | a code change with no behaviour change |
+  | `docs` | documentation only (README, ADRs, comments) |
+  | `test` | tests only |
+  | `build` | dependencies, the toolchain, `Cargo.toml`, packaging |
+  | `ci` | workflows and the checks they run |
+  | `chore` | maintenance that fits none of the above |
+  | `style` | formatting only |
+  | `revert` | reverting an earlier commit |
+
+- `scope` is optional: the area touched, in lowercase kebab-case (`sql`, `connection`, `put-get`).
+- `!` marks a breaking change.
+- `summary` says what changes, in the imperative, with no final period. The whole line is at most
+  100 characters.
+
+Examples: `feat(sql): support --retain-comments`, `fix: keep CRLF in goldens`,
+`refactor(connection)!: drop the legacy config path`.
+
+PRs are squash-merged, so the PR title becomes the commit on `main`: it is the one that stays in
+the history. Merge commits in a PR branch are not checked.
+
+**Branches** are `<type>/[<ISSUE-KEY>-]<slug>`: one of the types above, then the issue key when
+the work has one, then a short lowercase kebab-case slug. Examples: `feat/retain-comments`,
+`fix/DFI-174-float-str-repr`. The check skips the branch name of PRs from forks.
+
+Check them before pushing:
+
+```sh
+scripts/check-naming.sh branch "$(git branch --show-current)"
+scripts/check-naming.sh commits origin/main..HEAD
+scripts/check-naming.sh title "feat(sql): support --retain-comments"
+```
 
 ## Conduct and security
 
