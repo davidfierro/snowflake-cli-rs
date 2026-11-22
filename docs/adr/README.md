@@ -21,3 +21,4 @@ that amends the ADR (or supersedes it with a new one) before or with the code.
 | [0004](0004-sql-multi-statement-execution.md) | `snow sql`: multi-statement execution over the SQL API | Accepted |
 | [0005](0005-connector-protocol-transport.md) | Connector-protocol transport: session sign-in, query-request and PUT/GET file transfer | Proposed |
 | [0006](0006-sql-templating-engine.md) | `snow sql` templating: Jinja engine, `snowflake.yml` context, deviations from snow | Proposed |
+| [0007](0007-release-pipeline.md) | Release pipeline: release-plz, dist, PyPI wheels and crates.io | Proposed |

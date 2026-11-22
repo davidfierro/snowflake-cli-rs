@@ -1,0 +1,10 @@
+# release-plz (ADR 0007): on every push to `main` it opens or updates the release PR
+# (version bump + CHANGELOG.md from Conventional Commits). Merging that PR publishes the crate
+# to crates.io and pushes the `vX.Y.Z` tag, which starts the dist (release.yml) and PyPI
+# (pypi.yml) workflows.
+[workspace]
+# Publish only when the merged commit comes from a release PR, never on an ordinary push.
+release_always = false
+# dist creates the GitHub Release (with binaries and installers) from the tag; a second
+# release from release-plz would race it for the same tag.
+git_release_enable = false

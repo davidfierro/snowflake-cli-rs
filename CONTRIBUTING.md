@@ -135,6 +135,41 @@ scripts/check-naming.sh commits origin/main..HEAD
 scripts/check-naming.sh title "feat(sql): support --retain-comments"
 ```
 
+### Versions and the CHANGELOG
+
+release-plz builds the CHANGELOG and picks the next version from these commit subjects (the
+squash commits on `main`). While we are on 0.x, a breaking change (`!` or a `BREAKING CHANGE:`
+footer) bumps the minor version and anything else the patch; from 1.0, `feat` bumps the minor and a
+breaking change the major.
+
+## Releasing
+
+Releases are automated ([ADR 0007](docs/adr/0007-release-pipeline.md)); a maintainer only merges
+the release PR.
+
+1. On every push to `main`, `release-plz` opens or updates a PR titled `chore: release vX.Y.Z`,
+   with the version bump and the new `CHANGELOG.md` section. Edit the CHANGELOG in that PR if
+   needed. `ci` runs on it like on any PR.
+2. Merging it publishes the crate to crates.io and pushes the `vX.Y.Z` tag.
+3. The tag starts `release.yml` (dist: archives, checksums, installers and the GitHub Release)
+   and `pypi.yml` (wheels and sdist to PyPI).
+
+Both tag workflows first check that the tag's commit is on `main` and stop otherwise, so an
+accidental or hand-pushed tag on an unmerged commit doesn't publish. The check lives in the tagged
+commit's own workflow files, so it is a safety net against mistakes, not a boundary against someone
+who can push both a branch and a tag. A tag ruleset on `v*` blocks moving or
+deleting a release tag. Never push release tags by hand; release-plz does.
+
+If a job fails after the tag exists for a reason outside the code (a runner, a network or registry
+outage, a missing secret), re-run the failed jobs of that workflow run. Don't move or re-push the
+tag: a version already on crates.io or PyPI can't be replaced, so a fix that needs a code change
+ships as the next version.
+
+`release.yml` is generated: change `dist-workspace.toml` and run `dist generate` (check locally
+with `dist plan`), never edit the file by hand. Its `main` check lives in
+`.github/release-guard.yml`, which dist injects through `github-build-setup`. Locally, `dist build`,
+`maturin build` and `cargo package` reproduce the three channels' builds.
+
 ## Conduct and security
 
 Everyone follows the [Code of Conduct](CODE_OF_CONDUCT.md). Report vulnerabilities as

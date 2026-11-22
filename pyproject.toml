@@ -1,0 +1,33 @@
+# PyPI packaging (ADR 0007): maturin wraps the `snow-rs` binary in a wheel, so
+# `pipx install snowflake-cli-rs` / `uv tool install snowflake-cli-rs` put it on PATH.
+# The version comes from Cargo.toml, so it can never drift from the crate.
+[build-system]
+requires = ["maturin>=1.16,<2"]
+build-backend = "maturin"
+
+[project]
+name = "snowflake-cli-rs"
+dynamic = ["version"]
+description = "Rust port of the Snowflake CLI (snow): a single fast native binary, `snow-rs`"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+requires-python = ">=3.9"
+keywords = ["snowflake", "cli", "sql", "data-warehouse"]
+classifiers = [
+    "Environment :: Console",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Rust",
+    "Topic :: Database",
+]
+
+[project.urls]
+Repository = "https://github.com/davidfierro/snowflake-cli-rs"
+Issues = "https://github.com/davidfierro/snowflake-cli-rs/issues"
+
+[tool.maturin]
+bindings = "bin"
+# The same optimised profile dist builds the release archives with.
+profile = "dist"
