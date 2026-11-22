@@ -17,6 +17,8 @@ fn random_suffix() -> String {
 /// chooses read, write, append, truncate or `create_new`; the mode applies only to a file this
 /// open creates, so an existing file keeps its permissions.
 pub(crate) fn private_options() -> std::fs::OpenOptions {
+    #[cfg_attr(not(unix), allow(unused_mut))]
+    // `mut` is needed only by the unix-only mode call below
     let mut options = std::fs::OpenOptions::new();
     #[cfg(unix)]
     {

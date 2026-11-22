@@ -1517,6 +1517,8 @@ mod tests {
         assert!(parse_bool("quiet", "2").is_err());
     }
 
+    // POSIX home and separators; Windows reads USERPROFILE and uses `\`, covered by `config::paths` tests
+    #[cfg(unix)]
     #[test]
     fn home_is_expanded_in_spool_paths() {
         let env = crate::env::Env::from_pairs([("HOME", "/home/u/")]);
@@ -1602,6 +1604,8 @@ mod tests {
         assert_eq!(spool_text(&path, true).1, "");
     }
 
+    // Asserts the POSIX OS error texts (`ENOENT`, `EISDIR`); Windows words them differently
+    #[cfg(unix)]
     #[test]
     fn an_unwritable_spool_is_a_client_error() {
         let dir = tempfile::tempdir().unwrap();

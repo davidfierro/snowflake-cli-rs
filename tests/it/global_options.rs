@@ -330,6 +330,8 @@ fn show_completion_for_an_unsupported_or_unknown_shell_fails() {
     }
 }
 
+// Locates the home through `HOME` and expects POSIX layouts; Windows reads `USERPROFILE`.
+#[cfg(unix)]
 #[test]
 fn install_completion_writes_where_snow_writes() {
     for (shell, expected, rc, script) in [
@@ -426,6 +428,8 @@ fn install_completion_for_powershell_appends_to_the_profile() {
     assert!(err.is_empty());
 }
 
+// Locates the home through `HOME`; Windows reads `USERPROFILE`.
+#[cfg(unix)]
 #[test]
 fn install_completion_reports_failures() {
     let dir = tempfile::tempdir().unwrap();

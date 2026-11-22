@@ -450,12 +450,18 @@ fn edit_loads_the_edited_statement_into_the_prompt() {
     );
     keys(&mut p, &format!("quit{ENTER}"));
     p.exp_eof().unwrap();
+    // BSD sed (macOS) needs an explicit empty backup suffix after -i.
+    let sed_in_place = if cfg!(target_os = "macos") {
+        "sed -i '' s/41/40/"
+    } else {
+        "sed -i s/41/40/"
+    };
     // An editor that rewrites the file: the last statement is edited, then run with Enter.
     let mut p = spawn(
         &server,
         home.path(),
         &["--no-prompt-exit-repl"],
-        &[("EDITOR", "sed -i s/41/40/"), ("PATH", "/usr/bin:/bin")],
+        &[("EDITOR", sed_in_place), ("PATH", "/usr/bin:/bin")],
     );
     started(&mut p);
     let out = submit(&mut p, "select 41 as x;");

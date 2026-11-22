@@ -456,6 +456,9 @@ mod tests {
         }
     }
 
+    /// The variable `home_dir` reads: `USERPROFILE` on Windows.
+    const HOME_VAR: &str = if cfg!(windows) { "USERPROFILE" } else { "HOME" };
+
     fn env(pairs: &[(&str, &str)]) -> Env {
         Env::from_pairs(pairs.iter().map(|(k, v)| (k.to_string(), v.to_string())))
     }
@@ -499,7 +502,7 @@ mod tests {
         );
         write(&home.join(".snowsql/config"), "[variables]\na = new\n");
         let h = home.display().to_string();
-        let e = env(&[("HOME", &h), ("SNOWFLAKE_CLI_CONFIG_V2_ENABLED", "1")]);
+        let e = env(&[(HOME_VAR, &h), ("SNOWFLAKE_CLI_CONFIG_V2_ENABLED", "1")]);
         let cwd = dir.path().join("cwd");
         std::fs::create_dir(&cwd).unwrap();
         assert_eq!(
@@ -541,7 +544,7 @@ mod tests {
         write(&home.join(".snowsql/config"), "[variables]\nw = ignored\n");
         let (sh_text, home_text) = (sh.display().to_string(), home.display().to_string());
         let e = env(&[
-            ("HOME", &home_text),
+            (HOME_VAR, &home_text),
             ("SNOWFLAKE_HOME", &sh_text),
             ("SNOWFLAKE_CLI_CONFIG_V2_ENABLED", "true"),
         ]);
@@ -552,7 +555,7 @@ mod tests {
         // A SNOWFLAKE_HOME that does not exist is ignored.
         let missing = dir.path().join("nope").display().to_string();
         let e = env(&[
-            ("HOME", &home_text),
+            (HOME_VAR, &home_text),
             ("SNOWFLAKE_HOME", &missing),
             ("SNOWFLAKE_CLI_CONFIG_V2_ENABLED", "true"),
         ]);

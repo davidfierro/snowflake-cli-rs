@@ -5,6 +5,7 @@ use predicates::str::contains;
 fn snow() -> Command {
     let mut cmd = Command::cargo_bin("snow-rs").unwrap();
     cmd.env_clear();
+    crate::common::keep_system_env(&mut cmd);
     // Keep coverage profiling working under `cargo llvm-cov`.
     if let Some(profile) = std::env::var_os("LLVM_PROFILE_FILE") {
         cmd.env("LLVM_PROFILE_FILE", profile);
@@ -41,7 +42,11 @@ fn usage_error_names_snow_rs() {
         .args(["sql", "--bogus"])
         .assert()
         .code(2)
-        .stderr(contains("Usage: snow-rs sql [OPTIONS]"));
+        // clap prints the executable name: `snow-rs.exe` on Windows.
+        .stderr(contains(format!(
+            "Usage: snow-rs{} sql [OPTIONS]",
+            std::env::consts::EXE_SUFFIX
+        )));
 }
 
 #[test]

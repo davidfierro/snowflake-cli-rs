@@ -353,8 +353,14 @@ mod tests {
 
     #[test]
     fn io_errors_read_like_pythons_oserror() {
-        let refused = std::io::Error::from_raw_os_error(111);
-        assert_eq!(python_io_error(&refused), "[Errno 111] Connection refused");
+        // errno 111 is ECONNREFUSED on Linux only (macOS: 61, Windows: WSA codes).
+        #[cfg(target_os = "linux")]
+        {
+            let refused = std::io::Error::from_raw_os_error(111);
+            assert_eq!(python_io_error(&refused), "[Errno 111] Connection refused");
+        }
+        let any = std::io::Error::from_raw_os_error(2);
+        assert!(python_io_error(&any).starts_with("[Errno 2] "));
         let other = std::io::Error::other("boom");
         assert_eq!(python_io_error(&other), "boom");
         let gai = |m: &str| {
@@ -394,7 +400,7 @@ mod tests {
             "HTTP/1.1 200 OK\r\n\r\n"
         );
         let err = net.http_get("127.0.0.1", closed_port(), T).unwrap_err();
-        assert!(err.message().starts_with("[Errno 111]"), "{err:?}");
+        assert!(err.message().starts_with("[Errno "), "{err:?}");
     }
 
     #[test]
@@ -405,7 +411,7 @@ mod tests {
         assert!(probed.latency_ms >= 0.0);
         assert_eq!((probed.issuer_org, probed.not_after), (None, None));
         let err = net.probe("127.0.0.1", closed_port(), T).unwrap_err();
-        assert!(err.starts_with("[Errno 111]"), "{err}");
+        assert!(err.starts_with("[Errno "), "{err}");
     }
 
     #[test]
@@ -455,7 +461,7 @@ mod tests {
         let closed = SystemNetwork::new(&Env::default())
             .peer_cert("localhost", closed_port(), T, TlsFloor::Tls12)
             .unwrap_err();
-        assert!(closed.message().starts_with("[Errno 111]"));
+        assert!(closed.message().starts_with("[Errno "));
     }
 
     #[test]

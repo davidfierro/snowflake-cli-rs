@@ -14,6 +14,8 @@ use std::path::Path;
 
 const LOGIN: &str = "/session/v1/login-request";
 const QUERY: &str = "/queries/v1/query-request";
+// Used only by the Unix-only golden test.
+#[cfg(unix)]
 const STAGE: &str = "goldens_test";
 /// `gzip.compress(b"x\n", mtime=0)`: the 22-byte `g.csv.gz` of the goldens.
 const G_CSV_GZ: &str = "1f8b08000000000002ffabe002001f08ea4602000000";
@@ -161,6 +163,8 @@ fn data_dir() -> tempfile::TempDir {
     dir
 }
 
+// Used only by the Unix-only golden test below.
+#[cfg(unix)]
 /// Sets up the mocked answers of one golden case.
 fn arrange(name: &str, server: &MockServer, data: &Path, stage: &Path) {
     let d = data.display().to_string();
@@ -262,6 +266,8 @@ fn arrange(name: &str, server: &MockServer, data: &Path, stage: &Path) {
     }
 }
 
+// The goldens are snow's output for POSIX paths (`file:///tmp`).
+#[cfg(unix)]
 #[test]
 fn put_get_output_matches_snow() {
     let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/golden/put_get/cases.json");

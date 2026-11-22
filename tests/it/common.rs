@@ -29,6 +29,12 @@ pub fn key_path(name: &str) -> PathBuf {
         .join(name)
 }
 
+/// [`key_path`] as it goes inside a TOML string: forward slashes, because on Windows a backslash
+/// starts an escape.
+pub fn key_path_toml(name: &str) -> String {
+    key_path(name).display().to_string().replace('\\', "/")
+}
+
 /// A connection pointing at the mock server, signed with the unencrypted fixture key.
 pub fn connection(server: &MockServer) -> ConnectionConfig {
     ConnectionConfig {
@@ -131,4 +137,14 @@ pub fn one_int_body(value: &str) -> serde_json::Value {
         serde_json::json!([[value]]),
         1,
     )
+}
+
+/// Tests run the binary with `env_clear()`; on Windows it then needs `SystemRoot` back, or
+/// Winsock cannot start and every connection fails.
+pub fn keep_system_env(cmd: &mut assert_cmd::Command) {
+    if cfg!(windows)
+        && let Some(root) = std::env::var_os("SystemRoot")
+    {
+        cmd.env("SystemRoot", root);
+    }
 }

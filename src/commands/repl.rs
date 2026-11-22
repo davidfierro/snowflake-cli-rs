@@ -421,5 +421,6 @@ impl Interactive for Hooks<'_> {
     }
 }
 
-#[cfg(test)]
+// Every test in it runs a POSIX shell editor, so there is nothing to compile on Windows.
+#[cfg(all(test, unix))]
 mod tests;

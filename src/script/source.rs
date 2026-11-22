@@ -398,7 +398,12 @@ mod tests {
         );
         assert_eq!(
             sources.canonical("~/a.sql"),
-            sources.canonical(&format!("{}/x/../a.sql", dir.path().display()))
+            // Canonical root: `x` does not exist, so the path is normalised lexically, and a
+            // temp dir behind a symlink (macOS `/var` -> `/private/var`) must match `~` expansion.
+            sources.canonical(&format!(
+                "{}/x/../a.sql",
+                dir.path().canonicalize().unwrap().display()
+            ))
         );
         assert_eq!(
             sources
@@ -420,6 +425,8 @@ mod tests {
         assert!(sources.fetch_url("https://127.0.0.1:1/", "u").is_err());
     }
 
+    // Expects POSIX absolute paths (`/x/y.sql`); Windows paths start with a drive
+    #[cfg(unix)]
     #[test]
     fn resolve_normalizes_a_path_that_does_not_exist() {
         let resolved = resolve(Path::new("/nonexistent-dir/../x/./y.sql"));
@@ -503,6 +510,12 @@ mod tests {
             listener.local_addr().unwrap().port()
         };
         let message = fetch(&format!("https://127.0.0.1:{port}/a.sql"), "u", true).unwrap_err();
+        // The errno and its text are the OS's: 111 on Linux, 61 on macOS, 10061 on Windows.
+        assert!(
+            message.starts_with("Could not fetch u: <urlopen error [Errno "),
+            "{message}"
+        );
+        #[cfg(target_os = "linux")]
         assert_eq!(
             message,
             "Could not fetch u: <urlopen error [Errno 111] Connection refused>"

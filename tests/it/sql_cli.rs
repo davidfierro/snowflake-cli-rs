@@ -320,6 +320,8 @@ fn run_in(
     )
 }
 
+// A long Windows temp path (with doubled `\`) wraps the error panel, splitting the text the cases look for.
+#[cfg(unix)]
 #[test]
 fn the_spool_file_is_created_only_once_the_arguments_and_config_are_valid() {
     let dir = tempfile::tempdir().unwrap();

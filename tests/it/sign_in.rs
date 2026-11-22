@@ -49,6 +49,7 @@ impl Home {
         cmd.env_clear()
             .env("SNOWFLAKE_HOME", self.dir.path())
             .current_dir(self.dir.path());
+        crate::common::keep_system_env(&mut cmd);
         if let Some(profile) = std::env::var_os("LLVM_PROFILE_FILE") {
             cmd.env("LLVM_PROFILE_FILE", profile);
         }

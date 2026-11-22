@@ -301,6 +301,9 @@ mod tests {
 
     const COMMENTED: &str = "# my config\ndefault_connection_name = \"b\" # the default\n\n[cli]\n  # keep me\noutput_format = 'json'\n\n[connections.b]\n# about b\nuser   = \"bob\"  # inline\naccount = \"b1\"\n\n[connections.a]\naccount = \"a1\"\n";
 
+    // Expects the TOML encoding of a POSIX path (a basic string); a Windows path with `\` is
+    // written as a literal string, and the test also checks the 0600 mode.
+    #[cfg(unix)]
     #[test]
     fn missing_file_and_directory_are_created_with_snow_defaults_and_0600() {
         let dir = TempDir::new().unwrap();
@@ -319,12 +322,9 @@ mod tests {
                 ],
             )
             .unwrap();
-        assert_eq!(file, std::fs::canonicalize(&p.config_file).unwrap());
+        assert_eq!(file, p.config_file);
         let text = std::fs::read_to_string(&p.config_file).unwrap();
         let logs = dir.path().join("deep/er/logs");
-        let logs = std::fs::canonicalize(logs.parent().unwrap())
-            .unwrap()
-            .join("logs");
         assert_eq!(
             text,
             format!(
@@ -402,7 +402,7 @@ mod tests {
         let p = paths(&dir);
         std::fs::write(&p.config_file, COMMENTED).unwrap();
         let file = ConfigWriter::new(&p).remove_connection("a", false).unwrap();
-        assert_eq!(file, std::fs::canonicalize(&p.config_file).unwrap());
+        assert_eq!(file, p.config_file);
         let expected = COMMENTED.replace("\n[connections.a]\naccount = \"a1\"\n", "");
         assert_eq!(read(&dir, "config.toml"), expected);
     }

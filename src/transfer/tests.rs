@@ -815,7 +815,11 @@ fn put_plans_are_checked() {
     let err = fail(put_data(s3_stage(), vec![missing.clone()], json!({})));
     assert_eq!(
         err.message(),
-        format!("253006: 253006: File doesn't exist: ['{missing}']")
+        // A Python `repr` of the list: backslashes in a Windows path are doubled.
+        format!(
+            "253006: 253006: File doesn't exist: ['{}']",
+            missing.replace('\\', "\\\\")
+        )
     );
     let err = fail(put_data(
         s3_stage(),

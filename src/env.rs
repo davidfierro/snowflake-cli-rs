@@ -111,8 +111,10 @@ mod tests {
 
     #[test]
     fn from_process_reads_the_real_environment() {
-        // PATH is set in every environment the tests run in (cargo needs it).
+        // PATH is set in every environment the tests run in (cargo needs it). Windows spells it
+        // `Path` and `Env` keys are case-sensitive.
         let env = Env::from_process();
-        assert!(env.get("PATH").is_some());
+        let name = if cfg!(windows) { "Path" } else { "PATH" };
+        assert!(env.get(name).is_some());
     }
 }

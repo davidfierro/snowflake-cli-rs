@@ -232,8 +232,9 @@ fn enable_diag_writes_both_report_sections_and_prints_the_location() {
     let parsed: serde_json::Value = serde_json::from_str(&r.out).unwrap();
     let report_path = log_dir.join("SnowflakeConnectionTestReport.txt");
     assert_eq!(
-        parsed["Diag Report Location"],
-        report_path.to_str().unwrap()
+        // Compared as paths: on Windows the report mixes `/` and `\\`.
+        std::path::Path::new(parsed["Diag Report Location"].as_str().unwrap()),
+        report_path
     );
     assert_eq!(parsed["Status"], "OK");
     assert!(
@@ -562,6 +563,7 @@ fn a_failed_connection_still_writes_the_connector_report() {
 fn snow() -> Command {
     let mut cmd = Command::cargo_bin("snow-rs").unwrap();
     cmd.env_clear();
+    crate::common::keep_system_env(&mut cmd);
     if let Some(profile) = std::env::var_os("LLVM_PROFILE_FILE") {
         cmd.env("LLVM_PROFILE_FILE", profile);
     }
@@ -626,10 +628,7 @@ fn the_binary_probes_local_sockets_listed_in_the_allowlist_file() {
     assert!(checks[0]["latency_ms"].is_number());
     assert_eq!(checks[1]["status"], "Unhealthy");
     assert!(
-        checks[1]["error"]
-            .as_str()
-            .unwrap()
-            .starts_with("[Errno 111]"),
+        checks[1]["error"].as_str().unwrap().starts_with("[Errno "),
         "{}",
         checks[1]["error"]
     );
