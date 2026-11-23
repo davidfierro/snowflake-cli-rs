@@ -5,8 +5,8 @@
   here, not at `stage copy`) and Decision 2 (new fields in the shared `src/connection.rs`)
 - **Date:** 2026-11-21
 - **Builds on it:** Amendment 2 (connector-protocol sign-ins), Amendment 1 (`PUT`/`GET` in `sql`),
-  Amendment 3 (the interactive session; see Decision 1), and Amendment 4 (asynchronous statements;
-  Amendment 4)
+  Amendment 3 (the interactive session; see Decision 1), Amendment 4 (asynchronous statements;
+  Amendment 4), and Amendment 5 (the client identity)
 - **Reference implementation:** `snow` 3.34.0 and the `snowflake-connector-python` **4.8.1** it pins
   (`snowflake-cli` `pyproject.toml`). "Connector" below means that version; `C/` is its
   `snowflake/connector/` package, `S/` is `snowflake/cli/` in `snow`.
@@ -126,9 +126,9 @@ sandbox cannot verify would gain nothing.
   include `PYTHON_CONNECTOR_QUERY_RESULT_FORMAT=json` (S2), so there is no Arrow decoder.
 - `333333`/`333334` → GET `getResultUrl`, interval 250 ms doubling to `poll_interval_max`
   (ADR 0001 Decision 5 values).
-- `CLIENT_APP_ID=snowflake-rs-cli`, `CLIENT_APP_VERSION=<crate version>`,
-  `CLIENT_ENVIRONMENT.APPLICATION=SNOWFLAKE_CLI` (`snow`'s value) (S1). We do not impersonate
-  `PythonConnector`.
+- `CLIENT_APP_ID=PythonConnector`, `CLIENT_APP_VERSION=5.2.0`,
+  `CLIENT_ENVIRONMENT.APPLICATION=SNOWFLAKE_CLI` (`snow`'s value). This replaces the original
+  `snowflake-rs-cli` / crate version (S1); see Amendment 5.
 
 ## Decision 2: Module boundaries
 
@@ -620,3 +620,43 @@ A statement ending in `;>` runs as `snow` runs it (`S/_plugins/sql/manager.py`,
   `-i`, mixed with other statements, `--single-transaction`, `--retain-comments`, `--silent`, all
   four formats), replayed by `tests/it/sql_async.rs`; the interactive session in
   `tests/it/repl.rs`; live on the sandbox in `tests/it/sandbox.rs`.
+
+## Amendment 5: the client identity (`CLIENT_APP_ID`)
+
+Decision 1 sent `CLIENT_APP_ID=snowflake-rs-cli` and said we do not impersonate
+`PythonConnector`. On a real account with SAML SSO and `ALLOW_ID_TOKEN = TRUE`, that identity
+breaks ID-token caching: every `EXTERNALBROWSER` run opens the browser.
+
+- **What the server does** (live, one login per row, only `CLIENT_APP_ID` / `CLIENT_APP_VERSION`
+  changed, `CLIENT_STORE_TEMPORARY_CREDENTIAL=true`):
+
+  | `CLIENT_APP_ID` / version | `idToken` |
+  |---|---|
+  | `PythonConnector` 4.6.0, `Go` 1.18.0, `JDBC` 3.24.0, `JavaScript` 2.1.0, `.NET` 4.6.0, `ODBC` 3.10.0 | issued, 14400 s |
+  | `snowflake-cli-rs` 0.1.0 and 4.6.0, `SnowSQL` 1.3.0, `SNOWFLAKE_CLI` 3.0.0 | `null`, validity 0 |
+  | `PythonConnector` 1.0.0 | sign-in refused: `390412 … client version 1.0.0 is too old` |
+
+  Signing in with a cached ID token (`AUTHENTICATOR=ID_TOKEN`) works under any identity; only
+  issuing one is gated. MFA-token caching is gated the same way
+  (snowflake-connector-python#1972).
+- **What others do:** `snow` itself sends `PythonConnector` and names itself only in
+  `CLIENT_ENVIRONMENT.APPLICATION`; it dropped its own `snowcli` identity because it broke MFA
+  caching (snowflake-cli#1187), and sends `SNOWFLAKE_CLI` only behind a feature flag. The
+  connector's source says new client types need a server-side change for such features. Snowflake
+  documents no way to register a new client. Third-party clients with working ID-token caching
+  all send an official driver's identity; one that refused to has none.
+- **Decision:** send `CLIENT_APP_ID=PythonConnector` with a current connector version (5.2.0, the
+  latest on PyPI when written), on every sign-in, and keep `APPLICATION=SNOWFLAKE_CLI`. This is
+  the identity `snow` sends, so the server sees what it sees from `snow`. Bump the version with the
+  connector when it falls behind Snowflake's minimum (`SYSTEM$CLIENT_VERSION_INFO`).
+- **Rejected:**
+  - keeping our own identity and documenting that browser SSO is never cached: every run
+    opens the browser;
+  - `OAUTH_AUTHORIZATION_CODE` with `SNOWFLAKE$LOCAL_APPLICATION` as the only cure: it works with
+    our own identity and stays supported, but needs the integration enabled and a different
+    `authenticator` per user; it is not a fix for `EXTERNALBROWSER`.
+- **Consequences:** `CURRENT_CLIENT()` and `ACCOUNT_USAGE.SESSIONS` show `PythonConnector 5.2.0`.
+  Server-side features keyed on the driver (result format defaults, version support policy) are
+  the Python connector's; results stay JSON because `PYTHON_CONNECTOR_QUERY_RESULT_FORMAT=json`
+  is still sent.
+- **Tests:** `src/session/login.rs` (body fields), `tests/it/put_get.rs` (login request).
