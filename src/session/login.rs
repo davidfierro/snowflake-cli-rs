@@ -69,8 +69,10 @@ pub(super) fn base_data(conn: &ConnectionConfig) -> Result<serde_json::Value> {
         })?;
     let user = conn.user.as_deref().filter(|u| !u.is_empty());
     Ok(serde_json::json!({
-        "CLIENT_APP_ID": "snowflake-cli-rs",
-        "CLIENT_APP_VERSION": env!("CARGO_PKG_VERSION"),
+        // The server issues ID and MFA tokens only to drivers it knows, so we present the Python
+        // connector, as `snow` does; APPLICATION still names us (ADR 0005, Amendment 5).
+        "CLIENT_APP_ID": "PythonConnector",
+        "CLIENT_APP_VERSION": "5.2.0",
         "ACCOUNT_NAME": account_name(account),
         "LOGIN_NAME": user,
         "CLIENT_ENVIRONMENT": {
@@ -352,6 +354,8 @@ mod tests {
         assert_eq!(data["AUTHENTICATOR"], "SNOWFLAKE_JWT");
         assert_eq!(data["TOKEN"], "tok");
         assert_eq!(data["SECONDARY_ROLES"], "ALL");
+        assert_eq!(data["CLIENT_APP_ID"], "PythonConnector");
+        assert_eq!(data["CLIENT_APP_VERSION"], "5.2.0");
         assert_eq!(data["CLIENT_ENVIRONMENT"]["APPLICATION"], "SNOWFLAKE_CLI");
         assert_eq!(
             data["CLIENT_ENVIRONMENT"]["OAUTH_TYPE"],

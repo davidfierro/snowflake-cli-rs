@@ -84,7 +84,7 @@ fn mock_login(server: &MockServer) -> httpmock::Mock<'_> {
                     "ACCOUNT_NAME": "testacct",
                     "LOGIN_NAME": "tester",
                     "AUTHENTICATOR": "SNOWFLAKE_JWT",
-                    "CLIENT_APP_ID": "snowflake-cli-rs",
+                    "CLIENT_APP_ID": "PythonConnector",
                     "SESSION_PARAMETERS": {"PYTHON_CONNECTOR_QUERY_RESULT_FORMAT": "json"},
                 }})
                 .to_string(),
